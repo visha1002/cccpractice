@@ -6,4 +6,6 @@
     echo strtolower($quote)."<br>";
     echo ucwords($quote)."<br>";
 
+    echo "123";
+
 ?>
