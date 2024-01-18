@@ -1,5 +1,5 @@
 <?php
-  // htmlspecialchars, htmlentities, strcmp, strcoll, setlocale difference doubt
+
   $str = "Hello Good Morning";
   echo "The string is : ",$str."<br>";
   
