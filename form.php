@@ -57,7 +57,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             font-size:16px;
         }
         .radiolabel {
-            width: 100%;    text-align: left;    padding-left: 220px;  
+            width: 100%;    
+            text-align: left;    
+            padding-left: 220px;  
         }
         .radiobtn{
             width: 55%;
