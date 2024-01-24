@@ -24,7 +24,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
     $connect = mysqli_connect($servername, $username, $password, $database);
 
-    $sql = "INSERT INTO `ccc_product` (`id`, `product_name`, `sku`, `product_type`, `category`, `m_cost`, `s_cost`, `t_cost`, `price`, `status`, `created_at`, `updated_at`) VALUES (NULL, '$name', '$sku', '$product_type', '$category', '$m_cost', '$s_cost', '$t_cost', '$price', '$status', current_timestamp(), current_timestamp())";
+    $sql = "INSERT INTO `ccc_product` (`product_name`, `sku`, `product_type`, `category`, `m_cost`, `s_cost`, `t_cost`, `price`, `status`, `created_at`, `updated_at`) VALUES ('$name', '$sku', '$product_type', '$category', '$m_cost', '$s_cost', '$t_cost', '$price', '$status', current_timestamp(), current_timestamp())";
     $result = mysqli_query($connect, $sql);
 
     if($result){
