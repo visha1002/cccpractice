@@ -16,8 +16,8 @@
     $conn = mysqli_connect($servername, $user, $password, $database);
 
     // Insert function
-
-    /* $sql = insert('ccc_product', $p_data);
+    /*
+     $sql = insert('ccc_product', $p_data);
 
     $result = mysqli_query($conn, $sql);
 
