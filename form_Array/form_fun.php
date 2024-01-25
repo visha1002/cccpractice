@@ -36,4 +36,8 @@
 
         return "DELETE FROM {$tablename} WHERE {$wherecon};";
     }
+
+    function select($var, $tablename, $extra){
+        return "SELECT {$var} FROM {$tablename} {$extra};";
+    }
 ?>

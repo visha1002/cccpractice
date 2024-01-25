@@ -56,4 +56,6 @@
         echo "cound not delete your record !";
     }
     */
+
+    // select('*', 'ccc_product', NULL);
 ?>
