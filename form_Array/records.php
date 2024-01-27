@@ -52,8 +52,7 @@
     $result_fun = mysqli_query($conn, $s_fun);
 
     $obj = mysqli_fetch_object($result_fun);
-    do{
-
+    do{        
         echo("ID: ".$obj->id."&nbsp. ");
         echo("Product_Name: ".$obj->product_name."&nbsp. ");
         echo("Sku number : ".$obj->sku."&nbsp. ");
