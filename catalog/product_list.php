@@ -46,7 +46,7 @@
     }while($obj = mysqli_fetch_object($result_s));
     */
 
-    $sql_select = select('ccc_product', 'product_name,sku,category', NULL);
+    $sql_select = select('ccc_product', 'product_name,sku,category', 'ORDER BY product_id DESC LIMIT 20');
     $result_s = mysqli_query($connection, $sql_select);
 
     $obj = mysqli_fetch_object($result_s);
@@ -57,6 +57,8 @@
         <th>Product Name</th>
         <th>SKU number</th>
         <th>Category</th>
+        <th>Edit</th>
+        <th>Delete</th>
     </tr>
     </table>
     ";
@@ -67,6 +69,8 @@
                 <td>$obj->product_name</td>
                 <td>$obj->sku</td>
                 <td>$obj->category</td>
+                <th><a href='product.php'/>Edit</a></th>
+                <th><a href='product.php'/>Delete</a></th>
             </tr>
             </table>
             ";

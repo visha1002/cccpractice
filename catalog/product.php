@@ -1,6 +1,7 @@
 <?php
 
 ?>
+
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -84,6 +85,8 @@
                     </select>
                 </div>
                 <button style="width:15%; margin:15px; margin-left:150px" type="submit" name="submit" class="btn btn-primary">Submit</button>
+                <button style="width:15%; margin:15px; margin-left:150px" type="submit" name="update" class="btn btn-primary">Update</button>
+                <button style="width:15%; margin:15px; margin-left:150px" type="submit" name="delete" class="btn btn-primary">Delete</button>
             </form>
     </body>
     </html>

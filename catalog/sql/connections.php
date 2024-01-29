@@ -1,12 +1,5 @@
 <?php
 
-    include_once('functions.php');
-    if(isset($_POST['submit'])){
-        $p_data = $_POST['p_data'];
-    }
-
-    // print_r($p_data);
-
     //connection to database
     $servername = "localhost";
     $user = "root";
@@ -14,43 +7,43 @@
     $database = "catalog";
 
     $connection = mysqli_connect($servername, $user, $password, $database);
-
-    // Insert function call
-    /* $sql_insert = insert('ccc_product', $p_data);
-    $result_i = mysqli_query($connection, $sql_insert);
-    if($result_i){
-        echo "Data has been inserted successfully !";
+    include_once('functions.php');
+    if(isset($_POST['submit'])){
+        $p_data = $_POST['p_data'];
+        $sql_insert = insert('ccc_product', $p_data);
+        $result_i = mysqli_query($connection, $sql_insert);
+        if($result_i){
+            echo "Data has been inserted successfully !";
+        }
+        else{
+            echo "Failed to insert !";
+        }
     }
-    else{
-        echo "Failed to insert !";
+    else if(isset($_POST['update'])){
+        $p_data = $_POST['p_data'];
+        $sql_update = update('ccc_product', $p_data, ['product_id' => 13]);
+        $result_u = mysqli_query($connection, $sql_update);
+
+        if($result_u){
+            echo "Your data has been updated successfully !";
+        }
+        else{
+            echo "Failed to update !";
+        }
     }
-    */
+    else if(isset($_POST['delete'])){
+        $p_data = $_POST['p_data'];
+        $sql_delete = delete('ccc_product', ['product_id' => 13]);
+        $result_d = mysqli_query($connection, $sql_delete);
 
-    // Update function call
-
-    /* $sql_update = update('ccc_product', $p_data, ['product_id' => 5]);
-    $result_u = mysqli_query($connection, $sql_update);
-
-    if($result_u){
-        echo "Your data has been updated successfully !";
+        if($result_d){
+            echo "data has been deleted successfully !";
+        }
+        else{
+            echo "failed to delete !";
+        }
     }
-    else{
-        echo "Failed to update !";
-    }
-    */
 
-    // Delete function call
-
-    /* $sql_delete = delete('ccc_product', ['category' => "Office"]);
-    $result_d = mysqli_query($connection, $sql_delete);
-
-    if($result_d){
-        echo "data has been deleted successfully !";
-    }
-    else{
-        echo "failed to delete !";
-    }
-    */
     // select function call
 
     /* $sql_select = select('ccc_product', '*', NULL);
