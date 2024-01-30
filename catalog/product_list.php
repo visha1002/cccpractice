@@ -1,10 +1,10 @@
 <?php
     include_once('C:\xampp\htdocs\visha\catalog\sql\connections.php');
-
-    /* $sql_select = select('ccc_product', '*', 'ORDER BY product_id DESC LIMIT 20');
+    /*
+     $sql_select = select('ccc_product', '*', 'ORDER BY product_id DESC LIMIT 20');
     $result_s = mysqli_query($connection, $sql_select);
 
-    $obj = mysqli_fetch_object($result_s);
+    $row = mysqli_fetch_assoc($result_s);
     // print 20 records 
     echo "
     <table>
@@ -28,28 +28,29 @@
         echo "
         <table>
             <tr>
-                <td>$obj->product_id</td>
-                <td>$obj->product_name</td>
-                <td>$obj->sku</td>
-                <td>$obj->product_type</td>
-                <td>$obj->category</td>
-                <td>$obj->m_cost</td>
-                <td>$obj->s_cost</td>
-                <td>$obj->t_cost</td>
-                <td>$obj->price</td>
-                <td>$obj->status</td>
-                <td>$obj->created_at</td>
-                <td>$obj->updated_at</td>
+                <td>$row[product_id]</td>
+                <td>$row[product_name]</td>
+                <td>$row[sku]</td>
+                <td>$row[product_type]</td>
+                <td>$row[category]</td>
+                <td>$row[m_cost]</td>
+                <td>$row[s_cost]</td>
+                <td>$row[t_cost]</td>
+                <td>$row[price]</td>
+                <td>$row[status]</td>
+                <td>$row[created_at]</td>
+                <td>$row[updated_at]</td>
             </tr>
             </table>
             ";
-    }while($obj = mysqli_fetch_object($result_s));
+            $row = mysqli_fetch_assoc($result_s);
+    }while($row);
     */
 
     $sql_select = select('ccc_product', 'product_name,sku,category', 'ORDER BY product_id DESC LIMIT 20');
     $result_s = mysqli_query($connection, $sql_select);
 
-    $obj = mysqli_fetch_object($result_s);
+    $row = mysqli_fetch_assoc($result_s);
     // print name,category,sku records 
     echo "
     <table>
@@ -66,15 +67,16 @@
         echo "
         <table>
             <tr>
-                <td>$obj->product_name</td>
-                <td>$obj->sku</td>
-                <td>$obj->category</td>
+                <td>$row[product_name]</td>
+                <td>$row[sku]</td>
+                <td>$row[category]</td>
                 <th><a href='product.php'/>Edit</a></th>
                 <th><a href='product.php'/>Delete</a></th>
             </tr>
             </table>
             ";
-    }while($obj = mysqli_fetch_object($result_s));
+            $row = mysqli_fetch_assoc($result_s);
+    }while($row);
 
 ?>
 <!DOCTYPE html>

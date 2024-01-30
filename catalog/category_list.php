@@ -4,8 +4,6 @@
     $select = select('ccc_category','*', NULL);
     $ans = mysqli_query($connection, $select);
     
-    $obj = mysqli_fetch_object($ans);
-
     echo "
     <table>
     <tr>
@@ -14,16 +12,20 @@
     </tr>
     </table>
     ";
-    do{
+    
+        $row = mysqli_fetch_assoc($ans);
+        do{
         echo "
         <table>
         <tr>
-            <td>$obj->cat_id</td>
-            <td>$obj->name</td>
+            <td>$row[cat_id]</td>
+            <td>$row[name]</td>
         </tr>
         </table>
         ";
-    }while($obj = mysqli_fetch_object($ans));
+        $row = mysqli_fetch_assoc($ans);
+        }while($row);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
