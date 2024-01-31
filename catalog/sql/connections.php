@@ -31,17 +31,11 @@
             echo "Failed to update !";
         }
     }
-    else if(isset($_POST['delete'])){
-        $p_data = $_POST['p_data'];
-        $sql_delete = delete('ccc_product', ['product_id' => 13]);
+    if(isset($_GET['product_id'])){
+        $id = $_GET['product_id'];
+        $sql_delete = delete('ccc_product', ['product_id' => $id]);
         $result_d = mysqli_query($connection, $sql_delete);
 
-        if($result_d){
-            echo "data has been deleted successfully !";
-        }
-        else{
-            echo "failed to delete !";
-        }
     }
 
     // select function call

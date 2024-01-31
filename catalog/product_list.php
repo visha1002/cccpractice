@@ -47,7 +47,7 @@
     }while($row);
     */
 
-    $sql_select = select('ccc_product', 'product_name,sku,category', 'ORDER BY product_id DESC LIMIT 20');
+    $sql_select = select('ccc_product', 'product_id,product_name,sku,category', 'ORDER BY product_id DESC LIMIT 20');
     $result_s = mysqli_query($connection, $sql_select);
 
     $row = mysqli_fetch_assoc($result_s);
@@ -55,6 +55,7 @@
     echo "
     <table>
     <tr>
+        <th>Product Id</th>
         <th>Product Name</th>
         <th>SKU number</th>
         <th>Category</th>
@@ -67,11 +68,12 @@
         echo "
         <table>
             <tr>
+                <td>$row[product_id]</td>
                 <td>$row[product_name]</td>
                 <td>$row[sku]</td>
                 <td>$row[category]</td>
                 <th><a href='product.php'/>Edit</a></th>
-                <th><a href='product.php'/>Delete</a></th>
+                <th><a href='product_list.php?product_id=".$row['product_id']."'/>Delete</a></th>
             </tr>
             </table>
             ";
