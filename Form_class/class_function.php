@@ -40,6 +40,29 @@ class Query_Builder {
     }
 
     public function select($tablename, $val, $extra){
+        if($val == '*'){
+            echo "
+        <table>
+        <tr>
+            <th>Product Id</th>
+            <th>Product Name</th>
+            <th>SKU number</th>
+            <th>Product Type</th>
+            <th>Category</th>
+        </tr>
+        </table>
+        ";
+        }
+        else{
+        $column = [];
+        $column = explode(",",$val);
+        $count = count($column);
+        echo "<table>";
+        for($i=0; $i<$count; $i++){
+            echo "<td><b>".($column[$i]). "</b></td>";
+        }
+        echo "</table>";
+        }
         return "SELECT {$val} FROM {$tablename} {$extra};";
     }
 }
@@ -47,40 +70,29 @@ class Query_Builder {
 class Query_Executor extends Query_Builder{
     public function connection($server, $user, $password, $database) {
         $connection = mysqli_connect($server,$user,$password,$database);
-        if($connection){
-            echo "connected successfully<br>";
-        }
-        else{
-            echo "failed to connect";
-        }
+        // if($connection){
+        //     echo "connected successfully<br>";
+        // }
+        // else{
+        //     echo "failed to connect";
+        // }
         return $connection;
     }
 
     public function query($connection, $que){
         $result = mysqli_query($connection, $que);
-        if($result){
-            echo "Query executed successfully!<br>";
-        }
-        else{
-            echo "Failed to execute!";
-        }
+        // if($result){
+        //     echo "Query executed successfully!<br>";
+        // }
+        // else{
+        //     echo "Failed to execute!";
+        // }
         return $result;
     }
 
     public function fetch($result){
         $row = [];
-        echo "
-    <table>
-    <tr>
-        <th>Product Id</th>
-        <th>Product Name</th>
-        <th>SKU number</th>
-        <th>Product Type</th>
-        <th>Category</th>
-    </tr>
-
-    ";
-        
+        echo "<table>";       
         while($row = mysqli_fetch_assoc($result)){
             echo "<tr>";
             foreach($row as $data){
@@ -89,7 +101,6 @@ class Query_Executor extends Query_Builder{
                 echo "</td>";
             }
             echo "</tr>";
-            echo "<br>";
         }
         echo "</table>";
     }
