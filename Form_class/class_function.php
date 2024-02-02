@@ -70,24 +70,22 @@ class Query_Builder {
 class Query_Executor extends Query_Builder{
     public function connection($server, $user, $password, $database) {
         $connection = mysqli_connect($server,$user,$password,$database);
-        // if($connection){
-        //     echo "connected successfully<br>";
-        // }
-        // else{
-        //     echo "failed to connect";
-        // }
-        return $connection;
+        if($connection){
+            return $connection;
+        }
+        else{
+            return FALSE;
+        }
     }
 
     public function query($connection, $que){
         $result = mysqli_query($connection, $que);
-        // if($result){
-        //     echo "Query executed successfully!<br>";
-        // }
-        // else{
-        //     echo "Failed to execute!";
-        // }
-        return $result;
+        if($result){
+            return $result;
+        }
+        else{
+            echo FALSE;
+        }
     }
 
     public function fetch($result){
@@ -100,7 +98,6 @@ class Query_Executor extends Query_Builder{
                 echo $data;
                 echo "</td>";
             }
-            echo "</tr>";
         }
         echo "</table>";
     }
