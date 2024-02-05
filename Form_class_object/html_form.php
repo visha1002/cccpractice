@@ -20,7 +20,7 @@ include_once 'connections_call.php';
 </head>
 <body>
 
-    <form action="html_form.php?product_id = <?php echo $pid ?>" method="post" >
+    <form action="connections_call.php?product_id=<?php echo $pid ?>" method="post" >
         <div class="center">
             <h1>PHP form</h1>
             <div class="form-group row">

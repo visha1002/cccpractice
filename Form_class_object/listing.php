@@ -24,7 +24,7 @@ foreach($object->getData() as $newData){
     echo "<td>" .$newData->getstatus() . "</td>";
     echo "<td>" .$newData->getcreated_at() . "</td>";
     echo "<td>" .$newData->getupdated_at() . "</td>";
-    echo "<td><a href='html_form.php?product_id=".$newData->getproduct_id(). " '/>Edit</a></td>";
+    echo "<td><a href='html_form.php?product_id=".$newData->getproduct_id()."'/>Edit</a></td>";
     echo "<td><a href='listing.php?delete=".$newData->getproduct_id(). "'/>Delete</a></td>";
     echo "</tr>";
     echo "</table>";
