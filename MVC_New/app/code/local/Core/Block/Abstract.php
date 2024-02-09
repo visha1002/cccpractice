@@ -1,6 +1,6 @@
 <?php
 
-class Core_View_Abstract
+class Core_Block_Abstract
 {
     public function setTemplate($template)
     {
