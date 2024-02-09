@@ -48,7 +48,7 @@ class Core_Model_Request
 
     public function getRequestUri()
     {
-        $request = str_replace("/Practice/MVC/", "", $_SERVER['REQUEST_URI']);
+        $request = str_replace("/Practice/MVC_New/", "", $_SERVER['REQUEST_URI']);
         return $request;
     }
 }
