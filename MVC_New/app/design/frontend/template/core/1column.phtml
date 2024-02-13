@@ -5,16 +5,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <?php echo $this->getChildHtml('head'); ?>
 </head>
 
 <body>
     <form action="">
-        <?php echo ($this->getRequest()->getParams('pid')); ?>
-        <label for="">Name</label>
-        <input type="text" name="" id="">
-        <br><br>
-        <label for="">Value</label>
-        <input type="text" name="" id="">
+        <div class="header"></div>
+        <?php echo $this->getChildHtml('footer'); ?>
+        <div class="content">
+            <div class="left">Left</div>
+            <div class="content">
+                <?php echo $this->getChildHtml('content'); ?>
+            </div>
+            <div class="right">Right</div>
+        </div>
+        <div class="footer">
+            <?php echo $this->getChildHtml('footer'); ?>
+        </div>
     </form>
 </body>
 

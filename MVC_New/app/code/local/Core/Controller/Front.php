@@ -7,7 +7,7 @@ class Core_Controller_Front
         $request = Mage::getModel('core/request');
         // echo (get_class($request));
         $actionName = $request->getActionName() . "Action";
-        var_dump($actionName);
+        // var_dump($actionName);
         $fullClassName = $request->getFullControllerClass();
         // echo $fullClassName;
         $controller = new $fullClassName();

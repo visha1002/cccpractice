@@ -9,9 +9,11 @@ class Core_Model_Request
     public function __construct()
     {
         $uri = $this->getRequestUri();
-        // echo $uri;
-        $uri = array_filter(explode('/', $uri));
 
+        $uri = explode('?', $uri);
+        $uri = $uri[0];
+
+        $uri = array_filter(explode('/', $uri));
         $this->_moduleName = isset($uri[0]) ? $uri[0] : 'page';
         $this->_controllerName = isset($uri[1]) ? $uri[1] : 'index';
         $this->_actionName = isset($uri[2]) ? $uri[2] : 'index';
