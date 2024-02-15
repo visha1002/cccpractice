@@ -16,7 +16,7 @@ class Core_Block_Layout extends Core_Block_Template
         $footer = $this->createBlock('page/footer');
         $content = $this->createBlock('page/content');
         $head = $this->createBlock('page/head');
-        print_r($header);
+        // print_r($header);
         echo "</pre>";
         $this->addChild('header', $header);
         $this->addChild('footer', $footer);

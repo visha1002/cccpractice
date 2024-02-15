@@ -9,7 +9,7 @@ class Core_Model_Request
     public function __construct()
     {
         $uri = $this->getRequestUri();
-
+        // print_r($uri);
         $uri = explode('?', $uri);
         $uri = $uri[0];
 

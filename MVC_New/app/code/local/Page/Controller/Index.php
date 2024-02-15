@@ -14,7 +14,8 @@ class Page_Controller_Index extends Core_Controller_Front_Action
         $layout->getChild('head')->addCss('css/page.css');
         $layout->getChild('head')->addCss('css/head.css');
         $layout->toHtml();
-        print_r($layout);
+        // echo "<pre>";
+        // print_r($layout);
     }
 
     public function saveAction()
