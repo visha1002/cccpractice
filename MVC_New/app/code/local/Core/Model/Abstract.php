@@ -2,12 +2,17 @@
 
 class Core_Model_Abstract
 {
-    protected $data = [];
+    protected $_data = [];
     protected $resourceClass = '';
     protected $collectionClass = '';
     protected $resource = null;
     protected $collection = null;
     public function __construct()
+    {
+        $this->init();
+    }
+
+    public function init()
     {
 
     }
@@ -29,12 +34,19 @@ class Core_Model_Abstract
 
     public function getId()
     {
-
+        return $this->_data[$this->getResource()->getPrimaryKey()];
+    }
+    public function __call($name, $args)
+    {
+        $name = substr($name, 3);
+        return isset($this->_data[$name])
+            ? $this->_data[$name]
+            : (isset($args[0]) ? $args[0] : null);
     }
 
     public function getResource()
     {
-
+        return new $this->resourceClass();
     }
 
     public function getCollection()
@@ -42,15 +54,6 @@ class Core_Model_Abstract
 
     }
 
-    public function getPrimaryKey()
-    {
-
-    }
-
-    public function getTableName()
-    {
-
-    }
 
     public function __set($key, $value)
     {
@@ -94,7 +97,11 @@ class Core_Model_Abstract
 
     public function load($id, $column = null)
     {
-
+        // echo get_class($this->getResource());
+        $this->_data = $this->getResource()->load($id, $column);
+        // print_r($data);
+        return $this;
+        // echo "SELECT * FROM {$this->getResource()->getTableName()} where {$this->getResource()->getPrimaryKey()} = 1 limit 1;";
     }
 
     public function delete()

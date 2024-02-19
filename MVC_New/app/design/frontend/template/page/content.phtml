@@ -1,1 +1,11 @@
-<h1>Content</h1>
+<!-- <h1>Content</h1> -->
+<?php
+echo "<pre>";
+$productModel = Mage::getModel('catalog/product')->load(1);
+echo ($productModel->getId());
+echo "<br>";
+echo ($productModel->getproduct_name());
+echo "<br>";
+print_r($productModel);
+echo "</pre>";
+?>

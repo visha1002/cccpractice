@@ -1,6 +1,6 @@
 <?php
 
-class Product_Controller_Index
+class Catalog_Controller_Index
 {
     public function indexAction()
     {
