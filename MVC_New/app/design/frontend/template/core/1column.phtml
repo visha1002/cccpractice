@@ -9,20 +9,18 @@
 </head>
 
 <body>
-    <form action="">
-        <div class="header"></div>
-        <?php echo $this->getChildHtml('header'); ?>
+    <div class="header"></div>
+    <?php echo $this->getChildHtml('header'); ?>
+    <div class="content">
+        <div class="left">Left</div>
         <div class="content">
-            <div class="left">Left</div>
-            <div class="content">
-                <?php echo $this->getChildHtml('content'); ?>
-            </div>
-            <div class="right">Right</div>
+            <?php echo $this->getChildHtml('content'); ?>
         </div>
-        <div class="footer">
-            <?php echo $this->getChildHtml('footer'); ?>
-        </div>
-    </form>
+        <div class="right">Right</div>
+    </div>
+    <div class="footer">
+        <?php echo $this->getChildHtml('footer'); ?>
+    </div>
 </body>
 
 </html>

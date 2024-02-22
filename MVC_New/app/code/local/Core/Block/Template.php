@@ -26,16 +26,31 @@ class Core_Block_Template extends Core_Block_Abstract
 
     public function getChildHtml($key)
     {
-        return $this->_child[$key]->toHtml();
+        $html = '';
+        if ($key == '' && count($this->_child)) {
+            foreach ($this->_child as $_child) {
+                $html .= $_child->toHtml();
+            }
+        } else {
+            $html = $this->_child[$key]->toHtml();
+        }
+        return $html;
+        // return $this->_child[$key]->toHtml();
     }
 
     public function setTemplate($template)
     {
         $this->template = $template;
+        return $this;
     }
 
     public function getTemplate()
     {
         return $this->template;
+    }
+
+    public function getUrl($path)
+    {
+        return $this->getRequest()->getUrl($path);
     }
 }

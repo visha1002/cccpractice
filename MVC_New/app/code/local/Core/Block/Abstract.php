@@ -44,10 +44,10 @@ class Core_Block_Abstract
 
     }
 
-    public function getUrl($action = null, $controller = null, $params = [], $resetParams = false)
-    {
+    // public function getUrl($action = null, $controller = null, $params = [], $resetParams = false)
+    // {
 
-    }
+    // }
 
     public function getRequest()
     {

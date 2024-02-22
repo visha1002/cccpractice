@@ -2,10 +2,15 @@
 <?php
 echo "<pre>";
 $productModel = Mage::getModel('catalog/product')->load(1);
-echo ($productModel->getId());
-echo "<br>";
-echo ($productModel->getproduct_name());
-echo "<br>";
-print_r($productModel);
+// echo ($productModel->getId());
+// echo "<br>";
+// echo ($productModel->getproduct_name());
+// echo "<br>";
+// print_r($productModel);
+// echo $this->getUrl("catalog/product/save") 
 echo "</pre>";
 ?>
+
+<div>
+    <?php $this->getChildHtml('') ?>
+</div>

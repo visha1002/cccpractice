@@ -19,6 +19,10 @@ class Core_Model_Request
         $this->_actionName = isset($uri[2]) ? $uri[2] : 'index';
     }
 
+    public function getUrl($path)
+    {
+        return 'http://localhost/practice/MVC_New/' . $path;
+    }
     public function getParams($key = '')
     {
         return ($key == '')
