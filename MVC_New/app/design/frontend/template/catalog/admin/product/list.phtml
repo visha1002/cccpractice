@@ -1,0 +1,94 @@
+<section class="list">
+    <table class="table_body">
+        <thead>
+            <tr>
+                <th>Product Id</th>
+                <th>Product Name</th>
+                <th>SKU</th>
+                <th>Color</th>
+                <th>Size</th>
+                <th>Description</th>
+                <th>Image Link</th>
+                <th>Link</th>
+                <th>Category Id</th>
+                <th>Price</th>
+                <th>Manufacturing Cost</th>
+                <th>Shipping cost</th>
+                <th>Total Cost</th>
+                <th>Margin Percentage</th>
+                <th>Minimum price</th>
+                <th>Status</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            $productCollection = Mage::getModel("catalog/product")->getCollection();
+            // ->addFieldToFilter('price', ['gt' => 3]);
+            // ->addFieldToFilter('name', ['like' => 'book']);
+            
+            foreach ($productCollection->getData() as $product):
+
+                ?>
+                <tr>
+                    <td>
+                        <?php echo $product->getId() ?>
+                    </td>
+                    <td>
+                        <?php echo $product->getName() ?>
+                    </td>
+                    <td>
+                        <?php echo $product->getSku() ?>
+                    </td>
+                    <td>
+                        <?php echo $product->getColor() ?>
+                    </td>
+                    <td>
+                        <?php echo $product->getSize() ?>
+                    </td>
+                    <td>
+                        <?php echo $product->getDescription() ?>
+                    </td>
+                    <td>
+                        <?php echo $product->getImageLink() ?>
+                    </td>
+                    <td>
+                        <?php echo $product->getLink() ?>
+                    </td>
+                    <td>
+                        <?php echo $product->getCategoryId() ?>
+                    </td>
+                    <td><strong>
+                            <?php echo $product->getPrice() ?>
+                        </strong>
+                    </td>
+                    <td>
+                        <?php echo $product->getMfrCost() ?>
+                    </td>
+                    <td>
+                        <?php echo $product->getShippingCost() ?>
+                    </td>
+                    <td>
+                        <?php echo $product->getTotalCost() ?>
+                    </td>
+                    <td>
+                        <?php echo $product->getMarginPercentage() ?>
+                    </td>
+                    <td>
+                        <?php echo $product->getMinPrice() ?>
+                    </td>
+                    <td>
+                        <?php echo $product->getStatus() ?>
+                    </td>
+                    <td>
+                        <a href="form?pid=<?php echo $product->getId() ?>" class="edit">Edit</a>
+                    </td>
+                    <td>
+                        <a href="delete?pid=<?php echo $product->getId() ?>" class="delete">Delete</a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</section>

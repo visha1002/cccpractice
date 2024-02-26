@@ -35,14 +35,29 @@ class Core_Model_Abstract
 
     public function getId()
     {
-        return $this->_data[$this->getResource()->getPrimaryKey()];
+        return isset($this->_data[$this->getResource()->getPrimaryKey()])
+            ? $this->_data[$this->getResource()->getPrimaryKey()]
+            : false;
     }
     public function __call($name, $args)
     {
-        $name = substr($name, 3);
+        // $name = strtolower(substr($name, 3));
+        $name = $this->camelTodashed(substr($name, 3));
         return isset($this->_data[$name])
             ? $this->_data[$name]
-            : (isset($args[0]) ? $args[0] : null);
+            : "";
+    }
+    public function dashesToCamelCase($string, $capitalizeFirstCharacter = false)
+    {
+        $str = str_replace(' ', '', ucwords(str_replace('-', ' ', $string)));
+        if (!$capitalizeFirstCharacter) {
+            $str[0] = strtolower($str[0]);
+        }
+        return $str;
+    }
+    public function camelTodashed($className)
+    {
+        return strtolower(preg_replace('/([a-zA-Z])(?=[A-Z])/', '$1_', $className));
     }
 
     public function getResource()
@@ -52,7 +67,10 @@ class Core_Model_Abstract
 
     public function getCollection()
     {
-
+        $collection = new $this->collectionClass();
+        $collection->setResource($this->getResource());
+        $collection->select();
+        return $collection;
     }
 
 
@@ -92,12 +110,22 @@ class Core_Model_Abstract
     {
 
     }
+    protected function _beforeSave()
+    {
+        return $this;
+    }
+
+    protected function _afterSave()
+    {
+        return $this;
+    }
 
     public function save()
     {
         // print_r($this->getData());
-
+        $this->_beforeSave();
         $this->getResource()->save($this);
+        $this->_afterSave();
         return $this;
     }
 
@@ -112,6 +140,7 @@ class Core_Model_Abstract
 
     public function delete()
     {
-
+        $this->getResource()->delete($this);
+        return $this;
     }
 }

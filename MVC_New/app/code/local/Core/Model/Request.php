@@ -23,13 +23,13 @@ class Core_Model_Request
     {
         return 'http://localhost/practice/MVC_New/' . $path;
     }
-    public function getParams($key = '')
+    public function getParams($key = '', $arg = null)
     {
         return ($key == '')
             ? $_REQUEST
             : (isset($_REQUEST[$key])
                 ? $_REQUEST[$key]
-                : ''
+                : ((!is_null($arg)) ? $arg : '')
             );
     }
 

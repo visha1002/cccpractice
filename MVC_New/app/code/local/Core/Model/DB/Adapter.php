@@ -26,7 +26,12 @@ class Core_Model_DB_Adapter
 
     public function fetchAll($query)
     {
-
+        $row = [];
+        $sql = mysqli_query($this->connect(), $query);
+        while ($_row = mysqli_fetch_assoc($sql)) {
+            $row[] = $_row;
+        }
+        return $row;
     }
 
     public function fetchPairs($query)
@@ -61,12 +66,20 @@ class Core_Model_DB_Adapter
 
     public function update($query)
     {
-
+        if (mysqli_query($this->connect(), $query)) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
     }
 
     public function delete($query)
     {
-
+        if (mysqli_query($this->connect(), $query)) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
     }
 
     public function query($query)

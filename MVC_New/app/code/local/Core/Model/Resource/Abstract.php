@@ -33,13 +33,27 @@ class Core_Model_Resource_Abstract
     public function save(Catalog_Model_Product $product)
     {
         $_data = $product->getData();
-        if (isset($_data[$this->getPrimaryKey()])) {
+        // echo $product->getId();
+        if (isset($_data[$this->getPrimaryKey()]) && !empty($_data[$this->getPrimaryKey()])) {
             unset($_data[$this->getPrimaryKey()]);
+            $sql = $this->updateSql($this->getTableName(), $_data, [$this->getPrimaryKey() => $product->getId()]);
+            $id = $this->getAdapter()->update($sql);
+            // $product->setId($id);
+            echo $sql;
+        } else {
+            $sql = $this->insertSql($this->getTableName(), $_data);
+            echo $sql;
+            $id = $this->getAdapter()->insert($sql);
+            $product->setId($id);
+            echo $sql;
         }
-        $sql = $this->insertSql($this->getTableName(), $_data);
-        // echo $sql;
-        $id = $this->getAdapter()->insert($sql);
-        $product->setId($id);
+    }
+
+    public function delete(Catalog_Model_Product $product)
+    {
+        $sql = $this->deleteSql($this->getTableName(), [$this->getPrimaryKey() => $product->getId()]);
+        echo $sql;
+        $this->getAdapter()->delete($sql);
     }
 
     public function insertSql($tablename, $data)
@@ -54,7 +68,7 @@ class Core_Model_Resource_Abstract
         return "INSERT INTO {$tablename} ({$columns}) VALUES ({$values});";
     }
 
-    public function update($tablename, $data, $where)
+    public function updateSql($tablename, $data, $where)
     {
         $columns = $wherecondi = [];
 
@@ -68,5 +82,18 @@ class Core_Model_Resource_Abstract
         $wherecondi = implode(", ", $wherecondi);
 
         return "UPDATE {$tablename} SET {$columns} WHERE {$wherecondi};";
+    }
+
+    public function deleteSql($tablename, $where)
+    {
+        $wherecondi = [];
+
+        foreach ($where as $field => $value) {
+            $wherecondi[] = "`{$field}` = " . "'" . addslashes($value) . "'";
+        }
+
+        $wherecondi = implode(", ", $wherecondi);
+
+        return "DELETE FROM {$tablename} WHERE {$wherecondi};";
     }
 }
