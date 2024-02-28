@@ -30,13 +30,13 @@ class Core_Model_Resource_Abstract
         return $this->getAdapter()->fetchRow($sql);
     }
 
-    public function save(Catalog_Model_Product $product)
+    public function save(Core_Model_Abstract $model)
     {
-        $_data = $product->getData();
+        $_data = $model->getData();
         // echo $product->getId();
         if (isset($_data[$this->getPrimaryKey()]) && !empty($_data[$this->getPrimaryKey()])) {
             unset($_data[$this->getPrimaryKey()]);
-            $sql = $this->updateSql($this->getTableName(), $_data, [$this->getPrimaryKey() => $product->getId()]);
+            $sql = $this->updateSql($this->getTableName(), $_data, [$this->getPrimaryKey() => $model->getId()]);
             $id = $this->getAdapter()->update($sql);
             // $product->setId($id);
             echo $sql;
@@ -44,14 +44,14 @@ class Core_Model_Resource_Abstract
             $sql = $this->insertSql($this->getTableName(), $_data);
             echo $sql;
             $id = $this->getAdapter()->insert($sql);
-            $product->setId($id);
+            $model->setId($id);
             echo $sql;
         }
     }
 
-    public function delete(Catalog_Model_Product $product)
+    public function delete(Core_Model_Abstract $model)
     {
-        $sql = $this->deleteSql($this->getTableName(), [$this->getPrimaryKey() => $product->getId()]);
+        $sql = $this->deleteSql($this->getTableName(), [$this->getPrimaryKey() => $model->getId()]);
         echo $sql;
         $this->getAdapter()->delete($sql);
     }

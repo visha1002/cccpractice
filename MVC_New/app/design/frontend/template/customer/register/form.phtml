@@ -1,0 +1,108 @@
+<?php
+$registerModel = $this->getProduct();
+// echo "<pre>";
+// print_r($registerModel);
+?>
+
+<section class="formlist">
+    <form action="<?php echo $this->getUrl("customer/account/save") ?>" method="post" class="form">
+        <div class="center">
+            <h1>Customer Register</h1>
+            <div class="form-group row">
+                <input style="margin-left:10px" hidden type="text" name="c_data[customer_id]" id=""
+                    value="<?php echo $registerModel->getId() ?>">
+            </div>
+            <br>
+            <div class="form-group row">
+                <label for="">Email : </label>
+                <input type="text" placeholder="Enter your email " name="c_data[customer_email]" id=""
+                    value="<?php echo $registerModel->getCustomerEmail() ?>">
+            </div>
+            <br>
+            <div class="form-group row">
+                <label for="">Password : </label>
+                <input type="password" placeholder="Enter your password" name="c_data[customer_password]" id=""
+                    value="<?php echo $registerModel->getCustomerPassword() ?>">
+            </div>
+            <br>
+            <div class="form-group row">
+                <label for="">First Name : </label>
+                <input type="text" placeholder="Enter your first name" name="c_data[first_name]" id=""
+                    value="<?php echo $registerModel->getFirstName() ?>">
+            </div>
+            <br>
+            <div class="form-group row">
+                <label for="">Last Name : </label>
+                <input type="text" placeholder="Enter your last name" name="c_data[last_name]" id=""
+                    value="<?php echo $registerModel->getLastName() ?>">
+            </div>
+            <br>
+            <div class="form-group row">
+                <label for="">Billing Address : </label>
+                <textarea name="c_data[billing_address]" id="" cols="100"
+                    rows="3"><?php echo $registerModel->getBillingAddress() ?></textarea>
+            </div>
+            <br>
+            <div class="form-group row">
+                <label for="">Billing City </label>
+                <input type="text" placeholder="Enter billing city" name="c_data[billing_city]" id=""
+                    value="<?php echo $registerModel->getBillingCity() ?>">
+            </div>
+            <br>
+            <div class="form-group row">
+                <label for="">Billing Region </label>
+                <input type="text" placeholder="Enter billing region" name="c_data[billing_region]" id=""
+                    value="<?php echo $registerModel->getBillingRegion() ?>">
+            </div>
+            <br>
+            <div class="form-group row">
+                <label for="">Billing Country </label>
+                <input type="text" placeholder="Enter billing country" name="c_data[billing_country]" id=""
+                    value="<?php echo $registerModel->getBillingCountry() ?>">
+            </div>
+            <br>
+            <div class="form-group row">
+                <label for="">Billing Phone : </label>
+                <input type="text" placeholder="Enter billing phone" name="c_data[billing_phone]" id=""
+                    value="<?php echo $registerModel->getBillingPhone() ?>">
+            </div>
+            <br>
+            <div class="form-group row">
+                <label for="">Shipping Address : </label>
+                <textarea name="c_data[shipping_address]" id="" cols="100"
+                    rows="3"><?php echo $registerModel->getShippingAddress() ?></textarea>
+            </div>
+            <br>
+            <div class="form-group row">
+                <label for="">Shipping City </label>
+                <input type="text" placeholder="Enter shipping city" name="c_data[shipping_city]" id=""
+                    value="<?php echo $registerModel->getShippingCity() ?>">
+            </div>
+            <br>
+            <div class="form-group row">
+                <label for="">Shipping Region </label>
+                <input type="text" placeholder="Enter shipping region" name="c_data[shipping_region]" id=""
+                    value="<?php echo $registerModel->getShippingRegion() ?>">
+            </div>
+            <br>
+            <div class="form-group row">
+                <label for="">Shipping Country </label>
+                <input type="text" placeholder="Enter shipping country" name="c_data[shipping_country]" id=""
+                    value="<?php echo $registerModel->getShippingCountry() ?>">
+            </div>
+            <br>
+            <div class="form-group row">
+                <label for="">Shipping Phone : </label>
+                <input type="text" placeholder="Enter shipping phone" name="c_data[shipping_phone]" id=""
+                    value="<?php echo $registerModel->getShippingPhone() ?>">
+            </div>
+            <br>
+            <div class="form-group row">
+                <label for="">Default : </label>
+                <input type="text" placeholder="Enter Default value" name="c_data[default]" id=""
+                    value="<?php echo $registerModel->getDefault() ?>">
+            </div>
+            <button class="buttton" type="submit" name="submit">Register</button>
+        </div>
+    </form>
+</section>

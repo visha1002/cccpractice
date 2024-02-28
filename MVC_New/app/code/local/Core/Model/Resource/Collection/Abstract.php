@@ -3,6 +3,8 @@
 class Core_Model_Resource_Collection_Abstract
 {
     protected $_resource = null;
+
+    protected $_model = null;
     protected $_select = [];
     protected $_isLoaded = false;
     protected $_data = [];
@@ -22,6 +24,10 @@ class Core_Model_Resource_Collection_Abstract
         return $this;
     }
 
+    public function setModelClass($modelClass)
+    {
+        $this->_model = $modelClass;
+    }
     public function select()
     {
         // echo $this->_resource->getTableName(); --> catalog_product
@@ -65,28 +71,68 @@ class Core_Model_Resource_Collection_Abstract
                         case 'between':
                             $whereCond[] = "`$_field` BETWEEN '{$_v}' ";
                             break;
+                        case 'not':
+                            $whereCond[] = "NOT `$_field` = '{$_v}' ";
                     }
                 }
             }
         }
         $whereCond = implode(" AND ", $whereCond);
-        $sql .= "WHERE $whereCond";
+        $sql .= "WHERE $whereCond ";
         return $sql;
+    }
+
+    public function addFieldToGroupBy($columns)
+    {
+        $group = explode(",", $columns);
+        $this->_select['groupby'][] = $group;
+        // echo "<pre>";
+        // print_r($this->_select);
+        return $this;
     }
 
     public function groupBy($sql)
     {
-        return "123";
+        $groupBy = [];
+        foreach ($this->_select['groupby'] as $columns) {
+            foreach ($columns as $column) {
+                $groupBy[] = $column;
+            }
+        }
+        $groupBy = implode(",", $groupBy);
+        $sql .= "GROUP BY $groupBy ";
+        return $sql;
+    }
+
+    public function addFieldToOrderBy($columns, $type)
+    {
+        $order = explode(',', $columns);
+        $this->_select['orderby'][] = $order;
+        $this->_select['type'] = $type;
+        // echo "<pre>";
+        // print_r($this->_select);
+        return $this;
     }
 
     public function orderBy($sql)
     {
-        return "1323";
+        $orderBy = [];
+        foreach ($this->_select['orderby'] as $columns) {
+            // print_r($columns);
+            foreach ($columns as $column) {
+                $orderBy[] = $column;
+            }
+        }
+        $orderBy = implode(",", $orderBy);
+        $sql .= "ORDER BY $orderBy {$this->_select['type']} ";
+        // print_r($sql);
+        return $sql;
     }
 
-    public function limit($sql)
+    public function limit($number)
     {
-        return '123';
+        $this->_select['limit'][] = $number;
+        return $this;
     }
 
     public function load()
@@ -107,7 +153,7 @@ class Core_Model_Resource_Collection_Abstract
         }
 
         if (isset($this->_select['limit']) && count($this->_select['limit'])) {
-            $sql = $this->limit($sql);
+            $sql .= "LIMIT {$this->_select['limit'][0]}";
         }
         // echo $sql;
         // die;
@@ -115,7 +161,7 @@ class Core_Model_Resource_Collection_Abstract
         echo "<pre>";
         // print_r($result); // data in array
         foreach ($result as $row) {
-            $this->_data[] = Mage::getModel('catalog/product')->setData($row);
+            $this->_data[] = Mage::getModel($this->_model)->setData($row);
         }
         //print_r($this->_data); --> data in array
         $this->_isLoaded = true;

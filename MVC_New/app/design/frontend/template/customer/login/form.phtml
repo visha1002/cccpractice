@@ -1,0 +1,22 @@
+<section class="formlist">
+    <form action="" method="post" class="form">
+        <div class="center">
+            <h1 class="mb-4">Log In</h1>
+            <div class="form-group row">
+                <label for="">Email : </label>
+                <input type="text" placeholder="Enter your email " name="c_login[customer_email]" id="" value="">
+            </div>
+            <br>
+            <div class="form-group row">
+                <label for="">Password : </label>
+                <input type="password" placeholder="Enter your password" name="c_login[customer_password]" id=""
+                    value="">
+            </div>
+            <div class="form-group row">
+                <a href="<?php Mage::getBaseUrl() . 'customer/account/forgot'; ?>" class="forgot">Password not Remember
+                    ?</a>
+            </div>
+            <button class="buttton" type="submit" name="submit">Log In</button>
+        </div>
+    </form>
+</section>

@@ -5,6 +5,7 @@ class Core_Model_Abstract
     protected $_data = [];
     protected $resourceClass = '';
     protected $collectionClass = '';
+    protected $_modelClass = '';
     protected $resource = null;
     protected $collection = null;
     public function __construct()
@@ -69,6 +70,7 @@ class Core_Model_Abstract
     {
         $collection = new $this->collectionClass();
         $collection->setResource($this->getResource());
+        $collection->setModelClass($this->_modelClass);
         $collection->select();
         return $collection;
     }

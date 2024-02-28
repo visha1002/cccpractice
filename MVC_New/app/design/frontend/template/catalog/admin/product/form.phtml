@@ -3,150 +3,149 @@
 $productModel = $this->getProduct();
 
 ?>
-
-<form action="<?php echo $this->getUrl("admin/catalog_product/save") ?>" method="post">
-    <div class="center">
-        <!-- <h1>PHP form</h1> -->
-        <div class="form-group row">
-            <input style="margin-left:10px" hidden type="text" placeholder="Enter your product name"
-                name="p_data[product_id]" id="" value="<?php echo $productModel->getId() ?>">
+<section class="formlist">
+    <form action="<?php echo $this->getUrl("admin/catalog_product/save") ?>" method="post" class="form">
+        <div class="center">
+            <h1>Product Form</h1>
+            <div class="form-group row">
+                <input hidden type="text" placeholder="Enter your product name" name="p_data[product_id]" id=""
+                    value="<?php echo $productModel->getId() ?>">
+            </div>
+            <br>
+            <div class="form-group row">
+                <label for="">SKU : </label>
+                <input type="text" placeholder="Enter your product SKU number" name="p_data[sku]" id=""
+                    value="<?php echo $productModel->getSku() ?>">
+            </div>
+            <br>
+            <div class="form-group row">
+                <label for="">Product Name : </label>
+                <input type="text" placeholder="Enter your product name" name="p_data[name]" id=""
+                    value="<?php echo $productModel->getName() ?>">
+            </div>
+            <br>
+            <div class="form-group row">
+                <label for="">Color : </label>
+                <input type="color" placeholder="Enter your product color" name="p_data[color]" id=""
+                    value="<?php echo $productModel->getColor() ?>">
+            </div>
+            <br>
+            <div class="form-group row">
+                <label for="">Size : </label>
+                <input type="text" placeholder="Enter your product size" name="p_data[size]" id=""
+                    value="<?php echo $productModel->getSize() ?>">
+            </div>
+            <br>
+            <div class="form-group row">
+                <label for="">Description : </label>
+                <textarea name="p_data[description]" id="" cols="100"
+                    rows="5"><?php echo $productModel->getDescription() ?></textarea>
+            </div>
+            <br>
+            <div class="form-group row">
+                <label for="">Image Link : </label>
+                <input type="file" placeholder="Enter product image link" name="p_data[image_link]" id=""
+                    value="<?php echo $productModel->getImageLink() ?>">
+            </div>
+            <br>
+            <div class="form-group row">
+                <label for="">Link : </label>
+                <input type="text" placeholder="Enter product link" name="p_data[link]" id=""
+                    value="<?php echo $productModel->getLink() ?>">
+            </div>
+            <br>
+            <div class="form-group category">
+                <label for="Category" class="heading">Category :</label>
+                <select name="p_data[category_id]" id="categories">
+                    <option value="1" <?php echo (($productModel->getCategoryId()) == 'Bar & Game Room')
+                        ? "selected"
+                        : "";
+                    ?>>Bar & Game Room</option>
+                    <option value="2" <?php echo (($productModel->getCategoryId()) == 'BedRoom')
+                        ? "selected"
+                        : "";
+                    ?>>BedRoom</option>
+                    <option value="3" <?php echo (($productModel->getCategoryId()) == 'Decor')
+                        ? "selected"
+                        : "";
+                    ?>>Decor</option>
+                    <option value="4" <?php echo (($productModel->getCategoryId()) == 'Dining & Kitchen')
+                        ? "selected"
+                        : "";
+                    ?>>Dining & Kitchen</option>
+                    <option value="5" <?php echo (($productModel->getCategoryId()) == 'Lighting')
+                        ? "selected"
+                        : "";
+                    ?>>Lighting</option>
+                    <option value="6" <?php echo (($productModel->getCategoryId()) == 'Living Room')
+                        ? "selected"
+                        : "";
+                    ?>>Living Room</option>
+                    <option value="7" <?php echo (($productModel->getCategoryId()) == 'Mattresses')
+                        ? "selected"
+                        : "";
+                    ?>>Mattresses</option>
+                    <option value="8" <?php echo (($productModel->getCategoryId()) == 'Office')
+                        ? "selected"
+                        : "";
+                    ?>>Office</option>
+                    <option value="9" <?php echo (($productModel->getCategoryId()) == 'Outdoor')
+                        ? "selected"
+                        : "";
+                    ?>>Outdoor</option>
+                </select>
+            </div>
+            <br>
+            <div class="form-group row">
+                <label for="">Price : </label>
+                <input type="number" placeholder="Enter Price" name="p_data[price]" id=""
+                    value="<?php echo $productModel->getPrice() ?>">
+            </div>
+            <br>
+            <div class="form-group row">
+                <label for="">Manufacturer cost : </label>
+                <input type="number" placeholder="Manufacurer cost" name="p_data[mfr_cost]" id=""
+                    value="<?php echo $productModel->getMfrCost() ?>">
+            </div>
+            <br>
+            <div class="form-group row">
+                <label for="">Shipping cost : </label>
+                <input type="number" placeholder="shipping cost" name="p_data[shipping_cost]" id=""
+                    value="<?php echo $productModel->getShippingCost() ?>">
+            </div>
+            <br>
+            <div class="form-group row">
+                <label for="">Total cost : </label>
+                <input type="number" placeholder="Total cost" name="p_data[total_cost]" id=""
+                    value="<?php echo $productModel->getTotalCost() ?>">
+            </div>
+            <br>
+            <div class="form-group row">
+                <label for="">Margin Percentage : </label>
+                <input type="number" placeholder="Margin percentage" name="p_data[margin_percentage]" id=""
+                    value="<?php echo $productModel->getMarginPercentage() ?>">
+            </div>
+            <br>
+            <div class="form-group row">
+                <label for="">Minimum Price : </label>
+                <input type="number" placeholder="Minimum price" name="p_data[min_price]" id=""
+                    value="<?php echo $productModel->getMinPrice() ?>">
+            </div>
+            <br>
+            <div class="category form-group">
+                <label for="Category" class="heading">Status :</label>
+                <select name="p_data[status]" id="categories">
+                    <option value="1" <?php echo (($productModel->getStatus()) == 'Enabled')
+                        ? "selected"
+                        : "";
+                    ?>>Enabled</option>
+                    <option value="0" <?php echo (($productModel->getStatus()) == 'Disabled')
+                        ? "selected"
+                        : "";
+                    ?>>Disabled</option>
+                </select>
+            </div>
+            <button class="buttton" type="submit" name="submit">Submit</button>
         </div>
-        <br>
-        <div class="form-group row">
-            <label for="">SKU : </label>
-            <input type="text" placeholder="Enter your product SKU number" name="p_data[sku]" id=""
-                value="<?php echo $productModel->getSku() ?>">
-        </div>
-        <br>
-        <div class="form-group row">
-            <label for="">Product Name : </label>
-            <input style="margin-left:10px" type="text" placeholder="Enter your product name" name="p_data[name]" id=""
-                value="<?php echo $productModel->getName() ?>">
-        </div>
-        <br>
-        <div class="form-group row">
-            <label for="">Color : </label>
-            <input type="text" placeholder="Enter your product color" name="p_data[color]" id=""
-                value="<?php echo $productModel->getColor() ?>">
-        </div>
-        <br>
-        <div class="form-group row">
-            <label for="">Size : </label>
-            <input type="text" placeholder="Enter your product size" name="p_data[size]" id=""
-                value="<?php echo $productModel->getSize() ?>">
-        </div>
-        <br>
-        <div class="form-group row">
-            <label for="">Description : </label>
-            <textarea name="p_data[description]" id="" cols="100"
-                rows="5"><?php echo $productModel->getDescription() ?></textarea>
-        </div>
-        <br>
-        <div class="form-group row">
-            <label for="">Image Link : </label>
-            <input type="text" placeholder="Enter product image link" name="p_data[image_link]" id=""
-                value="<?php echo $productModel->getImageLink() ?>">
-        </div>
-        <br>
-        <div class="form-group row">
-            <label for="">Link : </label>
-            <input type="text" placeholder="Enter product link" name="p_data[link]" id=""
-                value="<?php echo $productModel->getLink() ?>">
-        </div>
-        <br>
-        <div class="category">
-            <label for="Category" class="heading">Category :</label>
-            <select name="p_data[category_id]" id="categories">
-                <option value="1" <?php echo (($productModel->getCategoryId()) == 'Bar & Game Room')
-                    ? "selected"
-                    : "";
-                ?>>Bar & Game Room</option>
-                <option value="2" <?php echo (($productModel->getCategoryId()) == 'BedRoom')
-                    ? "selected"
-                    : "";
-                ?>>BedRoom</option>
-                <option value="3" <?php echo (($productModel->getCategoryId()) == 'Decor')
-                    ? "selected"
-                    : "";
-                ?>>Decor</option>
-                <option value="4" <?php echo (($productModel->getCategoryId()) == 'Dining & Kitchen')
-                    ? "selected"
-                    : "";
-                ?>>Dining & Kitchen</option>
-                <option value="5" <?php echo (($productModel->getCategoryId()) == 'Lighting')
-                    ? "selected"
-                    : "";
-                ?>>Lighting</option>
-                <option value="6" <?php echo (($productModel->getCategoryId()) == 'Living Room')
-                    ? "selected"
-                    : "";
-                ?>>Living Room</option>
-                <option value="7" <?php echo (($productModel->getCategoryId()) == 'Mattresses')
-                    ? "selected"
-                    : "";
-                ?>>Mattresses</option>
-                <option value="8" <?php echo (($productModel->getCategoryId()) == 'Office')
-                    ? "selected"
-                    : "";
-                ?>>Office</option>
-                <option value="9" <?php echo (($productModel->getCategoryId()) == 'Outdoor')
-                    ? "selected"
-                    : "";
-                ?>>Outdoor</option>
-            </select>
-        </div>
-        <br>
-        <div class="form-group-row">
-            <label for="">Price : </label>
-            <input type="number" placeholder="Enter Price" name="p_data[price]" id=""
-                value="<?php echo $productModel->getPrice() ?>">
-        </div>
-        <br>
-        <div class="form-group-row">
-            <label for="">Manufacturer cost : </label>
-            <input type="number" placeholder="Manufacurer cost" name="p_data[mfr_cost]" id=""
-                value="<?php echo $productModel->getMfrCost() ?>">
-        </div>
-        <br>
-        <div class="form-group-row">
-            <label for="">Shipping cost : </label>
-            <input type="number" placeholder="shipping cost" name="p_data[shipping_cost]" id=""
-                value="<?php echo $productModel->getShippingCost() ?>">
-        </div>
-        <br>
-        <div class="form-group-row">
-            <label for="">Total cost : </label>
-            <input type="number" placeholder="Total cost" name="p_data[total_cost]" id=""
-                value="<?php echo $productModel->getTotalCost() ?>">
-        </div>
-        <br>
-        <div class="form-group-row">
-            <label for="">Margin Percentage : </label>
-            <input type="number" placeholder="Margin percentage" name="p_data[margin_percentage]" id=""
-                value="<?php echo $productModel->getMarginPercentage() ?>">
-        </div>
-        <br>
-        <div class="form-group-row">
-            <label for="">Minimum Price : </label>
-            <input type="number" placeholder="Minimum price" name="p_data[min_price]" id=""
-                value="<?php echo $productModel->getMinPrice() ?>">
-        </div>
-        <br>
-        <div class="category">
-            <label for="Category" class="heading">Status :</label>
-            <select name="p_data[status]" id="categories">
-                <option value="1" <?php echo (($productModel->getStatus()) == 'Enabled')
-                    ? "selected"
-                    : "";
-                ?>>Enabled</option>
-                <option value="0" <?php echo (($productModel->getStatus()) == 'Disabled')
-                    ? "selected"
-                    : "";
-                ?>>Disabled</option>
-            </select>
-        </div>
-        <button type="submit" name="submit">Submit</button>
-
-    </div>
-    </div>
-</form>
+    </form>
+</section>

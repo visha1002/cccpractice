@@ -15,4 +15,10 @@ class Core_Controller_Front_Action
     {
         return Mage::getModel('core/request');
     }
+
+    public function setRedirect($url)
+    {
+        $url = Mage::getBaseUrl() . $url;
+        header('Location:' . $url);
+    }
 }

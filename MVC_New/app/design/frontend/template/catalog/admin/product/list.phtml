@@ -10,7 +10,7 @@
                 <th>Description</th>
                 <th>Image Link</th>
                 <th>Link</th>
-                <th>Category Id</th>
+                <th>Category</th>
                 <th>Price</th>
                 <th>Manufacturing Cost</th>
                 <th>Shipping cost</th>
@@ -24,10 +24,13 @@
         </thead>
         <tbody>
             <?php
-            $productCollection = Mage::getModel("catalog/product")->getCollection();
-            // ->addFieldToFilter('price', ['gt' => 3]);
-            // ->addFieldToFilter('name', ['like' => 'book']);
-            
+            $productCollection = Mage::getModel("catalog/product")->getCollection()
+                // ->addFieldToFilter('price', ['gt' => 3])
+                // ->addFieldToFilter('name', ['not' => 'book'])
+                // ->addFieldToGroupBy('name,price')
+                ->addFieldToOrderBy('product_id', 'DESC')
+                ->limit(3);
+
             foreach ($productCollection->getData() as $product):
 
                 ?>

@@ -9,6 +9,7 @@ class Admin_Controller_Catalog_Product extends Core_Controller_Front_Action
         $layout->getChild('head')->addJs('js/head.js');
         $layout->getChild('head')->addCss(Mage::getBaseUrl() . "skin/css/header.css");
         $layout->getChild('head')->addCss(Mage::getBaseUrl() . "skin/css/footer.css");
+        $layout->getChild('head')->addCss(Mage::getBaseUrl() . "skin/css/product/form.css");
         $child = $layout->getchild('content');
         $form = $layout->createBlock('catalog/admin_product_form');
         $child->addChild('form', $form);
@@ -25,6 +26,18 @@ class Admin_Controller_Catalog_Product extends Core_Controller_Front_Action
                 throw new Exception("Request id not valid!");
             }
             $data = $this->getRequest()->getParams('p_data');
+            if (!isset($data['price']) || !is_numeric($data['price'])) {
+                throw new Exception("price is not valid");
+            }
+            if (!isset($data['mfr_cost']) || !is_numeric($data['mfr_cost'])) {
+                throw new Exception("Manufacturing cost is not valid");
+            }
+            if (!isset($data['shipping_cost']) || !is_numeric($data['shipping_cost'])) {
+                throw new Exception("Shipping cost is not valid");
+            }
+            if (!isset($data['total_cost']) || !is_numeric($data['total_cost'])) {
+                throw new Exception("Total cost is not valid");
+            }
             echo "<pre>";
             print_r($data);
             //take id from data['product_id]
@@ -37,7 +50,6 @@ class Admin_Controller_Catalog_Product extends Core_Controller_Front_Action
         } catch (Exception $e) {
             var_dump($e->getMessage());
         }
-
     }
 
     public function deleteAction()
