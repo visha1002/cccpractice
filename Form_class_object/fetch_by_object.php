@@ -23,17 +23,18 @@ class Data_Object
         $this->rows = $row;
     }
 
-    public function __call($name,$args){
+    public function __call($name, $args)
+    {
         // print_r($name);
-        $name = substr($name,3);
+        $name = substr($name, 3);
         // echo "<br>";
         // print_r($name);
         // return isset($this->rows[$name])
         //     ? $this->rows[$name]
         //     : $args[0];
         return isset($this->rows[$name])
-        ? $this->rows[$name]
-        : (isset($args[0]) ? $args[0] : null);
+            ? $this->rows[$name]
+            : (isset($args[0]) ? $args[0] : null);
     }
 }
 ?>
