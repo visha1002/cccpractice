@@ -25,12 +25,12 @@
         <tbody>
             <?php
             $productCollection = Mage::getModel("catalog/product")->getCollection()
-                // ->addFieldToFilter('price', ['gt' => 3])
-                // ->addFieldToFilter('name', ['not' => 'book'])
-                // ->addFieldToGroupBy('name,price')
-                ->addFieldToOrderBy('product_id', 'DESC')
-                ->limit(3);
-
+                ->addFieldToFilter('price', ['gt' => 3]);
+            // ->addFieldToFilter('name', ['not' => 'book'])
+            // ->addFieldToGroupBy('name,price')
+            // ->addFieldToOrderBy('product_id', 'DESC')
+            // ->limit(3);
+            
             foreach ($productCollection->getData() as $product):
 
                 ?>
@@ -54,7 +54,8 @@
                         <?php echo $product->getDescription() ?>
                     </td>
                     <td>
-                        <?php echo $product->getImageLink() ?>
+                        <img style="height:60px; width:100px; border-radius: 20%;"
+                            src="<?php echo Mage::getBaseUrl() . 'media/banner/' . $product->getImageLink() ?>" alt="">
                     </td>
                     <td>
                         <?php echo $product->getLink() ?>

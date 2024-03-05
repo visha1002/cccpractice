@@ -1,0 +1,46 @@
+<section class="list">
+    <table class="table_body">
+        <thead>
+            <tr>
+                <th>Banner Id</th>
+                <th>Title</th>
+                <th>Banner Image</th>
+                <th>Status</th>
+                <th>Show on</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            $bannerCollection = Mage::getModel("banner/banner")->getCollection();
+
+            foreach ($bannerCollection->getData() as $product):
+
+                ?>
+                <tr>
+                    <td>
+                        <?php echo $product->getId() ?>
+                    </td>
+                    <td>
+                        <?php echo $product->getTitle() ?>
+                    </td>
+                    <td><img style="height:60px; width:100px; border-radius: 20%;"
+                            src="<?php echo Mage::getBaseUrl() . 'media/banner/' . $product->getBannerImage() ?>" alt="">
+                    <td>
+                        <?php echo $product->getStatus() ?>
+                    </td>
+                    <td>
+                        <?php echo $product->getShowOn() ?>
+                    </td>
+                    <td>
+                        <a href="form?pid=<?php echo $product->getId() ?>" class="edit">Edit</a>
+                    </td>
+                    <td>
+                        <a href="delete?pid=<?php echo $product->getId() ?>" class="delete">Delete</a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</section>

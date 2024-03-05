@@ -68,6 +68,7 @@ class Customer_Controller_Account extends Core_Controller_Front_Action
         } else {
             try {
                 $loginData = $this->getRequest()->getParams('c_login');
+                $message = [];
                 // print_r($loginData);
                 // die;
                 $email = $loginData['customer_email'];
@@ -75,6 +76,7 @@ class Customer_Controller_Account extends Core_Controller_Front_Action
                 $password = $loginData['customer_password'];
                 $data = Mage::getModel('customer/customer')->getCollection()
                     ->addFieldToFilter('customer_email', $email)
+                    // ->addFieldToFilter('customer_email', ['in' => $email])
                     ->addFieldToFilter('customer_password', $password);
                 $count = 0;
                 $customerID = 0;
@@ -86,24 +88,34 @@ class Customer_Controller_Account extends Core_Controller_Front_Action
                 if ($count) {
                     Mage::getSingleton('core/session')->set('logged_in_customer_id', $customerID);
                     // echo "Log In Successfull";
-                    $this->setRedirect('customer/account/dashboard');
+                    $message = [
+                        'type' => 'success',
+                        'message' => 'Successful'
+                    ];
+                    // $this->setRedirect('customer/account/dashboard');
                 } else {
-                    echo "Wrong Credentials ! ";
+                    // echo "Wrong Credentials ! ";
                     Mage::getSingleton('core/session')->remove('logged_in_customer_id');
+                    $message = [
+                        'type' => 'error',
+                        'message' => 'Wrong Credentials'
+                    ];
                 }
             } catch (Exception $e) {
                 var_dump($e->getMessage());
             }
+            echo json_encode($message);
         }
     }
 
     public function dashboardAction()
     {
-        $layout = $this->getLayout();
-        $layout->getChild('head')->addJs('js/page.js');
-        $layout->getChild('head')->addJs('js/head.js');
+        $layout = $this->getLayout();//->setTemplate('core/2column_left.phtml');
+        // $layout->getChild('head')->addJs('js/page.js');
+        // $layout->getChild('head')->addJs('js/head.js');
         $layout->getChild('head')->addCss(Mage::getBaseUrl() . "skin/css/header.css");
         $layout->getChild('head')->addCss(Mage::getBaseUrl() . "skin/css/footer.css");
+        $layout->getChild('head')->addCss(Mage::getBaseUrl() . "skin/css/dashboard.css");
         $layout->getChild('head')->addCss(Mage::getBaseUrl() . "skin/css/product/list.css");
         $child = $layout->getChild('content');
         $dashboard = $layout->createBlock('customer/dashboard');

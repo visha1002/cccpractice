@@ -1,7 +1,12 @@
 <?php
 
-class Admin_Controller_Catalog_Product extends Core_Controller_Front_Action
+class Admin_Controller_Catalog_Product extends Core_Controller_Admin_Action
 {
+
+    protected $_allowActions = [
+        ''
+    ];
+
     public function formAction()
     {
         $layout = $this->getLayout();
@@ -72,7 +77,7 @@ class Admin_Controller_Catalog_Product extends Core_Controller_Front_Action
     {
         $layout = $this->getLayout();
         $layout->getChild('head')->addJs('js/page.js');
-        $layout->getChild('head')->addJs('js/head.js');
+        $layout->getChild('head')->addJs(Mage::getBaseUrl() . 'skin/js/jquery-3.7.1.min.js');
         $layout->getChild('head')->addCss(Mage::getBaseUrl() . "skin/css/product/list.css");
         $layout->getChild('head')->addCss(Mage::getBaseUrl() . "skin/css/header.css");
         $layout->getChild('head')->addCss(Mage::getBaseUrl() . "skin/css/footer.css");

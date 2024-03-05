@@ -13,6 +13,7 @@ class Page_Controller_Index extends Core_Controller_Front_Action
         $layout->getChild('head')->addJs('js/head.js');
         $layout->getChild('head')->addCss('skin/css/header.css');
         $layout->getChild('head')->addCss('skin/css/footer.css');
+        $layout->getChild('head')->addCss(Mage::getBaseUrl() . "skin/css/product/list.css");
         $child = $layout->getchild('content');
         $banner = $layout->createBlock('core/template')->setTemplate('page/banner.phtml');
         $child->addChild('banner', $banner);

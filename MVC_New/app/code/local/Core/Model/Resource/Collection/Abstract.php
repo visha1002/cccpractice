@@ -158,7 +158,7 @@ class Core_Model_Resource_Collection_Abstract
         // echo $sql;
         // die;
         $result = $this->_resource->getAdapter()->fetchAll($sql);
-        echo "<pre>";
+        // echo "<pre>";
         // print_r($result); // data in array
         foreach ($result as $row) {
             $this->_data[] = Mage::getModel($this->_model)->setData($row);

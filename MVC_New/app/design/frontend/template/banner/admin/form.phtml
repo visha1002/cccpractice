@@ -1,0 +1,55 @@
+<?php
+// echo Mage::getSingleton('core/session')->remove('customerId');
+$productModel = $this->getBannerDetail();
+
+?>
+
+<section class="formlist">
+    <form action="<?php echo $this->getUrl("admin/banner/save") ?>" method="post" enctype="multipart/form-data"
+        class="form">
+        <div class="center">
+            <h1>Banner form</h1>
+            <div class="form-group row">
+                <input hidden type="text" placeholder="" name="banner[banner_id]" id=""
+                    value="<?php echo $productModel->getId() ?>">
+            </div>
+            <br>
+            <div class="form-group row">
+                <label for="">Banner Title : </label>
+                <input type="text" placeholder="Enter banner title" name="banner[title]" id=""
+                    value="<?php echo $productModel->getTitle() ?>">
+            </div>
+            <br>
+            <div class="form-group row">
+                <label for="banner_image">Banner Image : </label>
+                <input type="file" name="banner[banner_image]" id="banner_image">
+            </div>
+            <div>
+                <img style="height:60px; width:100px; border-radius: 20%;"
+                    src="<?php echo Mage::getBaseUrl() . 'media/banner/' . $productModel->getBannerImage() ?>" alt="">
+            </div>
+            <br>
+            <div class="category form-group">
+                <label for="Category" class="heading">Status :</label>
+                <select name="p_data[status]" id="categories">
+                    <option value="1" <?php echo (($productModel->getStatus()) == 'Enabled')
+                        ? "selected"
+                        : "";
+                    ?>>Enabled</option>
+                    <option value="0" <?php echo (($productModel->getStatus()) == 'Disabled')
+                        ? "selected"
+                        : "";
+                    ?>>Disabled</option>
+                </select>
+            </div>
+            <br>
+            <div class="form-group row">
+                <label for="">Show On : </label>
+                <input type="text" placeholder="Enter when to show" name="banner[show_on]" id=""
+                    value="<?php echo $productModel->getShowOn() ?>">
+            </div>
+            <br>
+            <button class="buttton" type="submit" name="submit">Submit</button>
+        </div>
+    </form>
+</section>

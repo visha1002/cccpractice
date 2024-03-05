@@ -2,6 +2,15 @@
 
 class Core_Controller_Front_Action
 {
+    public function __construct()
+    {
+        $this->init();
+    }
+
+    public function init()
+    {
+        return $this;
+    }
     protected $_layout = null;
     public function getLayout()
     {

@@ -1,5 +1,5 @@
 <section class="formlist">
-    <form action="" method="post" class="form">
+    <form action="" id="login-form" method="post" class="form">
         <div class="center">
             <h1 class="mb-4">Log In</h1>
             <div class="form-group row">
@@ -16,7 +16,30 @@
                 <a href="<?php Mage::getBaseUrl() . 'customer/account/forgot'; ?>" class="forgot">Password not Remember
                     ?</a>
             </div>
-            <button class="buttton" type="submit" name="submit">Log In</button>
+            <button class="buttton" type="button" onclick="loginAction(this)" name="submit">Log In</button>
+            <div id="message"></div>
         </div>
     </form>
 </section>
+
+<script type="text/javascript">
+    function loginAction(btn) {
+        //console.log($('#login-form'));
+        var form = $($('#login-form')[0]);
+        console.log(form.serialize());
+        $.ajax({
+            url: form.action,
+            type: 'POST',
+            // contentType: "application/json",
+            data: form.serialize()
+        }).done(function (response) {
+            var output = JSON.parse(response);
+            // alert(response)
+            alert(output.type)
+            $('#message')[0].innerHTML = output.message;
+            alert(output.message)
+            $(this).addClass("done");
+            $(this).addClass("done");
+        });
+    }
+</script>
