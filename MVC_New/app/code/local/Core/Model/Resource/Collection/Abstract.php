@@ -37,6 +37,15 @@ class Core_Model_Resource_Collection_Abstract
         return $this;
     }
 
+    public function getFirstItem()
+    {
+        if (!$this->_isLoaded) {
+            $this->load();
+        }
+
+        return $this->_data[0];
+    }
+
     public function addFieldToFilter($column, $filter)
     {
         $this->_select['where'][$column][] = $filter;

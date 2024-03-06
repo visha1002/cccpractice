@@ -1,6 +1,6 @@
 <?php
 
-class Sales_Model_Order
+class Sales_Model_Order extends Core_Model_Abstract
 {
 
 }
