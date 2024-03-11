@@ -1,91 +1,57 @@
-<div class="container-fluid">
+<?php
+$catalogModel = $this->getProductDetail();
+?>
+<div class="container" style="margin : 50px; margin-left : 100px;">
     <div class="row">
-        <!-- Sidebar -->
-        <nav class="col-md-3 col-lg-2 d-md-block bg-dark sidebar">
-            <div class="sidebar-sticky">
-                <h2 class="sidebar-heading">Dashboard</h2>
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link dash" href="#">My Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link dash" href="#">My Wallet</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link dash" href="#">My Orders</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link dash" href="#">Wishlist</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link dash" href="#">Logout</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link dash" href="#">My Cart</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-        <?php
-        $catalogModel = $this->getProductDetail();
-        ?>
-        <div class="col-md-9 col-lg-10 px-md-4 list">
-            <div class="customer-details">
-                <h2>Product Details</h2>
-                <div class="customer-info">
-                    <h4>Product Information</h4>
-                    <div style="display: flex; align-items: center;">
-                        <p style="flex: 1;"><strong>Product Name: </strong>
-                            <?php echo $catalogModel->getName() ?>
-                        </p>
-                        <img style="height: 100px; width: 150px; border-radius: 20%;"
+        <div class="col-md-12 mb-4">
+            <div class="card" style="background-color: #C7C8CC;">
+                <div class="row">
+                    <div class="col-md-6">
+                        <img class="card-img-top" style="height: 500px;"
                             src="<?php echo Mage::getBaseUrl() . 'media/product/' . $catalogModel->getImageLink() ?>"
-                            alt="">
+                            alt="Product Image">
                     </div>
-                    <p><strong>Product SKU: </strong>
-                        <?php echo $catalogModel->getSku() ?>
-                    </p>
-                    <p><strong>Product Color: </strong>
-                        <?php echo $catalogModel->getColor() ?>
-                    </p>
-                    <p><strong>Product Size: </strong>
-                        <?php echo $catalogModel->getSize() ?>
-                    </p>
-                </div>
-                <div class="customer-info mt-3">
-                    <h4>Description And Image</h4>
-                    <p><strong>Description: </strong>
-                        <?php echo $catalogModel->getDescription() ?>
-                    </p>
-                    <p><strong>Image Link: </strong>
-                        <?php echo $catalogModel->getImageLink() ?>
-                    </p>
-                    <p><strong>Link: </strong>
-                        <?php echo $catalogModel->getLink() ?>
-                    </p>
-                </div>
-                <div class="customer-info mt-3">
-                    <h4>Category and Price</h4>
-                    <p><strong>Category: </strong>
-                        <?php echo $catalogModel->getCategoryId() ?>
-                    </p>
-                    <p><strong>Status:</strong>
-                        <?php echo $catalogModel->getStatus() ?>
-                    </p>
-                    <p><strong>Price:
-                            <?php echo $catalogModel->getPrice() ?>
-                        </strong>
-                    </p>
-                </div>
-                <div class="mt-3">
-                    <form action="<?php echo $this->getUrl('sales/quote/add') ?>" method="post">
-                        <input type="text" hidden name="cart[product_id]" value="<?php echo $catalogModel->getId() ?>">
-                        <input type="text" hidden name="cart[Product_name]"
-                            value="<?php echo $catalogModel->getName() ?>">
-                        <label for="">Quantity : </label>
-                        <input type="number" name="cart[qty]">
-                        <button class="buttton" type="submit" name="submit">Add To Cart</button>
-                    </form>
+                    <div class="col-md-6" style="padding-top : 90px;">
+                        <div class="card-body">
+                            <h3 class="card-title">
+                                <?php echo $catalogModel->getName() ?>
+                            </h3>
+                            <h6 class="card-text">
+                                <strong>Category:</strong>
+                                <?php echo $catalogModel->getCategoryId() ?><br>
+                            </h6>
+                            <h6>
+                                <strong>Description:</strong>
+                                <?php echo $catalogModel->getDescription() ?><br>
+                            </h6>
+                            <h6>
+                                <strong>Price:</strong>
+                                <?php echo $catalogModel->getPrice() ?><br>
+                            </h6>
+                            <h6>
+                                <strong>Color:</strong>
+                                <?php echo $catalogModel->getColor() ?><br>
+                            </h6>
+                            <h6>
+                                <strong>Size:</strong>
+                                <?php echo $catalogModel->getSize() ?><br>
+                            </h6>
+                            <h6>
+                                <!-- Add more details as needed -->
+                                <div class="mt-3">
+                                    <form action="<?php echo $this->getUrl('sales/quote/add') ?>" method="post">
+                                        <input type="text" hidden name="cart[product_id]"
+                                            value="<?php echo $catalogModel->getId() ?>">
+                                        <input type="text" hidden name="cart[Product_name]"
+                                            value="<?php echo $catalogModel->getName() ?>">
+                                        <label for="">Quantity : </label>
+                                        <input type="number" name="cart[qty]">
+                                        <button class="buttton" type="submit" name="submit">Add To Cart</button>
+                                    </form>
+                                </div>
+                            </h6>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

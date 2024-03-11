@@ -1,0 +1,50 @@
+<section class="list">
+    <table class="table_body">
+        <thead>
+            <tr>
+                <th>Enroll Id</th>
+                <th>session Id</th>
+                <th>Student Name</th>
+                <th>cources</th>
+                <th>term</th>
+                <th>Total Charge</th>
+                <th>Created At</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            $courcesCollection = Mage::getModel("cources/cource")->getCollection();
+
+            foreach ($courcesCollection->getData() as $cources):
+
+                ?>
+                <tr>
+                    <td>
+                        <?php echo $cources->getId() ?>
+                    </td>
+                    <td>
+                        <?php echo $cources->getSessionId() ?>
+                    </td>
+                    <td>
+                        <?php echo $cources->getStudentName() ?>
+                    </td>
+                    <td>
+                        <?php echo $cources->getSelectedCource() ?>
+                    </td>
+                    <td>
+                        <?php echo $cources->getTerm() ?>
+                    </td>
+                    <td>
+                        <?php echo $cources->getTotalCharge() ?>
+                    </td>
+                    <td>
+                        <?php echo $cources->getCreatedAt() ?>
+                    </td>
+                    <td>
+                        <a href="delete?pid=<?php echo $cources->getId() ?>" class="delete">Delete</a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</section>

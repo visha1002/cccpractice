@@ -1,70 +1,104 @@
 <?php
+$rate = Mage::getModel('cources/rate')->getCollection();
+// print_r(Mage::getModel('core/session')->get('student_name'));
+
+$cources = Mage::getModel('cources/cource')->getCollection()
+    ->addFieldToOrderBy('en_id', 'DESC')
+    ->limit(1);
+
+$lastData = $cources->getData();
+$studentName = $lastData[0]->getStudentName();
 
 ?>
 
 <form action="save" method="post">
+    <div style="margin:40px">
+        <input type="text" hidden value="" name="cource[en_id]">
+        <label for="Name"> Student Name : </label>
+        <input type="text" name="cource[student_name]" value="<?php echo $studentName ?>">
+        <div class="dropdown">
+            <button class="btn btn-success dropdown-toggle" type="button" id="multiSelectDropdown"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Chooce Cources
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="multiSelectDropdown">
+                <?php foreach ($rate->getData() as $rateObject): ?>
+                    <li>
+                        <label>
 
-    <input type="text" hidden value="" name="cource[en_id]">
-    <label for="Name"> Student Name : </label>
-    <input type="text" name="cource[student_name]">
-    <div class="dropdown">
-        <button class="btn btn-success dropdown-toggle" type="button" id="multiSelectDropdown" data-bs-toggle="dropdown"
-            aria-expanded="false">
-            Chooce Cources
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="multiSelectDropdown">
-            <li>
-                <label>
-                    <input type="checkbox" value="PHP" name="cource[selected_cource][]">
-                    PHP
-                </label>
-            </li>
-            <li>
-                <label>
-                    <input type="checkbox" value="Javascript" name="cource[selected_cource][]">
-                    Javascript
-                </label>
-            </li>
-            <li>
-                <label>
-                    <input type="checkbox" value="JQuery" name="cource[selected_cource][]">
-                    JQuery
-                </label>
-            </li>
-            <li>
-                <label>
-                    <input type="checkbox" value="AJAX" name="cource[selected_cource][]">
-                    AJAX
-                </label>
-            </li>
-            <li>
-                <label>
-                    <input type="checkbox" value="MVC" name="cource[selected_cource][]">
-                    MVC
-                </label>
-            </li>
-            <li>
-                <label>
-                    <input type="checkbox" value="Magento1" name="cource[selected_cource][]">
-                    Magento1
-                </label>
-            </li>
-        </ul>
+                            <input type="checkbox" value="<?php echo $rateObject->getId() ?>"
+                                name="cource[selected_cource][]">
+                            <?php echo $rateObject->getCourceName() ?>
+                        </label>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+        <input type="text" hidden value="" name="cource[session_id]">
+        <div class="">
+            <label for="term" class="heading">term :</label>
+            <select name="cource[term]" id="categories">
+                <option value="3">3 Months</option>
+                <option value="6">6 Months</option>
+                <option value="9">9 Months</option>
+                <option value="12">12 Months</option>
+                <option value="15">15 Months</option>
+                <option value="18">18 Months</option>
+                <option value="21">21 Months</option>
+                <option value="24">24 Months</option>
+            </select>
+        </div>
+        <input type="submit" value="Submit">
     </div>
-
-    <div class="">
-        <label for="term" class="heading">term :</label>
-        <select name="cource[term]" id="categories">
-            <option value="3">3 Months</option>
-            <option value="6">6 Months</option>
-            <option value="9">9 Months</option>
-            <option value="12">12 Months</option>
-            <option value="15">15 Months</option>
-            <option value="18">18 Months</option>
-            <option value="21">21 Months</option>
-            <option value="24">24 Months</option>
-        </select>
-    </div>
-    <input type="submit" value="Submit">
-
 </form>
+
+<section class="list">
+    <table class="table_body">
+        <h3>History</h3>
+        <thead>
+            <tr>
+                <th>Enroll Id</th>
+                <th>session Id</th>
+                <th>Student Name</th>
+                <th>cources</th>
+                <th>term</th>
+                <th>Total Charge</th>
+                <th>Created At</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            $courcesCollection = Mage::getModel("cources/cource")->getCollection()
+                ->addFieldToOrderBy('en_id', 'DESC')
+                ->limit(10);
+
+            foreach ($courcesCollection->getData() as $cources):
+
+                ?>
+                <tr>
+                    <td>
+                        <?php echo $cources->getId() ?>
+                    </td>
+                    <td>
+                        <?php echo $cources->getSessionId() ?>
+                    </td>
+                    <td>
+                        <?php echo $cources->getStudentName() ?>
+                    </td>
+                    <td>
+                        <?php echo $cources->getSelectedCource() ?>
+                    </td>
+                    <td>
+                        <?php echo $cources->getTerm() ?>
+                    </td>
+                    <td>
+                        <?php echo $cources->getTotalCharge() ?>
+                    </td>
+                    <td>
+                        <?php echo $cources->getCreatedAt() ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</section>
