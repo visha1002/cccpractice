@@ -1,0 +1,115 @@
+<?php
+$productDetails = $this->getProductDetails();
+$quoteModel = $this->getQuote();
+$cartModel = $this->getCartDetails();
+?>
+
+<h1 class="m-3"><i class="fa-solid fa-cart-shopping"></i> My Cart</h1>
+<?php
+
+if (!is_null($quoteModel->getData()) && !is_null($cartModel->getData())):
+    foreach ($productDetails as $product): // Loop through each product detail
+        ?>
+        <div class="container" style="">
+            <div class="row ">
+                <div class="col-md-12 mb-4">
+                    <div class="col-md-8 " style="background-color: #C7C8CC;">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <img class="card-img" style="height: 400px; width:430px;"
+                                        src="<?php echo Mage::getBaseUrl() . 'media/product/' . $product->getImageLink() ?>"
+                                        alt="Product Image">
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card-body mt-3">
+                                        <h3 class="card-title pb-2">
+                                            <?php echo $product->getName() ?>
+                                        </h3>
+                                        <h6 class="card-text pb-2">
+                                            <strong>Category:</strong>
+                                            <?php echo $product->getCategoryId() ?><br>
+                                        </h6>
+
+                                        <h6 class="pb-2">
+                                            <strong>Description:</strong>
+                                            <?php echo $product->getDescription() ?><br>
+                                        </h6>
+
+                                        <h6 class="pb-2">
+                                            <strong>Price:</strong>
+                                            <?php echo $product->getPrice() ?><br>
+                                        </h6>
+
+                                        <h6 class="pb-2">
+                                            <strong>Color:</strong>
+                                            <?php echo $product->getColor() ?><br>
+                                        </h6>
+
+                                        <h6 class="pb-2">
+                                            <strong>Size:</strong>
+                                            <?php echo $product->getSize() ?><br>
+                                        </h6>
+                                        <!-- Other product details -->
+
+                                        <!-- Assuming each product in $productDetails corresponds to a cart item -->
+                                        <?php foreach ($cartModel->getData() as $cart): ?>
+                                            <?php if ($cart->getProductId() == $product->getId()): ?>
+                                                <h6 class="card-text pb-2">
+                                                    <strong>Price :</strong>
+                                                    <?php echo $cart->getPrice() ?><br>
+                                                </h6>
+                                                <h6 class="pb-2">
+                                                    <strong> Row Total:</strong>
+                                                    <?php echo $cart->getRowTotal() ?><br>
+                                                </h6>
+                                                <form action="<?php echo $this->getUrl('sales/quote/edit') ?>" method="post">
+                                                    <h6 class="pb-2">
+                                                        <input type="text" hidden name="cart[product_id]"
+                                                            value="<?php echo $cart->getProductId() ?>">
+                                                        <label for="quantity">Select Quantity:</label>
+                                                        <select name="cart[qty]" id="quantity" style="width: 150px;  height : 30px;">
+                                                            <?php
+                                                            for ($i = 1; $i <= 10; $i++):
+                                                                ?> ?>
+                                                                <option value="<?php echo $i ?>" <?php echo (($cart->getQty()) == $i)
+                                                                       ? "selected"
+                                                                       : "";
+                                                                   ?>><?php echo $i ?></option>
+                                                            <?php endfor; ?>
+                                                        </select>
+                                                    </h6>
+                                                    <button class="btn btn-primary mb-2" type="submit" name="submit">Set
+                                                        Quantity</button>
+                                                    <button type="button" class="btn btn-danger mb-2"><a
+                                                            href="remove?id=<?php echo $cart->getId() ?>"
+                                                            style="color:white;">Remove</a></button>
+                                                </form>
+                                            <?php endif; ?>
+                                        <?php endforeach; ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php
+    endforeach; ?>
+<?php
+endif;
+?>
+<div class="container text-center mt-5">
+    <?php if ($quoteModel->getGrandTotal() == 0) { ?>
+        <h3 class="mb-5"> Your Cart is Empty !!</h3>
+    <?php } ?>
+    <h3 class="bg-success text-white p-3">
+        Total:
+        <?php echo "₹" . $quoteModel->getGrandTotal(); ?>
+    </h3>
+    <h3 class="p-3">
+        <button type="button" class="btn btn-primary" style="width:150px"><a
+                href="<?php echo $this->getUrl('sales/quote/checkout') ?>" style="color:white;">Checkout</a></button>
+    </h3>
+</div>

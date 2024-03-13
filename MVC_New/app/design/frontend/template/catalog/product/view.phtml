@@ -45,7 +45,7 @@ $catalogModel = $this->getProductDetail();
                                         <input type="text" hidden name="cart[Product_name]"
                                             value="<?php echo $catalogModel->getName() ?>">
                                         <label for="">Quantity : </label>
-                                        <input type="number" name="cart[qty]">
+                                        <input type="number" name="cart[qty]" min="1" max="10" value="1">
                                         <button class="buttton" type="submit" name="submit">Add To Cart</button>
                                     </form>
                                 </div>

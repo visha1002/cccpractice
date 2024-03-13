@@ -1,0 +1,236 @@
+<h1 class="m-3"><i class="fa-solid fa-bag-shopping"></i> checkout</h1>
+<?php
+$addressModel = $this->getCustomerAddress();
+$quoteDetails = $this->getQuote();
+$customerDetail = $this->getCustomerDetails();
+$customerDetail->getData();
+?>
+<div class="container mt-3">
+    <div class="row">
+        <!-- Left side - Cart Products -->
+        <h2>Cart Products</h2>
+        <div class="col-md-6">
+            <?php
+            $cartModel = $this->getCartDetails();
+            $quoteModel = $this->getQuote();
+            foreach ($cartModel->getData() as $cart):
+                ?>
+                <div class="container " style="">
+
+                    <div class="row ">
+                        <div class="col-md-12 mb-4">
+                            <div class="col-md-8 " style="background-color: #C7C8CC;">
+                                <div class="card-body">
+                                    <?php
+                                    $id = $cart->getProductId();
+                                    $product = Mage::getModel('catalog/product')->load($id);
+                                    ?>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <img class="card-img" style="height: 200px; width:200px;"
+                                                src="<?php echo Mage::getBaseUrl() . 'media/product/' . $product->getImageLink() ?>"
+                                                alt="Product Image">
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="card-body mt-3">
+                                                <h3 class="card-title pb-2">
+                                                    <?php echo $product->getName() ?>
+                                                </h3>
+                                                <h6 class="card-text pb-2">
+                                                    <strong>Price :</strong>
+                                                    <?php echo $cart->getPrice() ?><br>
+                                                </h6>
+                                                <h6 class="card-text pb-2">
+                                                    <strong>Quantity :</strong>
+                                                    <?php echo $cart->getQty() ?><br>
+                                                </h6>
+                                                <h6 class="pb-2">
+                                                    <strong> Row Total:</strong>
+                                                    <?php echo $cart->getRowTotal() ?><br>
+                                                </h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?php
+            endforeach;
+            ?>
+            <h3><b>
+                    Total:
+                    <?php echo "₹" . $quoteModel->getGrandTotal(); ?>
+                </b>
+            </h3>
+        </div>
+
+        <!-- Right side - Billing and Shipping Form -->
+        <div class="col-md-6">
+            <button class="btn btn-primary mb-3" id='addressbtn' style="width:100%">Click Here to Select
+                Address</button>
+            <div id="addressdiv" style="width:100%; background-color:#9AD0C2;">
+                <?php if (!empty($addressModel)): ?>
+                    <?php foreach ($addressModel->getData() as $add): ?>
+                        <div class="d-flex justify-content-center">
+                            <div id="asdasdasdasd" class="address-cards"
+                                data-json='{"customer":"<?php echo $add->getCustomerId(); ?>","billing_address":"<?php echo $add->getAddress(); ?>","billing_city":"<?php echo $add->getCity(); ?>","billing_country":"<?php echo $add->getCountry(); ?>","billing_region":"<?php echo $add->getRegion(); ?>","billing_postcode":"<?php echo $add->getPostcode(); ?>","billing_phone_no":"<?php echo $add->getPhoneNo(); ?>"}'>
+                                Address :
+                                <?php echo $add->getAddress(); ?><br>
+                                City :
+                                <?php echo $add->getCity(); ?><br>
+                                Region :
+                                <?php echo $add->getRegion(); ?><br>
+                                Country :
+                                <?php echo $add->getCountry(); ?><br>
+                                Phone No :
+                                <?php echo $add->getPhoneNo(); ?><br>
+                                PostCode :
+                                <?php echo $add->getPostcode(); ?><br>
+                                <hr>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+                <button class="btn btn-dark ml-3" style="margin:inherit;">Add new Address</button>
+            </div>
+            <script type="text/javascript">
+                $('.address-cards').each((i, e) => {
+                    console.log($(e).attr('data-json'))
+                    $(e).click(() => {
+                        var _data = JSON.parse($(e).attr('data-json'))
+                        for (var key in _data) {
+                            if (_data.hasOwnProperty(key)) {
+                                $('#' + key).val(_data[key]);
+                            }
+                        }
+                        // $('#billing_address').val(_data.billing_address);
+                        // $('#billing_city').val(_data.billing_city);
+                        // $('#billing_country').val(_data.billing_country);
+                    });
+                })
+            </script>
+            <form method="post" action="<?php echo $this->getUrl("sales/quote/saveaddress") ?>">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 mt-4">
+                            <h4 class="m-2">Billing Address</h4>
+                            <input type="text" hidden name="checkoutdata[quote_customer_id]" value="">
+                            <input type="text" hidden value="<?php echo $quoteDetails->getId() ?>"
+                                name="checkoutdata[quote_id]">
+                            <input type="text" hidden value="<?php echo $customerDetail->getId(); ?>"
+                                name="checkoutdata[customer_id]">
+                            <input type="text" hidden value="<?php echo $customerDetail->getCustomerEmail(); ?>"
+                                name="checkoutdata[email]">
+                            <div class="form-group">
+                                <label for="b_address">Address:</label>
+                                <textarea class="form-control" rows="3" name="checkoutdata[billing_address]"
+                                    id="billing_address"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="b_city">City:</label>
+                                <input type="text" class="form-control" name="checkoutdata[billing_city]"
+                                    id="billing_city" value="">
+                            </div>
+                            <div class="form-group">
+                                <label for="b_region">Region:</label>
+                                <input type="text" class="form-control" name="checkoutdata[billing_region]"
+                                    id="billing_region" value="">
+                            </div>
+                            <div class="form-group">
+                                <label for="b_country">Country:</label>
+                                <input type="text" class="form-control" name="checkoutdata[billing_country]"
+                                    id="billing_country" value="">
+                            </div>
+                            <div class="form-group">
+                                <label for="b_phone">Phone Number:</label>
+                                <input type="text" class="form-control" name="checkoutdata[billing_phone]"
+                                    id="billing_phone_no" value="">
+                            </div>
+                            <div class="form-group">
+                                <label for="b_postalcode">Postal Code:</label>
+                                <input type="text" class="form-control" name="checkoutdata[billing_postcode]"
+                                    id="billing_postcode" value="">
+                            </div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <div><input type="checkbox" id="same_as_billing" onchange="copyBillingToShipping()"
+                                    class="checkbox-same-as-billing">
+                                <label for="same_as_billing" class="label-same-as-billing">Same as Billing</label>
+                            </div>
+                            <h4 class="m-2">Shipping Address</h4>
+                            <div class="form-group">
+                                <label for="s_address">Address:</label>
+                                <textarea class="form-control" rows="3" name="checkoutdata[shipping_address]"
+                                    id="shipping_address"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="s_city">City:</label>
+                                <input type="text" class="form-control" name="checkoutdata[shipping_city]"
+                                    id="shipping_city" value="">
+                            </div>
+                            <div class="form-group">
+                                <label for="s_region">Region:</label>
+                                <input type="text" class="form-control" name="checkoutdata[shipping_region]"
+                                    id="shipping_region" value="">
+                            </div>
+                            <div class="form-group">
+                                <label for="s_country">Country:</label>
+                                <input type="text" class="form-control" name="checkoutdata[shipping_country]"
+                                    id="shipping_country" value="">
+                            </div>
+                            <div class="form-group">
+                                <label for="s_phone">Phone Number:</label>
+                                <input type="text" class="form-control" name="checkoutdata[shipping_phone]"
+                                    id="shipping_phone_no" value="">
+                            </div>
+                            <div class="form-group">
+                                <label for="s_postalcode">Postal Code:</label>
+                                <input type="text" class="form-control" name="checkoutdata[shipping_postcode]"
+                                    id="shipping_postcode" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group text-center">
+                        <input type="submit" class="btn btn-primary m-3" value="submit" name="sub" id="sub">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#addressdiv').hide()
+        $('#addressbtn').click(function () {
+            $('#addressdiv').slideToggle();
+        });
+
+
+    });
+</script>
+<script>
+    function copyBillingToShipping() {
+        if (document.getElementById('same_as_billing').checked) {
+            document.getElementById('shipping_address').value = document.getElementById('billing_address').value;
+            document.getElementById('shipping_city').value = document.getElementById('billing_city').value;
+            document.getElementById('shipping_region').value = document.getElementById('billing_region').value;
+            document.getElementById('shipping_country').value = document.getElementById('billing_country').value;
+            document.getElementById('shipping_phone_no').value = document.getElementById('billing_phone_no').value;
+            document.getElementById('shipping_postcode').value = document.getElementById('billing_postcode').value;
+        } else {
+            // Clear shipping fields if checkbox is unchecked
+            document.getElementById('shipping_address').value = '';
+            document.getElementById('shipping_city').value = '';
+            document.getElementById('shipping_region').value = '';
+            document.getElementById('shipping_country').value = '';
+            document.getElementById('shipping_phone_no').value = '';
+            document.getElementById('shipping_postcode').value = '';
+        }
+    }
+</script>

@@ -1,0 +1,28 @@
+<?php
+$category = $this->getCategory();
+?>
+
+<section class="formlist">
+    <form action="<?php echo $this->getUrl("admin/catalog_category/save") ?>" method="post" class="form">
+        <div class="center">
+            <h1>Category Form</h1>
+            <div class="form-group row">
+                <input hidden type="text" placeholder="Enter your product name" name="cat_data[category_id]" id=""
+                    value="">
+            </div>
+            <br>
+            <div class="form-group row">
+                <label for="">Category Name : </label>
+                <input type="text" placeholder="Enter category name" name="cat_data[category_name]" id=""
+                    value="<?php echo $category->getCategoryName(); ?>">
+            </div>
+            <br>
+            <div class="form-group row">
+                <label for="">Status : </label>
+                <input type="text" placeholder="Enter Status" name="cat_data[status]" id=""
+                    value="<?php echo $category->getStatus(); ?>">
+            </div>
+            <button class="buttton" type="submit" name="submit">Submit</button>
+        </div>
+    </form>
+</section>

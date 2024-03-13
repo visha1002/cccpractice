@@ -19,7 +19,7 @@ class Catalog_Model_Product extends Core_Model_Abstract
 
     public function getCategoryID()
     {
-        $mapping = [1 => 'Bar & Game Room', 2 => 'BedRoom', 3 => 'Decor', 4 => 'Dining & Kitchen', 5 => 'Lighting', 6 => 'Living Room', 7 => 'Mattresses', 8 => 'Office', 9 => 'Outdoor'];
+        $mapping = [1 => 'Electronics', 2 => 'Clothing', 3 => 'Stationary', 4 => 'Accessories', 5 => 'Drinks', 6 => 'Lighting', 7 => 'Mattresses', 8 => 'Footwear', 9 => 'Furniture', 10 => 'Food'];
         if (isset($this->_data['category_id'])) {
             return $mapping[$this->_data['category_id']];
         }

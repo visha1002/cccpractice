@@ -1,0 +1,40 @@
+<section class="list">
+    <h1>Category List</h1>
+    <table class="table_body">
+        <thead>
+            <tr>
+                <th>Category Id</th>
+                <th>category Name</th>
+                <th>Status</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            $categoryCollection = Mage::getModel("catalog/category")->getCollection();
+
+            foreach ($categoryCollection->getData() as $category):
+
+                ?>
+                <tr>
+                    <td>
+                        <?php echo $category->getId() ?>
+                    </td>
+                    <td>
+                        <?php echo $category->getCategoryName() ?>
+                    </td>
+                    <td>
+                        <?php echo $category->getStatus() ?>
+                    </td>
+                    <td>
+                        <a href="form?pid=<?php echo $category->getId() ?>" class="edit">Edit</a>
+                    </td>
+                    <td>
+                        <a href="delete?pid=<?php echo $category->getId() ?>" class="delete">Delete</a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</section>

@@ -10,7 +10,7 @@ class Sales_Model_Quote_Item extends Core_Model_Abstract
         $this->collectionClass = 'Sales_Model_Resource_Collection_Quote_Item';
     }
 
-    protected function oreSave()
+    protected function _beforeSave()
     {
         if ($this->getProductId()) {
             $row_total = $this->getproduct()->getPrice() * $this->getQty();
