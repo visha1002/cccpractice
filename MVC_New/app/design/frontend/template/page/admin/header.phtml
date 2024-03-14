@@ -12,6 +12,47 @@
             <li class="nav-item">
                 <a class="nav-link" href="#" style="color: #fff;">Users</a>
             </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    Products
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <li><a class="dropdown-item" href="<?php echo $this->getUrl("admin/catalog_product/form") ?>">
+                            Add Produts</a></li>
+                    <li><a class="dropdown-item"
+                            href="<?php echo $this->getUrl("admin/catalog_product/list") ?>">Products
+                            List</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    Category
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <li><a class="dropdown-item" href="<?php echo $this->getUrl("admin/catalog_category/form") ?>">Add
+                            Category</a></li>
+                    <li><a class="dropdown-item"
+                            href="<?php echo $this->getUrl("admin/catalog_product/list") ?>">Category
+                            List</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    Banner
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <li><a class="dropdown-item" href="<?php echo $this->getUrl("admin/banner/form") ?>">Add
+                            Banner</a></li>
+                    <li><a class="dropdown-item" href="<?php echo $this->getUrl("admin/banner/list") ?>">Banner
+                            List</a>
+                    </li>
+                </ul>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" href="#" style="color: #fff;">Settings</a>
             </li>

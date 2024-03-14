@@ -11,9 +11,9 @@ class Sales_Block_Cart extends Core_Block_Template
     public function getCartDetails()
     {
         $quoteModel = $this->getQuote();
-        $id = $quoteModel->getId();
-        $cartModel = Mage::getModel('sales/quote_item')->getCollection()->addFieldToFilter('quote_id', $id);
-        return $cartModel;
+        // $id = $quoteModel->getId();
+        // $cartModel = Mage::getModel('sales/quote_item')->getCollection()->addFieldToFilter('quote_id', $id);
+        return $quoteModel->getItemCollection();
     }
 
     public function getProductDetails()

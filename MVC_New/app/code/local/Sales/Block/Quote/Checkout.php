@@ -26,4 +26,5 @@ class Sales_Block_Quote_Checkout extends Sales_Block_Cart
         return $customer;
     }
 
+
 }

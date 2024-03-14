@@ -89,14 +89,26 @@ class Sales_Controller_Quote extends Core_Controller_Front_Action
         $layout->toHtml();
     }
 
-    public function saveaddressAction()
+    public function saveformAction()
     {
         $addressData = $this->getRequest()->getParams('checkoutdata');
-        // echo "<pre>";
-        // print_r($addressData);
-        $addressModel = Mage::getModel('sales/quote_address')->setData($addressData);
-        $addressModel->save();
+        echo "<pre>";
+        print_r($addressData);
+        $addressModel = Mage::getSingleton('sales/quote_customer')->addAddress($addressData);
+
+        $shippingData = $this->getRequest()->getParams('shipping_data');
+        print_r($shippingData);
+        $shippingModel = Mage::getSingleton('sales/quote_shipping')->addShipping($shippingData);
+
+        $paymentData = $this->getRequest()->getParams('payment_data');
+        print_r($paymentData);
+        $paymentModel = Mage::getSingleton('sales/quote_payment')->addPayment($paymentData);
         $this->setRedirect('sales/quote/checkout');
+    }
+
+    public function convertAction()
+    {
+        Mage::getSingleton('sales/quote')->convert();
     }
 
 }

@@ -2,6 +2,7 @@
 
 class Sales_Model_Quote_Item extends Core_Model_Abstract
 {
+    protected $_product = null;
 
     public function init()
     {
@@ -21,7 +22,10 @@ class Sales_Model_Quote_Item extends Core_Model_Abstract
 
     public function getProduct()
     {
-        return Mage::getModel('catalog/product')->load($this->getProductId());
+        if (is_null($this->_product)) {
+            $this->_product = Mage::getModel('catalog/product')->load($this->getProductId());
+        }
+        return $this->_product;
     }
 
     public function addItem(Sales_Model_Quote $quote, $productId, $qty)

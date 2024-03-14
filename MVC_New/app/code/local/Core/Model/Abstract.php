@@ -111,7 +111,10 @@ class Core_Model_Abstract
 
     public function removeData($key = null)
     {
-
+        if (isset($this->_data[$key])) {
+            unset($this->_data[$key]);
+        }
+        return $this;
     }
     protected function _beforeSave()
     {

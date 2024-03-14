@@ -57,4 +57,47 @@ class Sales_Model_Quote extends Core_Model_Abstract
     {
         return Mage::getModel('sales/quote_item')->getCollection()->addFieldToFilter('quote_id', $this->getId());
     }
+
+    public function convert()
+    {
+        $this->initQuote();
+        if ($this->getId()) {
+            // sales_order save
+            $order = Mage::getModel('sales/order')
+                ->setData($this->getData());
+            $order->removeData('quote_id')
+                ->removeData('order_id')
+                ->removeData('shipping_id')
+                ->removeData('payment_id');
+            $orderNumber = $this->generateOrderNumber();
+            $order->addData('order_number', $orderNumber);
+            $order->save(); // ------ convert sales_quote to order in sales_order
+            $orderId = $order->getId();
+            $this->addData('order_id', $orderId)
+                ->save();  // order id is set in sales_quote
+
+            //sales_order_item save
+            foreach ($this->getItemCollection()->getData() as $_item) {
+                $orderItem = Mage::getModel('sales/order_item')
+                    ->setData($_item->getData());
+                $orderItem->removeData('item_id')
+                    ->removeData('quote_id');
+                echo "<pre>";
+                $orderItem->addData('order_id', $orderId);
+                $productData = $_item->getProduct();
+                $productName = $productData->getName();
+                $productColor = $productData->getColor();
+                $orderItem->addData('product_name', $productName)
+                    ->addData('product_color', $productColor)
+                    ->save();
+                print_r($orderItem);
+            }
+        }
+    }
+
+    public function generateOrderNumber()
+    {
+        $orderNumber = mt_rand(10000, 999999);
+        return $orderNumber;
+    }
 }
