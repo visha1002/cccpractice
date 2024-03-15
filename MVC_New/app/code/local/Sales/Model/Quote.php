@@ -53,6 +53,21 @@ class Sales_Model_Quote extends Core_Model_Abstract
         }
     }
 
+    public function addAddress($address)
+    {
+        $this->setData($address)->save();
+    }
+
+    public function addPayment($payment)
+    {
+        $this->setData($payment)->save();
+    }
+
+    public function addShipping($shipping)
+    {
+        $this->setData($shipping)->save();
+    }
+
     public function getItemCollection()
     {
         return Mage::getModel('sales/quote_item')->getCollection()->addFieldToFilter('quote_id', $this->getId());

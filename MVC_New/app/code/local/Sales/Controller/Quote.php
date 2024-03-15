@@ -94,15 +94,15 @@ class Sales_Controller_Quote extends Core_Controller_Front_Action
         $addressData = $this->getRequest()->getParams('checkoutdata');
         echo "<pre>";
         print_r($addressData);
-        $addressModel = Mage::getSingleton('sales/quote_customer')->addAddress($addressData);
+        $addressModel = Mage::getSingleton('sales/quote')->addAddress($addressData);
 
         $shippingData = $this->getRequest()->getParams('shipping_data');
         print_r($shippingData);
-        $shippingModel = Mage::getSingleton('sales/quote_shipping')->addShipping($shippingData);
+        $shippingModel = Mage::getSingleton('sales/quote')->addShipping($shippingData);
 
         $paymentData = $this->getRequest()->getParams('payment_data');
         print_r($paymentData);
-        $paymentModel = Mage::getSingleton('sales/quote_payment')->addPayment($paymentData);
+        $paymentModel = Mage::getSingleton('sales/quote')->addPayment($paymentData);
         $this->setRedirect('sales/quote/checkout');
     }
 

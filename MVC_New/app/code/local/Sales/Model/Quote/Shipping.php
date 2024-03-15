@@ -9,8 +9,5 @@ class Sales_Model_Quote_Shipping extends Core_Model_Abstract
         $this->collectionClass = 'Sales_Model_Resource_Collection_Quote_Shipping';
     }
 
-    public function addShipping($shipping)
-    {
-        $this->setData($shipping)->save();
-    }
+
 }

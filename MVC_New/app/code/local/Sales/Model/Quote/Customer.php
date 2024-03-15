@@ -9,8 +9,4 @@ class Sales_Model_Quote_Customer extends Core_Model_Abstract
         $this->collectionClass = 'Sales_Model_Resource_Collection_Quote_Customer';
     }
 
-    public function addAddress($address)
-    {
-        $this->setData($address)->save();
-    }
 }

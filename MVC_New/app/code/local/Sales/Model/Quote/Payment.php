@@ -9,8 +9,4 @@ class Sales_Model_Quote_Payment extends Core_Model_Abstract
         $this->collectionClass = 'Sales_Model_Resource_Collection_Quote_Payment';
     }
 
-    public function addPayment($payment)
-    {
-        $this->setData($payment)->save();
-    }
 }
