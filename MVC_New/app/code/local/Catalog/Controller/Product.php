@@ -15,7 +15,7 @@ class Catalog_Controller_Product extends Core_Controller_Front_Action
 
         $id = $this->getRequest()->getParams('pid');
         // printf($id);
-        if (isset($id) && !empty($id)) {
+        if (isset ($id) && !empty ($id)) {
             $view = $layout->createBlock('catalog/view');
             $child->addChild('view', $view);
         } else {

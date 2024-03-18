@@ -1,7 +1,7 @@
 <?php
 // echo Mage::getSingleton('core/session')->remove('customerId');
 $productModel = $this->getProduct();
-
+$categoryModel = Mage::getModel('catalog/category')->getCollection();
 ?>
 <section class="formlist">
     <form action="<?php echo $this->getUrl("admin/catalog_product/save") ?>" method="post" class="form">
@@ -57,42 +57,15 @@ $productModel = $this->getProduct();
             <div class="form-group category">
                 <label for="Category" class="heading">Category :</label>
                 <select name="p_data[category_id]" id="categories">
-                    <option value="1" <?php echo (($productModel->getCategoryId()) == 'Bar & Game Room')
-                        ? "selected"
-                        : "";
-                    ?>>Bar & Game Room</option>
-                    <option value="2" <?php echo (($productModel->getCategoryId()) == 'BedRoom')
-                        ? "selected"
-                        : "";
-                    ?>>BedRoom</option>
-                    <option value="3" <?php echo (($productModel->getCategoryId()) == 'Decor')
-                        ? "selected"
-                        : "";
-                    ?>>Decor</option>
-                    <option value="4" <?php echo (($productModel->getCategoryId()) == 'Dining & Kitchen')
-                        ? "selected"
-                        : "";
-                    ?>>Dining & Kitchen</option>
-                    <option value="5" <?php echo (($productModel->getCategoryId()) == 'Lighting')
-                        ? "selected"
-                        : "";
-                    ?>>Lighting</option>
-                    <option value="6" <?php echo (($productModel->getCategoryId()) == 'Living Room')
-                        ? "selected"
-                        : "";
-                    ?>>Living Room</option>
-                    <option value="7" <?php echo (($productModel->getCategoryId()) == 'Mattresses')
-                        ? "selected"
-                        : "";
-                    ?>>Mattresses</option>
-                    <option value="8" <?php echo (($productModel->getCategoryId()) == 'Office')
-                        ? "selected"
-                        : "";
-                    ?>>Office</option>
-                    <option value="9" <?php echo (($productModel->getCategoryId()) == 'Outdoor')
-                        ? "selected"
-                        : "";
-                    ?>>Outdoor</option>
+
+                    <?php foreach ($categoryModel->getData() as $category) { ?>
+
+                        <option value="<?php echo $category->getId(); ?>" <?php echo (($productModel->getCategoryId()) == $category->getCategoryName())
+                               ? "selected"
+                               : "";
+                           ?>><?php echo $category->getCategoryName(); ?>
+                        </option>
+                    <?php } ?>
                 </select>
             </div>
             <br>

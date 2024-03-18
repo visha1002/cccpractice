@@ -24,9 +24,21 @@ class Sales_Model_Quote extends Core_Model_Abstract
     {
         $quoteId = Mage::getSingleton('core/session')->get('quote_id');
 
+
+        $customerId = Mage::getSingleton('core/session')->get('logged_in_customer_id');
+        $customerId = (!$customerId) ? 0 : $customerId;
+
+        $quoteColl = $this->getCollection()->addFieldToFilter('quote_id', $quoteId)->addFieldToFilter('order_id', 0)->getFirstItem();
+        if (!is_null($quoteColl)) {
+            $quoteId = $quoteColl->getId();
+            $quoteColl->addData('customer_id', $customerId)->save();
+            // $quoteUpdate = $quoteColl->getCollection()->addFieldToFilter('customer_id', $customerId)->getFirstItem();
+            // if (!is_null($quoteUpdate)) {
+            //     $quoteId = $quoteUpdate->getId();
+            // }
+        }
         $quoteId = (!$quoteId) ? 0 : $quoteId;
         $this->load($quoteId);
-
         if (!$this->getId()) {
             $quote = Mage::getModel('sales/quote')
                 ->setData(
@@ -34,12 +46,29 @@ class Sales_Model_Quote extends Core_Model_Abstract
                         'tax_percent' => 0,
                         'grand_total' => 0
                     ]
-                )
-                ->save();
+                )->save();
+            if ($customerId) {
+                $quote->addData('customer_id', $customerId);
+                $data = $quote->getCollection()->addFieldToFilter('customer_id', $customerId)
+                    ->addFieldToFilter('order_id', 0)
+                    ->getFirstItem();
+                $quote->setData($data->getData());
+                $quote->save();
+            }
+
             Mage::getSingleton('core/session')->set('quote_id', $quote->getId());
             $this->load($quote->getId());
-            print_r($quote);
         }
+
+    }
+
+    public function getQuoteCollection()
+    {
+        return Mage::getSingleton('sales/quote')->getCollection()
+            ->addFieldToFilter('customer_id', Mage::getSingleton('core/session')->get('logged_in_customer_id'))
+            ->addFieldToFilter('order_id', 0)
+            ->getFirstItem();
+
     }
 
     public function addProduct($product)
@@ -55,17 +84,58 @@ class Sales_Model_Quote extends Core_Model_Abstract
 
     public function addAddress($address)
     {
-        $this->setData($address)->save();
+        $this->initQuote();
+        $customerAddress = Mage::getModel('sales/quote_customer');
+        $quoteCustomer = $customerAddress->getCollection()->addFieldToFilter('quote_id', $this->getId())->getFirstItem();
+        $quoteCustomerId = ($quoteCustomer && $quoteCustomer->getId()) ? $quoteCustomer->getId() : 0;
+
+        $customerId = Mage::getSingleton('core/session')->get('logged_in_customer_id');
+        $customerModel = Mage::getModel('customer/customer')->load($customerId);
+        $customerEmail = $customerModel->getCustomerEmail();
+
+        $customerAddress->setData($address)
+            ->addData('quote_customer_id', $quoteCustomerId)
+            ->adddata('quote_id', $this->getId())
+            ->addData('customer_id', $customerId)
+            ->addData('email', $customerEmail);
+        $customerAddress->save();
+        print_r($customerAddress);
     }
 
     public function addPayment($payment)
     {
-        $this->setData($payment)->save();
+        $this->initQuote();
+        $paymentModel = Mage::getModel('sales/quote_payment');
+        $quotePayment = $paymentModel->getCollection()->addFieldToFilter('quote_id', $this->getId())->getFirstItem();
+        $paymentId = ($quotePayment && $quotePayment->getId()) ? $quotePayment->getId() : 0;
+
+        $paymentModel->setData($payment)
+            ->addData('payment_id', $paymentId)
+            ->addData('quote_id', $this->getId());
+        $paymentModel->save();
+        print_r($paymentModel);
+
+        $salesPaymentId = $paymentModel->getId();
+        $salesQuote = Mage::getSingleton('sales/quote')->addData('payment_id', $salesPaymentId);
+        $salesQuote->save();
     }
 
     public function addShipping($shipping)
     {
-        $this->setData($shipping)->save();
+        $this->initQuote();
+        $shippingModel = Mage::getModel('sales/quote_shipping');
+        $quoteShipping = $shippingModel->getCollection()->addFieldToFilter('quote_id', $this->getId())->getFirstItem();
+        $shippingId = ($quoteShipping && $quoteShipping->getId()) ? $quoteShipping->getId() : 0;
+
+        $shippingModel->setData($shipping)
+            ->addData('shipping_id', $shippingId)
+            ->addData('quote_id', $this->getId());
+        $shippingModel->save();
+        print_r($shippingModel);
+
+        $salesShippingId = $shippingModel->getId();
+        $salesQuote = Mage::getSingleton('sales/quote')->addData('shipping_id', $salesShippingId);
+        $salesQuote->save();
     }
 
     public function getItemCollection()
@@ -88,10 +158,11 @@ class Sales_Model_Quote extends Core_Model_Abstract
             $order->addData('order_number', $orderNumber);
             $order->save(); // ------ convert sales_quote to order in sales_order
             $orderId = $order->getId();
+
             $this->addData('order_id', $orderId)
                 ->save();  // order id is set in sales_quote
 
-            //sales_order_item save
+            // sales_order_item save
             foreach ($this->getItemCollection()->getData() as $_item) {
                 $orderItem = Mage::getModel('sales/order_item')
                     ->setData($_item->getData());
@@ -105,8 +176,46 @@ class Sales_Model_Quote extends Core_Model_Abstract
                 $orderItem->addData('product_name', $productName)
                     ->addData('product_color', $productColor)
                     ->save();
-                print_r($orderItem);
+                // print_r($orderItem);
             }
+            //sales_order_customer save
+
+            $quoteCustomer = Mage::getModel('sales/quote_customer')->getCollection()->addFieldToFilter('quote_id', $this->getId())->getFirstItem()->getData();
+            $orderCustomer = Mage::getModel('sales/order_customer')
+                ->setData($quoteCustomer)
+                ->removeData('quote_customer_id')
+                ->removeData('quote_id')
+                ->addData('order_id', $orderId)
+                ->save();
+
+            // print_r($orderCustomer);
+
+            //sales_order_payment_method save
+
+            $quotePayment = Mage::getModel('sales/quote_payment')->getCollection()->addFieldToFilter('quote_id', $this->getId())->getFirstItem()->getData();
+            $orderPayment = Mage::getModel('sales/order_payment')->setData($quotePayment)
+                ->removeData('payment_id')
+                ->removeData('quote_id')
+                ->addData('order_id', $orderId)
+                ->save();
+            // print_r($orderPayment);
+
+            //sales_order_Shipping_method save
+
+            $quoteShipping = Mage::getModel('sales/quote_shipping')->getCollection()->addFieldToFilter('quote_id', $this->getId())->getFirstItem()->getData();
+            $orderShipping = Mage::getModel('sales/order_shipping')->setData($quoteShipping)
+                ->removeData('shipping_id')
+                ->removeData('quote_id')
+                ->addData('order_id', $orderId)
+                ->save();
+            // print_r($orderShipping);
+
+            $paymentOrderId = $orderPayment->getId();
+            $order->addData('payment_id', $paymentOrderId);
+
+            $shippingOrderId = $orderShipping->getId();
+            $order->addData('shipping_id', $shippingOrderId);
+            $order->save();
         }
     }
 

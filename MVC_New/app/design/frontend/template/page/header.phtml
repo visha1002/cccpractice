@@ -1,3 +1,7 @@
+<?php
+$categories = Mage::getModel('catalog/category')->getCollection();
+?>
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark pb-2 pt-2">
     <div class="container-fluid">
         <a class="navbar-brand" href="#"><span style="color: #F6F193;">S</span>hop<span
@@ -15,7 +19,7 @@
                     <a class="nav-link" href="<?php echo $this->getUrl("catalog/product/view") ?>">Products</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Pricing</a>
+                    <a class="nav-link" href="">Pricing</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
@@ -28,14 +32,35 @@
                         <li><a class="dropdown-item" href="<?php echo $this->getUrl("sales/quote/view") ?>">Cart</a>
                         </li>
                         <li><a class="dropdown-item" href="#">Wishlist</a></li>
+                        <li><a class="dropdown-item"
+                                href="<?php echo $this->getUrl("customer/account/register") ?>">Sign In</a>
                     </ul>
                 </li>
             </ul>
             <form class="d-flex">
                 <input class="form-control me-2 mt-1" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success me-2 mt-2" type="submit">Search</button>
-                <button type="submit" class="btn btn-outline-info me-2 mt-2">LogIn</button>
+                <a href="<?php echo $this->getUrl("customer/account/login") ?>"><button type="button"
+                        class="btn btn-outline-info me-2 mt-2">LogIn</button></a>
             </form>
+        </div>
+    </div>
+</nav>
+
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav d-flex justify-content-between w-100">
+            <!-- Category links -->
+            <?php foreach ($categories->getData() as $category) { ?>
+                <a class="nav-item nav-link"
+                    href="<?php echo $this->getUrl("catalog/category/view?cid=" . $category->getId()) ?>">
+                    <?php echo $category->getCategoryName(); ?>
+                </a>
+            <?php } ?>
         </div>
     </div>
 </nav>

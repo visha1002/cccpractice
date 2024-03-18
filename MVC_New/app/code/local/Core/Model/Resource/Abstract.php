@@ -34,25 +34,25 @@ class Core_Model_Resource_Abstract
     {
         $_data = $model->getData();
         // echo $product->getId();
-        if (isset($_data[$this->getPrimaryKey()]) && !empty($_data[$this->getPrimaryKey()])) {
+        if (isset ($_data[$this->getPrimaryKey()]) && !empty ($_data[$this->getPrimaryKey()])) {
             unset($_data[$this->getPrimaryKey()]);
             $sql = $this->updateSql($this->getTableName(), $_data, [$this->getPrimaryKey() => $model->getId()]);
             $id = $this->getAdapter()->update($sql);
             // $product->setId($id);
-            echo $sql;
+            // echo $sql;
         } else {
             $sql = $this->insertSql($this->getTableName(), $_data);
-            echo $sql;
+            // echo $sql;
             $id = $this->getAdapter()->insert($sql);
             $model->setId($id);
-            echo $sql;
+            // echo $sql;
         }
     }
 
     public function delete(Core_Model_Abstract $model)
     {
         $sql = $this->deleteSql($this->getTableName(), [$this->getPrimaryKey() => $model->getId()]);
-        echo $sql;
+        // echo $sql;
         $this->getAdapter()->delete($sql);
     }
 

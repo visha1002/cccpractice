@@ -1,91 +1,40 @@
-<section class="list">
-    <table class="table_body">
-        <thead>
-            <tr>
-                <th>Product Id</th>
-                <th>Product Name</th>
-                <th>SKU</th>
-                <th>Color</th>
-                <th>Size</th>
-                <th>Description</th>
-                <th>Image Link</th>
-                <th>Link</th>
-                <th>Category</th>
-                <th>Price</th>
-                <th>Manufacturing Cost</th>
-                <th>Shipping cost</th>
-                <th>Total Cost</th>
-                <th>Margin Percentage</th>
-                <th>Minimum price</th>
-                <th>Status</th>
-                <th>View</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            $cid = $this->getRequest()->getParams('cid', 0);
-            $categoryModel = Mage::getModel('catalog/product')->getCollection()
-                ->addFieldToFilter('category_id', $cid);
-            // echo "<pre>";
-            // print_r($categoryModel);
-            foreach ($categoryModel->getData() as $categoryModel):
+<?php
+$cid = $this->getRequest()->getParams('cid', 0);
+$categoryModel = Mage::getModel('catalog/product')->getCollection()
+    ->addFieldToFilter('category_id', $cid);
 
-                ?>
-                <tr>
-                    <td>
-                        <?php echo $categoryModel->getProductId() ?>
-                    </td>
-                    <td>
-                        <?php echo $categoryModel->getName() ?>
-                    </td>
-                    <td>
-                        <?php echo $categoryModel->getSku() ?>
-                    </td>
-                    <td>
-                        <?php echo $categoryModel->getColor() ?>
-                    </td>
-                    <td>
-                        <?php echo $categoryModel->getSize() ?>
-                    </td>
-                    <td>
-                        <?php echo $categoryModel->getDescription() ?>
-                    </td>
-                    <td>
-                        <?php echo $categoryModel->getImageLink() ?>
-                    </td>
-                    <td>
-                        <?php echo $categoryModel->getLink() ?>
-                    </td>
-                    <td>
-                        <?php echo $categoryModel->getCategoryId() ?>
-                    </td>
-                    <td><strong>
-                            <?php echo $categoryModel->getPrice() ?>
-                        </strong>
-                    </td>
-                    <td>
-                        <?php echo $categoryModel->getMfrCost() ?>
-                    </td>
-                    <td>
-                        <?php echo $categoryModel->getShippingCost() ?>
-                    </td>
-                    <td>
-                        <?php echo $categoryModel->getTotalCost() ?>
-                    </td>
-                    <td>
-                        <?php echo $categoryModel->getMarginPercentage() ?>
-                    </td>
-                    <td>
-                        <?php echo $categoryModel->getMinPrice() ?>
-                    </td>
-                    <td>
-                        <?php echo $categoryModel->getStatus() ?>
-                    </td>
-                    <td>
-                        <a href="../product/view?pid=<?php echo $categoryModel->getId() ?>" class="edit">View</a>
-                    </td>
-                </tr>
-            </tbody>
+?>
+<div class="container">
+    <div class="row">
+        <?php $count = 0; ?>
+        <?php foreach ($categoryModel->getData() as $categoryModel): ?>
+            <div class="col-md-4 mb-4">
+                <div class="card" style="background-color: #C7C8CC;">
+                    <img class="card-img-top" style="height: 250px; object-fit: cover;"
+                        src="<?php echo Mage::getBaseUrl() . 'media/product/' . $categoryModel->getImageLink() ?>"
+                        alt="Product Image">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <?php echo $categoryModel->getName() ?>
+                        </h5>
+                        <p class="card-text">
+                            <strong>Category:</strong>
+                            <?php echo $categoryModel->getCategoryId() ?><br>
+                            <strong>Price:</strong>
+                            <?php echo $categoryModel->getPrice() ?><br>
+                            <!-- Add more details as needed -->
+                        </p>
+                        <a href="<?php echo $this->getUrl('catalog/product/view?pid=' . $categoryModel->getId()) ?>"><button
+                                class="btn btn-primary">View</button></a>
+                    </div>
+                </div>
+            </div>
+
+            <?php $count++; ?>
+            <?php if ($count % 3 === 0): ?>
+            </div>
+            <div class="row">
+            <?php endif; ?>
         <?php endforeach; ?>
-    </table>
-</section>
+    </div>
+</div>

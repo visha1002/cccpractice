@@ -9,7 +9,8 @@ class Sales_Block_Quote_Checkout extends Sales_Block_Cart
 
     public function getCustomerAddress()
     {
-        return Mage::getModel('customer/address')->getCollection();
+        $customerId = Mage::getSingleton('core/session')->get('logged_in_customer_id');
+        return Mage::getModel('customer/address')->getCollection()->addFieldToFilter('customer_id', $customerId);
     }
 
     public function getQuote()

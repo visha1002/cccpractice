@@ -69,7 +69,7 @@
             <div class="col-md-6">
                 <button class="btn btn-primary mb-3" id='addressbtn' style="width:100%">Click Here to Select
                     Address</button>
-                <div id="addressdiv" style="width:100%; background-color:#9AD0C2;">
+                <div id="addressdiv" style="width:100%; background-color:#9AD0C2; cursor:pointer;">
                     <?php if (!empty($addressModel)): ?>
                         <?php foreach ($addressModel->getData() as $add): ?>
                             <div class="d-flex justify-content-center">
@@ -115,13 +115,6 @@
                         <div class="row">
                             <div class="col-md-6 mt-4">
                                 <h4 class="m-2">Billing Address</h4>
-                                <input type="text" hidden name="checkoutdata[quote_customer_id]" value="">
-                                <input type="text" hidden value="<?php echo $quoteDetails->getId() ?>"
-                                    name="checkoutdata[quote_id]">
-                                <input type="text" hidden value="<?php echo $customerDetail->getId(); ?>"
-                                    name="checkoutdata[customer_id]">
-                                <input type="text" hidden value="<?php echo $customerDetail->getCustomerEmail(); ?>"
-                                    name="checkoutdata[email]">
                                 <div class="form-group">
                                     <label for="b_address">Address:</label>
                                     <textarea class="form-control" rows="3" name="checkoutdata[billing_address]"
@@ -199,8 +192,6 @@
                         <h4 class="mb-4">Shipping Methods</h4>
                         <?php foreach ($shippingModel as $key => $value): ?>
                             <div class="form-check mb-2">
-                                <input type="text" hidden name="shipping_data[shipping_id]" value="">
-                                <input type="text" hidden value="<?php echo $quoteDetails->getId() ?>" name="shipping_data[quote_id]">
                                 <input class="form-check-input" type="radio" name="shipping_data[shipping_method]"
                                     id="expressShipping" value="<?php echo $key ?>">
                                 <label class="form-check-label" for="Shipping">
@@ -216,8 +207,6 @@
                         <h4 class="mb-4">Payment Methods</h4>
                         <?php foreach ($paymentModel as $key => $value): ?>
                             <div class="form-check mb-2">
-                                 <input type="text" hidden name="payment_data[payment_id]" value="">
-                                <input type="text" hidden value="<?php echo $quoteDetails->getId() ?>" name="payment_data[quote_id]">
                                 <input class="form-check-input" type="radio" name="payment_data[payment_method]" id="<?php echo $key ?>"
                                     value="<?php echo $key ?>">
                                 <label class="form-check-label" for="Payment">
