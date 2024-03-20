@@ -29,13 +29,15 @@ class Sales_Model_Quote extends Core_Model_Abstract
         $customerId = (!$customerId) ? 0 : $customerId;
 
         $quoteColl = $this->getCollection()->addFieldToFilter('quote_id', $quoteId)->addFieldToFilter('order_id', 0)->getFirstItem();
+        // print_r($quoteColl);
+        // die;
         if (!is_null($quoteColl)) {
             $quoteId = $quoteColl->getId();
             $quoteColl->addData('customer_id', $customerId)->save();
-            // $quoteUpdate = $quoteColl->getCollection()->addFieldToFilter('customer_id', $customerId)->getFirstItem();
-            // if (!is_null($quoteUpdate)) {
-            //     $quoteId = $quoteUpdate->getId();
-            // }
+            $quoteUpdate = $quoteColl->getCollection()->addFieldToFilter('customer_id', $customerId)->addFieldToFilter('order_id', 0)->getFirstItem();
+            if (!is_null($quoteUpdate)) {
+                $quoteId = $quoteUpdate->getId();
+            }
         }
         $quoteId = (!$quoteId) ? 0 : $quoteId;
         $this->load($quoteId);
@@ -46,29 +48,12 @@ class Sales_Model_Quote extends Core_Model_Abstract
                         'tax_percent' => 0,
                         'grand_total' => 0
                     ]
-                )->save();
-            if ($customerId) {
-                $quote->addData('customer_id', $customerId);
-                $data = $quote->getCollection()->addFieldToFilter('customer_id', $customerId)
-                    ->addFieldToFilter('order_id', 0)
-                    ->getFirstItem();
-                $quote->setData($data->getData());
-                $quote->save();
-            }
+                );
+            $quote->save();
 
             Mage::getSingleton('core/session')->set('quote_id', $quote->getId());
             $this->load($quote->getId());
         }
-
-    }
-
-    public function getQuoteCollection()
-    {
-        return Mage::getSingleton('sales/quote')->getCollection()
-            ->addFieldToFilter('customer_id', Mage::getSingleton('core/session')->get('logged_in_customer_id'))
-            ->addFieldToFilter('order_id', 0)
-            ->getFirstItem();
-
     }
 
     public function addProduct($product)

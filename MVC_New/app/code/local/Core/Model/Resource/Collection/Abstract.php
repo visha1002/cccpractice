@@ -43,7 +43,11 @@ class Core_Model_Resource_Collection_Abstract
             $this->load();
         }
 
-        return $this->_data[0];
+        if (!empty ($this->_data)) {
+            return $this->_data[0];
+        }
+
+        return null; // Or handle the case where no items are found in the collection
     }
 
     public function addFieldToFilter($column, $filter)
@@ -149,19 +153,19 @@ class Core_Model_Resource_Collection_Abstract
         $sql = "SELECT * FROM {$this->_select['from']} ";
         // echo $sql;
 
-        if (isset($this->_select['where']) && count($this->_select['where'])) {
+        if (isset ($this->_select['where']) && count($this->_select['where'])) {
             $sql = $this->where($sql);
         }
 
-        if (isset($this->_select['groupby']) && count($this->_select['groupby'])) {
+        if (isset ($this->_select['groupby']) && count($this->_select['groupby'])) {
             $sql = $this->groupBy($sql);
         }
 
-        if (isset($this->_select['orderby']) && count($this->_select['orderby'])) {
+        if (isset ($this->_select['orderby']) && count($this->_select['orderby'])) {
             $sql = $this->orderBy($sql);
         }
 
-        if (isset($this->_select['limit']) && count($this->_select['limit'])) {
+        if (isset ($this->_select['limit']) && count($this->_select['limit'])) {
             $sql .= "LIMIT {$this->_select['limit'][0]}";
         }
         // echo $sql;

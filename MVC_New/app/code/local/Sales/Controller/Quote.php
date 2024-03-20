@@ -109,10 +109,11 @@ class Sales_Controller_Quote extends Core_Controller_Front_Action
     public function convertAction()
     {
         Mage::getSingleton('sales/quote')->convert();
-        $this->setRedirect('sales/quote/sucess');
+        Mage::getSingleton('core/session')->remove('quote_id');
+        $this->setRedirect('sales/quote/success');
     }
 
-    public function sucessAction()
+    public function successAction()
     {
         $layout = $this->getLayout();
         // $layout->getChild('head')->addJs('js/page.js');
@@ -120,8 +121,8 @@ class Sales_Controller_Quote extends Core_Controller_Front_Action
         $layout->getChild('head')->addCss(Mage::getBaseUrl() . "skin/css/header.css");
         $layout->getChild('head')->addCss(Mage::getBaseUrl() . "skin/css/footer.css");
         $child = $layout->getchild('content');
-        $sucess = $layout->createBlock('sales/order_sucess');
-        $child->addChild('sucess', $sucess);
+        $success = $layout->createBlock('sales/order_success');
+        $child->addChild('success', $success);
         $layout->toHtml();
     }
 

@@ -1,0 +1,37 @@
+<form method="post" action="<?php echo $this->getUrl("customer/address/save") ?>">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mt-4">
+                <h4 class="m-3 mb-5 center">Customer Address</h4>
+                <div class="form-group">
+                    <label for="b_address">Address:</label>
+                    <textarea class="form-control" rows="3" name="c_address[address]" id="billing_address"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="b_city">City:</label>
+                    <input type="text" class="form-control" name="c_address[city]" id="billing_city" value="">
+                </div>
+                <div class="form-group">
+                    <label for="b_region">Region:</label>
+                    <input type="text" class="form-control" name="c_address[region]" id="billing_region" value="">
+                </div>
+                <div class="form-group">
+                    <label for="b_country">Country:</label>
+                    <input type="text" class="form-control" name="c_address[country]" id="billing_country" value="">
+                </div>
+                <div class="form-group">
+                    <label for="b_phone">Phone Number:</label>
+                    <input type="text" class="form-control" name="c_address[phone_no]" id="billing_phone_no" value="">
+                </div>
+                <div class="form-group">
+                    <label for="b_postalcode">Postal Code:</label>
+                    <input type="text" class="form-control" name="c_address[postcode]" id="billing_postcode" value="">
+                </div>
+                <div class="form-group text-center">
+                    <input type="submit" class="btn btn-primary m-0" value="submit" name="sub" id="sub"
+                        style="width:60%">
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

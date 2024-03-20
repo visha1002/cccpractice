@@ -92,7 +92,7 @@
                             </div>
                         <?php endforeach; ?>
                     <?php endif; ?>
-                    <button class="btn btn-dark ml-3" style="margin:inherit;">Add new Address</button>
+                    <a href="<?php echo $this->getUrl("customer/address/form") ?>"><button class="btn btn-dark ml-3" style="margin:inherit;">Add new Address</button></a>
                 </div>
                 <script type="text/javascript">
                     $('.address-cards').each((i, e) => {

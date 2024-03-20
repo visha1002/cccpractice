@@ -1,6 +1,6 @@
 <?php
 
-class Sales_Block_Order_Sucess extends Core_Block_Template
+class Sales_Block_Order_success extends Core_Block_Template
 {
     public function __construct()
     {

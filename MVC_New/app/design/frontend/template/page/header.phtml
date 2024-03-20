@@ -31,7 +31,8 @@ $categories = Mage::getModel('catalog/category')->getCollection();
                                 Account</a></li>
                         <li><a class="dropdown-item" href="<?php echo $this->getUrl("sales/quote/view") ?>">Cart</a>
                         </li>
-                        <li><a class="dropdown-item" href="#">Wishlist</a></li>
+                        <li><a class="dropdown-item" href="<?php echo $this->getUrl("sales/order/list") ?>">My
+                                Orders</a></li>
                         <li><a class="dropdown-item"
                                 href="<?php echo $this->getUrl("customer/account/register") ?>">Sign In</a>
                     </ul>

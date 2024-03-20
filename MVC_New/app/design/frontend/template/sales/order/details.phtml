@@ -1,0 +1,45 @@
+<?php
+
+$orders = $this->getOrderItems();
+// echo "<pre>";
+// print_r($orders->getData());          ?>
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Order Details</h2>
+
+    <!-- Start of order item cards -->
+    <div class="row">
+        <!-- Start of order item card -->
+        <?php
+        foreach ($orders->getData() as $order) {
+            ?>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="<?php echo Mage::getBaseUrl() . 'media/product/' . $order->getProduct()->getImageLink() ?>"
+                        alt="Product Photo" class="card-img-top product-photo">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">
+                            <?php echo $order->getProductName() ?>
+                        </h5>
+                        <p class="card-text">Price :
+                            <?php echo $order->getProduct()->getPrice() ?>
+                        </p>
+                        <p class="card-text">Quantity :
+                            <?php echo $order->getQty() ?>
+                        </p>
+                        <p class="card-text">Row Total :
+                            <?php echo $order->getRowTotal() ?>
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+            <!-- End of order item card -->
+            <?php
+        }
+        ?>
+        <!-- Repeat this card for each order item -->
+    </div>
+    <!-- End of order item cards -->
+
+</div>

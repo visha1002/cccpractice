@@ -15,4 +15,9 @@ class Sales_Model_Order extends Core_Model_Abstract
         $orderNumber = mt_rand(10000, 999999);
         return $orderNumber;
     }
+
+    public function getItemCollection()
+    {
+        return Mage::getModel('sales/order_item')->getCollection()->addFieldToFilter('order_id', $this->getId());
+    }
 }

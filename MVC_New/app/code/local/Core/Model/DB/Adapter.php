@@ -26,6 +26,7 @@ class Core_Model_DB_Adapter
 
     public function fetchAll($query)
     {
+        // printdebug_backtrace();
         $row = [];
         $sql = mysqli_query($this->connect(), $query);
         while ($_row = mysqli_fetch_assoc($sql)) {
@@ -46,6 +47,7 @@ class Core_Model_DB_Adapter
 
     public function fetchRow($query)
     {
+
         $row = [];
         $que = mysqli_query($this->connect(), $query);
         while ($_row = mysqli_fetch_assoc($que)) {

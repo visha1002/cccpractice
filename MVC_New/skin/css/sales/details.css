@@ -1,0 +1,26 @@
+.product-photo {
+  width: 100%;
+  height: auto;
+}
+
+.card {
+  border: 1px solid #ddd;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  /* Make the card take full height of the parent */
+}
+
+.card:hover {
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.2);
+}
+
+.card-title {
+  font-size: 1.25rem;
+}
+
+.card-text {
+  font-size: 1rem;
+  color: #666;
+}

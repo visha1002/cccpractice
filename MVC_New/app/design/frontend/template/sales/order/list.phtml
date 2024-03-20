@@ -1,0 +1,48 @@
+<?php
+$orders = $this->getOrders();
+?>
+<section class="list">
+    <table class="table_body">
+        <thead>
+            <tr>
+                <th>Sr. No</th>
+                <th>Order Number</th>
+                <th>Grand Total</th>
+                <th>Status</th>
+                <th>View Details</th>
+                <th>Cancel</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            $i = 1;
+            foreach ($orders->getData() as $orderView):
+                ?>
+                <tr>
+                    <td>
+                        <?php echo $i; ?>
+                    </td>
+                    <td>
+                        <?php echo $orderView->getOrderNumber() ?>
+                    </td>
+                    <td>
+                        <?php echo $orderView->getGrandTotal() ?>
+                    </td>
+                    <td>
+                        <?php echo $orderView->getStatus() ?>
+                    </td>
+                    <td>
+                        <a href="<?php echo $this->getUrl('sales/order/details') ?>?oid=<?php echo $orderView->getOrderId() ?>"
+                            class="edit">View Details</a>
+                    </td>
+                    <td>
+                        <a href="<?php echo $this->getUrl('sales/order/cancel') ?>?pid=<?php echo $orderView->getOrderId() ?>"
+                            class="delete">Cancel</a>
+                    </td>
+                </tr>
+                <?php $i += 1; ?>
+            <?php endforeach; ?>
+
+        </tbody>
+    </table>
+</section>
