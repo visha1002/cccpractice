@@ -3,6 +3,7 @@ $orders = Mage::getModel('sales/order')->getCollection();
 ?>
 <section class="list">
     <table class="table_body">
+        <h3>Placed Orders</h3>
         <thead>
             <tr>
                 <th>Order Id</th>
@@ -52,14 +53,18 @@ $orders = Mage::getModel('sales/order')->getCollection();
                                     ? "selected"
                                     : "";
                                 ?>>Pending</option>
-                                <option value="processing" <?php echo (($orderView->getStatus()) == 'processing')
-                                    ? "selected"
-                                    : "";
-                                ?>>Processing</option>
                                 <option value="shipped" <?php echo (($orderView->getStatus()) == 'shipped')
                                     ? "selected"
                                     : "";
                                 ?>>Shipped</option>
+                                <option value="in-process" <?php echo (($orderView->getStatus()) == 'in-process')
+                                    ? "selected"
+                                    : "";
+                                ?>>In-Process</option>
+                                <option value="can-Request" <?php echo (($orderView->getStatus()) == 'can-Request')
+                                    ? "selected"
+                                    : "";
+                                ?>>Can-Request</option>
                                 <option value="cancelled" <?php echo (($orderView->getStatus()) == 'cancelled')
                                     ? "selected"
                                     : "";
@@ -83,6 +88,54 @@ $orders = Mage::getModel('sales/order')->getCollection();
                     </form>
                     <td>
                         <a href="delete?pid=<?php echo $orderView->getId() ?>" class="delete">Delete</a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+
+
+    <?php
+    // if($orderView->getCancellationRequest())
+// print_r($orderView->getCancellationRequest());
+    
+    $cancelOrders = $this->getCancelReqestOrders();
+
+    ?>
+
+    <table class="table_body">
+        <h3 class="mt-5">Cancellation request</h3>
+        <thead>
+            <tr>
+                <th>Order Id</th>
+                <th>Order Number</th>
+                <th>Customer Id</th>
+                <th>Status</th>
+                <th>Approve</th>
+                <th>Decline</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            foreach ($cancelOrders->getData() as $cancel):
+                ?>
+                <tr>
+                    <td>
+                        <?php echo $cancel->getId() ?>
+                    </td>
+                    <td>
+                        <?php echo $cancel->getOrderNumber() ?>
+                    </td>
+                    <td>
+                        <?php echo $cancel->getCustomerId() ?>
+                    </td>
+                    <td>
+                        <?php echo $cancel->getStatus() ?>
+                    <td>
+                        <a href="" class="edit">Approve</a>
+                    </td>
+                    <td>
+                        <a href="" class="delete">Decline</a>
                     </td>
                 </tr>
             <?php endforeach; ?>
