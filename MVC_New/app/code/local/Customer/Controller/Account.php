@@ -87,6 +87,7 @@ class Customer_Controller_Account extends Core_Controller_Front_Action
 
                 if ($count) {
                     Mage::getSingleton('core/session')->set('logged_in_customer_id', $customerID);
+                    Mage::getModel('sales/quote')->initQuote();
                     // echo "Log In Successfull";
                     $message = [
                         'type' => 'success',
@@ -111,6 +112,8 @@ class Customer_Controller_Account extends Core_Controller_Front_Action
     public function logoutAction()
     {
         Mage::getSingleton('core/session')->remove('logged_in_customer_id');
+        Mage::getSingleton('core/session')->remove('quote_id');
+        // print_r($_SESSION);
         $this->setRedirect('');
     }
 

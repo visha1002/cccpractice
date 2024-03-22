@@ -23,36 +23,35 @@ class Sales_Model_Quote extends Core_Model_Abstract
     public function initQuote()
     {
         $quoteId = Mage::getSingleton('core/session')->get('quote_id');
-
-
-        $customerId = Mage::getSingleton('core/session')->get('logged_in_customer_id');
-        $customerId = (!$customerId) ? 0 : $customerId;
-
-        $quoteColl = $this->getCollection()->addFieldToFilter('quote_id', $quoteId)->addFieldToFilter('order_id', 0)->getFirstItem();
-        // print_r($quoteColl);
-        // die;
-        if (!is_null($quoteColl)) {
-            $quoteId = $quoteColl->getId();
-            $quoteColl->addData('customer_id', $customerId)->save();
-            $quoteUpdate = $quoteColl->getCollection()->addFieldToFilter('customer_id', $customerId)->addFieldToFilter('order_id', 0)->getFirstItem();
-            if (!is_null($quoteUpdate)) {
-                $quoteId = $quoteUpdate->getId();
-            }
-        }
         $quoteId = (!$quoteId) ? 0 : $quoteId;
-        $this->load($quoteId);
-        if (!$this->getId()) {
-            $quote = Mage::getModel('sales/quote')
-                ->setData(
-                    [
-                        'tax_percent' => 0,
-                        'grand_total' => 0
-                    ]
-                );
-            $quote->save();
-
-            Mage::getSingleton('core/session')->set('quote_id', $quote->getId());
-            $this->load($quote->getId());
+        $customer_id = Mage::getSingleton('core/session')->get('logged_in_customer_id');
+        $customer_id = (!$customer_id) ? 0 : $customer_id;
+        if ($customer_id) {
+            $customerQuote1 = Mage::getSingleton('sales/quote')->getCollection()->addFieldToFilter('customer_id', $customer_id)->addFieldToFilter('order_id', 0)->getFirstItem();
+            if (!$customerQuote1) {
+                $data1 = [
+                    'quote_id' => $quoteId,
+                    'customer_id' => $customer_id
+                ];
+                $this->setData($data1)->save();
+            } else {
+                $customerQuote = Mage::getSingleton('sales/quote')->getCollection()->addFieldToFilter('customer_id', $customer_id)->addFieldToFilter('order_id', 0)->addFieldToFilter('quote_id', $customerQuote1->getQuoteId())->getFirstItem();
+                $this->load($customerQuote->getId());
+            }
+        } else {
+            $this->load($quoteId);
+            if (!$this->getId()) {
+                $quote = Mage::getModel('sales/quote')
+                    ->setData(
+                        [
+                            'tax_percent' => 0,
+                            'grand_total' => 0,
+                        ]
+                    )
+                    ->save();
+                Mage::getSingleton('core/session')->set('quote_id', $quote->getId());
+                $this->load($quote->getId());
+            }
         }
     }
 
@@ -161,6 +160,12 @@ class Sales_Model_Quote extends Core_Model_Abstract
                 $orderItem->addData('product_name', $productName)
                     ->addData('product_color', $productColor)
                     ->save();
+
+                //reduce number of quantity
+                $inventory = $productData->getInventory();
+                $qty = $orderItem->getQty();
+                $inventory = $inventory - $qty;
+                $productData->addData('inventory', $inventory)->save();
                 // print_r($orderItem);
             }
             //sales_order_customer save

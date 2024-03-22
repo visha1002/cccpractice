@@ -8,7 +8,7 @@ $categoryModel = Mage::getModel('catalog/category')->getCollection();
         <div class="center">
             <h1>Product Form</h1>
             <div class="form-group row">
-                <input hidden type="text" placeholder="Enter your product name" name="p_data[product_id]" id=""
+                <input hidden type="text" placeholder="" name="p_data[product_id]" id=""
                     value="<?php echo $productModel->getId() ?>">
             </div>
             <br>
@@ -117,6 +117,11 @@ $categoryModel = Mage::getModel('catalog/category')->getCollection();
                         : "";
                     ?>>Disabled</option>
                 </select>
+            </div>
+            <div class="form-group row">
+                <label for="">Inventory : </label>
+                <input type="number" placeholder="Inventory" name="p_data[inventory]" id=""
+                    value="<?php echo $productModel->getInventory() ?>">
             </div>
             <button class="buttton" type="submit" name="submit">Submit</button>
         </div>

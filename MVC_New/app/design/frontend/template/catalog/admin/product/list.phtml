@@ -86,6 +86,9 @@
                         <?php echo $product->getStatus() ?>
                     </td>
                     <td>
+                        <?php echo $product->getInventory() ?>
+                    </td>
+                    <td>
                         <a href="form?pid=<?php echo $product->getId() ?>" class="edit">Edit</a>
                     </td>
                     <td>

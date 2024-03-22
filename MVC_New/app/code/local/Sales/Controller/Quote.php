@@ -39,7 +39,6 @@ class Sales_Controller_Quote extends Core_Controller_Front_Action
     {
         $id = Mage::getSingleton('core/session')->get('quote_id');
         // echo $id;
-
         $layout = $this->getLayout();
         $layout->getChild('head')->addJs('js/page.js');
         $layout->getChild('head')->addJs('js/head.js');

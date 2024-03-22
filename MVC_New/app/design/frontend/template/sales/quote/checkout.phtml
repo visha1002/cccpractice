@@ -110,7 +110,8 @@
                         });
                     })
                 </script>
-                <form method="post" action="<?php echo $this->getUrl("sales/quote/saveform") ?>">
+                    <form method="post" action="<?php echo $this->getUrl("sales/quote/saveform") ?>" class="form"
+                        onsubmit="return validateForm()">
                     <div class="container">
                         <div class="row">
                             <div class="col-md-6 mt-4">
@@ -123,27 +124,27 @@
                                 <div class="form-group">
                                     <label for="b_city">City:</label>
                                     <input type="text" class="form-control" name="checkoutdata[billing_city]"
-                                        id="billing_city" value="">
+                                        id="billing_city" value="" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="b_region">Region:</label>
                                     <input type="text" class="form-control" name="checkoutdata[billing_region]"
-                                        id="billing_region" value="">
+                                        id="billing_region" value="" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="b_country">Country:</label>
                                     <input type="text" class="form-control" name="checkoutdata[billing_country]"
-                                        id="billing_country" value="">
+                                        id="billing_country" value="" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="b_phone">Phone Number:</label>
                                     <input type="text" class="form-control" name="checkoutdata[billing_phone]"
-                                        id="billing_phone_no" value="">
+                                        id="billing_phone_no" value="" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="b_postalcode">Postal Code:</label>
                                     <input type="text" class="form-control" name="checkoutdata[billing_postcode]"
-                                        id="billing_postcode" value="">
+                                        id="billing_postcode" value="" required>
                                 </div>
 
                             </div>
@@ -161,27 +162,27 @@
                                 <div class="form-group">
                                     <label for="s_city">City:</label>
                                     <input type="text" class="form-control" name="checkoutdata[shipping_city]"
-                                        id="shipping_city" value="">
+                                        id="shipping_city" value="" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="s_region">Region:</label>
                                     <input type="text" class="form-control" name="checkoutdata[shipping_region]"
-                                        id="shipping_region" value="">
+                                        id="shipping_region" value="" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="s_country">Country:</label>
                                     <input type="text" class="form-control" name="checkoutdata[shipping_country]"
-                                        id="shipping_country" value="">
+                                        id="shipping_country" value="" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="s_phone">Phone Number:</label>
                                     <input type="text" class="form-control" name="checkoutdata[shipping_phone]"
-                                        id="shipping_phone_no" value="">
+                                        id="shipping_phone_no" value="" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="s_postalcode">Postal Code:</label>
                                     <input type="text" class="form-control" name="checkoutdata[shipping_postcode]"
-                                        id="shipping_postcode" value="">
+                                        id="shipping_postcode" value="" required>
                                 </div>
                             </div>
                         </div>
@@ -193,7 +194,7 @@
                         <?php foreach ($shippingModel as $key => $value): ?>
                             <div class="form-check mb-2">
                                 <input class="form-check-input" type="radio" name="shipping_data[shipping_method]"
-                                    id="expressShipping" value="<?php echo $key ?>">
+                                    id="expressShipping" value="<?php echo $key ?>" required>
                                 <label class="form-check-label" for="Shipping">
                                     <?php echo $value . " Shipping" ?>
                                 </label>
@@ -208,7 +209,7 @@
                         <?php foreach ($paymentModel as $key => $value): ?>
                             <div class="form-check mb-2">
                                 <input class="form-check-input" type="radio" name="payment_data[payment_method]" id="<?php echo $key ?>"
-                                    value="<?php echo $key ?>">
+                                    value="<?php echo $key ?>" required>
                                 <label class="form-check-label" for="Payment">
                                     <?php echo $value ?>
                                 </label>
@@ -280,3 +281,37 @@
             });
         });
     </script>
+
+    <script>
+    function validateForm() {
+        // Validate Billing Phone Number
+        var billingPhone = document.getElementById("billing_phone_no").value;
+        if (billingPhone.length !== 10 || isNaN(billingPhone)) {
+            alert("Billing Phone Number must be 10 digits");
+            return false;
+        }
+
+        // Validate Billing Postal Code
+        var billingPostalCode = document.getElementById("billing_postcode").value;
+        if (billingPostalCode.length !== 6) {
+            alert("Billing Postal Code must be 6 characters");
+            return false;
+        }
+
+        // Validate Shipping Phone Number
+        var shippingPhone = document.getElementById("shipping_phone_no").value;
+        if (shippingPhone.length !== 10 || isNaN(shippingPhone)) {
+            alert("Shipping Phone Number must be 10 digits");
+            return false;
+        }
+
+        // Validate Shipping Postal Code
+        var shippingPostalCode = document.getElementById("shipping_postcode").value;
+        if (shippingPostalCode.length !== 6) {
+            alert("Shipping Postal Code must be 6 characters");
+            return false;
+        }
+
+        return true; // Form submission will proceed if all validations pass
+    }
+</script>

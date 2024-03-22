@@ -3,7 +3,8 @@ $category = $this->getCategory();
 ?>
 
 <section class="formlist">
-    <form action="<?php echo $this->getUrl("admin/catalog_category/save") ?>" method="post" class="form">
+    <form action="<?php echo $this->getUrl("admin/catalog_category/save") ?>" method="post" class="form"
+        onsubmit="return validateForm()">
         <div class="center">
             <h1>Category Form</h1>
             <div class="form-group row">
@@ -13,8 +14,9 @@ $category = $this->getCategory();
             <br>
             <div class="form-group row">
                 <label for="">Category Name : </label>
-                <input type="text" placeholder="Enter category name" name="cat_data[category_name]" id=""
+                <input type="text" placeholder="Enter category name" name="cat_data[category_name]" id="category_name"
                     value="<?php echo $category->getCategoryName(); ?>">
+                <span id="category_name_error" style="color: red;"></span>
             </div>
             <br>
             <div class="form-group row">
@@ -26,3 +28,18 @@ $category = $this->getCategory();
         </div>
     </form>
 </section>
+
+<script>
+    function validateForm() {
+        var categoryName = document.getElementById("category_name").value;
+        var categoryNameError = document.getElementById("category_name_error");
+
+        if (!/^[a-zA-Z]+$/.test(categoryName)) {
+            categoryNameError.innerText = "Category name should contain only alphabets";
+            return false;
+        } else {
+            categoryNameError.innerText = "";
+            return true;
+        }
+    }
+</script>

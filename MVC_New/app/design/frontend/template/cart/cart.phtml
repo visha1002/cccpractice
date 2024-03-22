@@ -1,5 +1,4 @@
 <?php
-
 $quoteModel = $this->getQuote();
 $cartModel = $this->getCartDetails()->getData();
 ?>
@@ -69,7 +68,7 @@ if (!is_null($quoteModel->getData()) && !is_null($cartModel)):
                                                     <label for="quantity">Select Quantity:</label>
                                                     <select name="cart[qty]" id="quantity" style="width: 150px;  height : 30px;">
                                                         <?php
-                                                        for ($i = 1; $i <= 10; $i++):
+                                                        for ($i = 1; $i <= $cart->getProduct()->getInventory(); $i++):
                                                             ?> ?>
                                                             <option value="<?php echo $i ?>" <?php echo (($cart->getQty()) == $i)
                                                                    ? "selected"
@@ -102,7 +101,7 @@ endif;
     <?php if ($quoteModel->getGrandTotal() == 0) { ?>
         <h3 class="mb-5"> Your Cart is Empty !!</h3>
     <?php } ?>
-    <h3 class="bg-success text-white p-3">
+    <h3 class="bg-success text-white p-3 mb-5">
         Total:
         <?php echo "₹" . $quoteModel->getGrandTotal(); ?>
     </h3>

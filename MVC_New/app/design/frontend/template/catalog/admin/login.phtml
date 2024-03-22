@@ -1,18 +1,38 @@
 <section class="formlist">
-    <form action="" method="post" class="form">
+    <form action="" method="post" class="form" onsubmit="return validateForm()">
         <div class="center">
             <h1 class="mb-4">Admin Log In</h1>
             <div class="form-group row">
-                <label for="">UserName : </label>
-                <input type="text" placeholder="Enter your username or email " name="a_login[admin_username]" id=""
+                <label for="admin_username">Email:</label>
+                <input type="text" placeholder="Enter your email" name="a_login[admin_username]" id="admin_username"
                     value="">
+                <span id="username_error" style="color: red;"></span>
             </div>
             <br>
             <div class="form-group row">
-                <label for="">Password : </label>
-                <input type="password" placeholder="Enter your password" name="a_login[admin_password]" id="" value="">
+                <label for="admin_password">Password:</label>
+                <input type="password" placeholder="Enter your password" name="a_login[admin_password]"
+                    id="admin_password" value="">
             </div>
             <button class="buttton" type="submit" name="submit">Log In</button>
         </div>
     </form>
 </section>
+
+<script>
+    function validateForm() {
+        var username = document.getElementById("admin_username").value;
+        var usernameError = document.getElementById("username_error");
+
+        // Regular expression for email validation
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!emailRegex.test(username)) {
+            usernameError.innerText = "Please enter a valid email address";
+            return false;
+        } else {
+            usernameError.innerText = "";
+            return true;
+        }
+    }
+</script>

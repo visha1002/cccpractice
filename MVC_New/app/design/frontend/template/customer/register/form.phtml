@@ -5,7 +5,8 @@ $registerModel = $this->getProduct();
 ?>
 
 <section class="formlist">
-    <form action="<?php echo $this->getUrl("customer/account/save") ?>" method="post" class="form">
+    <form action="<?php echo $this->getUrl("customer/account/save") ?>" method="post" class="form"
+        onsubmit="return validateForm()">
         <div class="center">
             <h1>Customer Register</h1>
             <div class="form-group row">
@@ -14,10 +15,12 @@ $registerModel = $this->getProduct();
             </div>
             <br>
             <div class="form-group row">
-                <label for="">Email : </label>
-                <input type="text" placeholder="Enter your email " name="c_data[customer_email]" id=""
+                <label for="customer_email">Email :</label>
+                <input type="text" placeholder="Enter your email" name="c_data[customer_email]" id="customer_email"
                     value="<?php echo $registerModel->getCustomerEmail() ?>">
+                <span id="email_error" style="color: red;"></span>
             </div>
+
             <br>
             <div class="form-group row">
                 <label for="">Password : </label>
@@ -62,10 +65,12 @@ $registerModel = $this->getProduct();
             </div>
             <br>
             <div class="form-group row">
-                <label for="">Billing Phone : </label>
-                <input type="text" placeholder="Enter billing phone" name="c_data[billing_phone]" id=""
+                <label for="billing_phone">Billing Phone :</label>
+                <input type="text" placeholder="Enter billing phone" name="c_data[billing_phone]" id="billing_phone"
                     value="<?php echo $registerModel->getBillingPhone() ?>">
+                <span id="billing_phone_error" style="color: red;"></span>
             </div>
+
             <br>
             <div class="form-group row">
                 <label for="">Shipping Address : </label>
@@ -92,9 +97,10 @@ $registerModel = $this->getProduct();
             </div>
             <br>
             <div class="form-group row">
-                <label for="">Shipping Phone : </label>
-                <input type="text" placeholder="Enter shipping phone" name="c_data[shipping_phone]" id=""
+                <label for="shipping_phone">Shipping Phone :</label>
+                <input type="text" placeholder="Enter shipping phone" name="c_data[shipping_phone]" id="shipping_phone"
                     value="<?php echo $registerModel->getShippingPhone() ?>">
+                <span id="shipping_phone_error" style="color: red;"></span>
             </div>
             <br>
             <div class="form-group row">
@@ -106,3 +112,47 @@ $registerModel = $this->getProduct();
         </div>
     </form>
 </section>
+
+<script>
+    function validateForm() {
+        var email = document.getElementById("customer_email").value;
+        var emailError = document.getElementById("email_error");
+
+        // Regular expression for email validation
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!emailRegex.test(email)) {
+            emailError.innerText = "Please enter a valid email address";
+            return false;
+        } else {
+            emailError.innerText = "";
+            return true;
+        }
+    }
+</script>
+
+<script>
+    function validateForm() {
+        var billingPhone = document.getElementById("billing_phone").value;
+        var shippingPhone = document.getElementById("shipping_phone").value;
+        var billingPhoneError = document.getElementById("billing_phone_error");
+        var shippingPhoneError = document.getElementById("shipping_phone_error");
+        var isValid = true;
+
+        if (billingPhone.length !== 10 || isNaN(billingPhone)) {
+            billingPhoneError.innerText = "Billing Phone Number must be exactly 10 digits";
+            isValid = false;
+        } else {
+            billingPhoneError.innerText = "";
+        }
+
+        if (shippingPhone.length !== 10 || isNaN(shippingPhone)) {
+            shippingPhoneError.innerText = "Shipping Phone Number must be exactly 10 digits";
+            isValid = false;
+        } else {
+            shippingPhoneError.innerText = "";
+        }
+
+        return isValid;
+    }
+</script>
