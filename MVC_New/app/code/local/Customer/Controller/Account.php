@@ -108,6 +108,12 @@ class Customer_Controller_Account extends Core_Controller_Front_Action
         }
     }
 
+    public function logoutAction()
+    {
+        Mage::getSingleton('core/session')->remove('logged_in_customer_id');
+        $this->setRedirect('');
+    }
+
     public function dashboardAction()
     {
         $layout = $this->getLayout();//->setTemplate('core/2column_left.phtml');

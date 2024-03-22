@@ -2,6 +2,7 @@
 $orders = $this->getOrders();
 ?>
 <section class="list">
+    <h2 class="text mb-4"><i class="fa-solid fa-circle-info m-2"></i>Order Details</h2>
     <table class="table_body">
         <thead>
             <tr>
@@ -9,8 +10,8 @@ $orders = $this->getOrders();
                 <th>Order Number</th>
                 <th>Grand Total</th>
                 <th>Status</th>
-                <th>View Details</th>
-                <th>Cancel</th>
+                <th>Details</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -33,12 +34,63 @@ $orders = $this->getOrders();
                     </td>
                     <td>
                         <a href="<?php echo $this->getUrl('sales/order/details') ?>?oid=<?php echo $orderView->getOrderId() ?>"
-                            class="edit">View Details</a>
+                            class="edit"><i class="fa-solid fa-circle-info m-2"></i> View</a>
                     </td>
-                    <td>
-                        <a href="<?php echo $this->getUrl('sales/order/cancel') ?>?pid=<?php echo $orderView->getOrderId() ?>"
-                            class="delete">Cancel</a>
-                    </td>
+                    <?php if ($orderView->getStatus() == 'pending' || $orderView->getStatus() == 'shipped' || $orderView->getStatus() == 'in-process') {
+                        ?>
+                        <td>
+                            <a href="<?php echo $this->getUrl('sales/order/cancel') ?>?oid=<?php echo $orderView->getOrderId() ?>"
+                                class="delete"><i class="fa-solid fa-xmark"></i> Delete</a>
+                        </td>
+                        <?php
+                    }
+                    ?>
+                    <?php
+                    if ($orderView->getStatus() == 'can-Request') {
+                        ?>
+                        <td>
+                            <b style="color:#5F5D9C;">Your Request for cancel order has been sent ! Please wait for response.
+                            </b>
+                        </td>
+                        <?php
+                    }
+                    ?>
+                    <?php
+                    if ($orderView->getStatus() == 'cancelled') {
+                        ?>
+                        <td>
+                            <b style="color:#EE4266;">Your request has been approved and your order has been cancelled ! </b>
+                        </td>
+                        <?php
+                    }
+                    ?>
+                    <?php
+                    if ($orderView->getStatus() == 'in-transit') {
+                        ?>
+                        <td>
+                            <b style="color:#40A2D8;">Sorry ! Your order cannot be cancelled now ! </b>
+                        </td>
+                        <?php
+                    }
+                    ?>
+                    <?php
+                    if ($orderView->getStatus() == 'refunded') {
+                        ?>
+                        <td>
+                            <b style="color:#0C2D57;">Order is cancelled and Refunded !</b>
+                        </td>
+                        <?php
+                    }
+                    ?>
+                    <?php
+                    if ($orderView->getStatus() == 'completed') {
+                        ?>
+                        <td>
+                            <b style="color:#0D9276;">Your Order has been Delivered ! Thanks For Shopping !</b>
+                        </td>
+                        <?php
+                    }
+                    ?>
                 </tr>
                 <?php $i += 1; ?>
             <?php endforeach; ?>
@@ -46,3 +98,17 @@ $orders = $this->getOrders();
         </tbody>
     </table>
 </section>
+
+<script>
+    $(document).ready(function () {
+        $('.delete').click(function (e) {
+            e.preventDefault();
+            var orderId = $(this).data('order-id');
+            // Show popup message
+            alert("Your request has been sent. Please wait until it gets accepted.");
+            // You can send an AJAX request here to handle the cancel action
+            // and update the UI accordingly.
+            window.location.href = $(this).attr('href');
+        });
+    });
+</script>

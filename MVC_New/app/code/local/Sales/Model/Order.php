@@ -10,9 +10,11 @@ class Sales_Model_Order extends Core_Model_Abstract
         $this->collectionClass = 'Sales_Model_Resource_Collection_Order';
     }
 
-    public function generateOrderNumber()
+    function generateOrderNumber()
     {
-        $orderNumber = mt_rand(10000, 999999);
+        $timestamp = time(); // Get current Unix timestamp
+        $randomNumber = mt_rand(10000, 99999); // Generate a random number
+        $orderNumber = 'ORD_' . $timestamp . '_' . $randomNumber; // Concatenate timestamp and random number
         return $orderNumber;
     }
 

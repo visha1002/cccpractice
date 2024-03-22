@@ -31,4 +31,15 @@ class Sales_Controller_Order extends Core_Controller_Front_Action
         $child->addChild('orderDetails', $orderDetails);
         $layout->toHtml();
     }
+
+    public function cancelAction()
+    {
+        $orderId = $this->getRequest()->getParams('oid');
+        $orderModel = Mage::getModel('sales/order')->load($orderId);
+        echo "<pre>";
+        print_r($orderModel);
+        $orderModel->addData('status', 'can-Request');
+        $orderModel->save();
+        $this->setRedirect('sales/order/list');
+    }
 }

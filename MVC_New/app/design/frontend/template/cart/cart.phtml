@@ -106,8 +106,10 @@ endif;
         Total:
         <?php echo "₹" . $quoteModel->getGrandTotal(); ?>
     </h3>
-    <h3 class="p-3">
-        <button type="button" class="btn btn-primary" style="width:150px"><a
-                href="<?php echo $this->getUrl('sales/quote/checkout') ?>" style="color:white;">Checkout</a></button>
-    </h3>
+    <?php if ($quoteModel->getGrandTotal() != 0) { ?>
+        <h3 class="p-3">
+            <button type="button" class="btn btn-primary" style="width:150px"><a
+                    href="<?php echo $this->getUrl('sales/quote/checkout') ?>" style="color:white;">Checkout</a></button>
+        </h3>
+    <?php } ?>
 </div>

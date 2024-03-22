@@ -16,6 +16,7 @@ $orders = Mage::getModel('sales/order')->getCollection();
                 <th>Status</th>
                 <th>Edit</th>
                 <th>Delete</th>
+                <th>View</th>
             </tr>
         </thead>
         <tbody>
@@ -48,46 +49,28 @@ $orders = Mage::getModel('sales/order')->getCollection();
                         <form action="<?php echo $this->getUrl("admin/orders/status") ?>" method="post">
                             <input type="text" hidden value="<?php echo $orderView->getOrderNumber() ?>"
                                 name="status[order_number]">
-                            <select name="status[status]" class="p-2">
-                                <option value="pending" <?php echo (($orderView->getStatus()) == 'pending')
-                                    ? "selected"
-                                    : "";
-                                ?>>Pending</option>
-                                <option value="shipped" <?php echo (($orderView->getStatus()) == 'shipped')
-                                    ? "selected"
-                                    : "";
-                                ?>>Shipped</option>
-                                <option value="in-process" <?php echo (($orderView->getStatus()) == 'in-process')
-                                    ? "selected"
-                                    : "";
-                                ?>>In-Process</option>
-                                <option value="can-Request" <?php echo (($orderView->getStatus()) == 'can-Request')
-                                    ? "selected"
-                                    : "";
-                                ?>>Can-Request</option>
-                                <option value="cancelled" <?php echo (($orderView->getStatus()) == 'cancelled')
-                                    ? "selected"
-                                    : "";
-                                ?>>Cancelled</option>
-                                <option value="declined" <?php echo (($orderView->getStatus()) == 'declined')
-                                    ? "selected"
-                                    : "";
-                                ?>>Declined</option>
-                                <option value="refunded" <?php echo (($orderView->getStatus()) == 'refunded')
-                                    ? "selected"
-                                    : "";
-                                ?>>Refunded</option>
-                                <option value="completed" <?php echo (($orderView->getStatus()) == 'completed')
-                                    ? "selected"
-                                    : "";
-                                ?>>Completed</option>
+                            <select name="status[status]" class="pt-2 pb-2">
+                                <option style="background-color: #FFFFFF;" value="pending" <?php echo ($orderView->getStatus() == 'pending') ? "selected" : ""; ?>>Pending</option>
+                                <option style="background-color: #F2DEDE;" value="shipped" <?php echo ($orderView->getStatus() == 'shipped') ? "selected" : ""; ?>>Shipped</option>
+                                <option style="background-color: #D9EDF7;" value="in-process" <?php echo ($orderView->getStatus() == 'in-process') ? "selected" : ""; ?>>In-Process</option>
+                                <option style="background-color: #FCF8E3;" value="can-Request" <?php echo ($orderView->getStatus() == 'can-Request') ? "selected" : ""; ?>>Can-Request</option>
+                                <option style="background-color: #F2DEDE;" value="cancelled" <?php echo ($orderView->getStatus() == 'cancelled') ? "selected" : ""; ?>>Cancelled</option>
+                                <option style="background-color: #DFF0D8;" value="in-transit" <?php echo ($orderView->getStatus() == 'in-transit') ? "selected" : ""; ?>>In-transit</option>
+                                <option style="background-color: #FCF8E3;" value="refunded" <?php echo ($orderView->getStatus() == 'refunded') ? "selected" : ""; ?>>Refunded</option>
+                                <option style="background-color: #0D9276;" value="completed" <?php echo ($orderView->getStatus() == 'completed') ? "selected" : ""; ?>>Completed</option>
                             </select>
+                    </td>
                     <td>
-                        <button type="submit" class="edit">Edit</button>
+                        <button type="submit" class="edit"><i class="fa-solid fa-pen-to-square p-1"></i></button>
                     </td>
                     </form>
                     <td>
-                        <a href="delete?pid=<?php echo $orderView->getId() ?>" class="delete">Delete</a>
+                        <a href="delete?pid=<?php echo $orderView->getId() ?>" class="delete"><i
+                                class="fa-solid fa-trash p-3"></i></a>
+                    </td>
+                    <td>
+                        <a href="<?php echo $this->getUrl('admin/orders/details') ?>?oid=<?php echo $orderView->getId() ?>"><button
+                                type="button" class="btn btn-dark"><i class="fa-solid fa-circle-info m-2"></i></button></a>
                     </td>
                 </tr>
             <?php endforeach; ?>
@@ -98,47 +81,61 @@ $orders = Mage::getModel('sales/order')->getCollection();
     <?php
     // if($orderView->getCancellationRequest())
 // print_r($orderView->getCancellationRequest());
-    
     $cancelOrders = $this->getCancelReqestOrders();
+    if (!empty ($cancelOrders->getData())) {
+        ?>
+        <table class="table_body">
+            <h3 class="mt-5">Cancellation request</h3>
+            <thead>
+                <tr>
+                    <th>Order Id</th>
+                    <th>Order Number</th>
+                    <th>Customer Id</th>
+                    <th>Status</th>
+                    <th>Approve</th>
+                    <th>Decline</th>
+                    <th>View</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                foreach ($cancelOrders->getData() as $cancel):
+                    ?>
+                    <tr>
+                        <td>
+                            <?php echo $cancel->getId() ?>
+                        </td>
+                        <td>
+                            <?php echo $cancel->getOrderNumber() ?>
+                        </td>
+                        <td>
+                            <?php echo $cancel->getCustomerId() ?>
+                        </td>
+                        <td>
+                            <?php echo $cancel->getStatus() ?>
+                        <td>
+                            <a href="<?php echo $this->getUrl('admin/orders/approve') ?>?oid=<?php echo $cancel->getId() ?>"
+                                class="edit">Approve</a>
+                        </td>
+                        <td>
+                            <a href="<?php echo $this->getUrl('admin/orders/decline') ?>?oid=<?php echo $cancel->getId() ?>"
+                                class="delete">Decline</a>
+                        </td>
+                        <td>
+                            <a href="<?php echo $this->getUrl('admin/orders/details') ?>?oid=<?php echo $cancel->getId() ?>"><button
+                                    type="button" class="btn btn-primary">Details</button></a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </section>
+    <?php
+    } else {
+        ?>
+    <h3 class="mt-5">Cancellation request</h3>
+    <h4 style="color:#A0153E" class="m-3"> No Cancellation Request !!</h4>
+    <?php
+    }
 
     ?>
-
-    <table class="table_body">
-        <h3 class="mt-5">Cancellation request</h3>
-        <thead>
-            <tr>
-                <th>Order Id</th>
-                <th>Order Number</th>
-                <th>Customer Id</th>
-                <th>Status</th>
-                <th>Approve</th>
-                <th>Decline</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            foreach ($cancelOrders->getData() as $cancel):
-                ?>
-                <tr>
-                    <td>
-                        <?php echo $cancel->getId() ?>
-                    </td>
-                    <td>
-                        <?php echo $cancel->getOrderNumber() ?>
-                    </td>
-                    <td>
-                        <?php echo $cancel->getCustomerId() ?>
-                    </td>
-                    <td>
-                        <?php echo $cancel->getStatus() ?>
-                    <td>
-                        <a href="" class="edit">Approve</a>
-                    </td>
-                    <td>
-                        <a href="" class="delete">Decline</a>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-</section>

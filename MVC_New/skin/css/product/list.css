@@ -139,16 +139,9 @@ tbody tr:hover {
   border-radius: 1rem;
 }
 
-.cart {
-  background-color: #f5dd61;
-  color: #faa300;
-  padding: 10px;
-  border-radius: 1rem;
-}
-
-#cart {
-  background-color: #f5dd61;
-  color: #faa300;
+.details {
+  background-color: #41c9e2;
+  color: #124076;
   padding: 10px;
   border-radius: 1rem;
 }

@@ -4,8 +4,8 @@ $categories = Mage::getModel('catalog/category')->getCollection();
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark pb-2 pt-2">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#"><span style="color: #F6F193;">S</span>hop<span
-                style="color: #e44d26;">M</span>e</a>
+        <a class="navbar-brand" href="#"><i class="fa-brands fa-slack m-2"></i><span
+                style="color: #F6F193;">S</span>hop<span style="color: #e44d26;">M</span>e</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
             aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -40,9 +40,11 @@ $categories = Mage::getModel('catalog/category')->getCollection();
             </ul>
             <form class="d-flex">
                 <input class="form-control me-2 mt-1" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success me-2 mt-2" type="submit">Search</button>
+                <button class="btn btn-outline-light me-2 mt-2" type="submit">Search</button>
                 <a href="<?php echo $this->getUrl("customer/account/login") ?>"><button type="button"
-                        class="btn btn-outline-info me-2 mt-2">LogIn</button></a>
+                        class="btn btn-outline-light me-2 mt-2">Login</button></a>
+                <a href="<?php echo $this->getUrl("customer/account/logout") ?>"><button type="button"
+                        class="btn btn-outline-light me-2 mt-2">Logout</button></a>
             </form>
         </div>
     </div>

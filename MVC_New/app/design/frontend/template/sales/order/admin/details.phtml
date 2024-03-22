@@ -1,0 +1,129 @@
+<?php
+
+$orders = $this->getOrderItems();
+$customer = $this->getCustomer();
+$shipping = $this->getShipping();
+$payment = $this->getPayment();
+?>
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Order Details</h2>
+
+    <!-- Start of order item cards and customer details -->
+    <div class="row">
+        <!-- Start of order item cards -->
+        <div class="col-md-6">
+            <h3>Product Details</h3>
+            <div class="row">
+                <!-- Start of order item card -->
+                <?php foreach ($orders->getData() as $order) { ?>
+                    <div class="col-md-6 mb-4">
+                        <!-- Product Card -->
+                        <div class="card">
+                            <img src="<?php echo Mage::getBaseUrl() . 'media/product/' . $order->getProduct()->getImageLink() ?>"
+                                alt="Product Photo" class="card-img-top product-photo">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <?php echo $order->getProductName() ?>
+                                </h5>
+                                <p class="card-text">Price :
+                                    <?php echo $order->getProduct()->getPrice() ?>
+                                </p>
+                                <p class="card-text">Quantity :
+                                    <?php echo $order->getQty() ?>
+                                </p>
+                                <p class="card-text">Row Total:
+                                    <?php echo $order->getRowTotal() ?>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End of order item card -->
+                <?php } ?>
+                <!-- Repeat this card for each order item -->
+            </div>
+        </div>
+        <!-- End of order item cards -->
+
+        <!-- Start of customer details -->
+        <div class="col-md-6">
+            <h3>Customer Details</h3>
+            <!-- Customer Card -->
+            <div class="card m-3" style="height: fit-content;">
+                <div class="card-body">
+                    <h5 class="card-title">ID :
+                        <?php echo $customer->getId() ?>
+                    </h5>
+                    <p class="card-text"><strong>Email:</strong>
+                        <?php echo $customer->getCustomerEmail() ?>
+                    </p>
+                    <p class="card-text"><strong>First Name:</strong>
+                        <?php echo $customer->getFirstName() ?>
+                    </p>
+                    <p class="card-text"><strong>Last Name:</strong>
+                        <?php echo $customer->getLastName() ?>
+                    </p>
+                    <!-- Add more customer details here if needed -->
+                </div>
+            </div>
+            <div class="card m-3" style="height: fit-content;">
+                <div class="card-body">
+                    <h5 class="mt-3 mb-3">Billing Address</h5>
+                    <p class="card-text"><strong>Billing Address:</strong>
+                        <?php echo $customer->getBillingAddress() ?>
+                    </p>
+                    <p class="card-text"><strong>Billing City:</strong>
+                        <?php echo $customer->getBillingCity() ?>
+                    </p>
+                    <p class="card-text"><strong>Billing Region:</strong>
+                        <?php echo $customer->getBillingRegion() ?>
+                    </p>
+                    <p class="card-text"><strong>Billing Country:</strong>
+                        <?php echo $customer->getBillingCountry() ?>
+                    </p>
+                    <p class="card-text"><strong>Billing Phone:</strong>
+                        <?php echo $customer->getBillingPhone() ?>
+                    </p>
+                    <!-- Add more customer details here if needed -->
+                </div>
+            </div>
+            <div class="card m-3" style="height: fit-content;">
+                <div class="card-body">
+                    <h5 class="mt-3 mb-3">Shipping Address</h5>
+                    <p class="card-text"><strong>Shipping Address:</strong>
+                        <?php echo $customer->getShippingAddress() ?>
+                    </p>
+                    <p class="card-text"><strong>Shipping City:</strong>
+                        <?php echo $customer->getShippingCity() ?>
+                    </p>
+                    <p class="card-text"><strong>Shipping Region:</strong>
+                        <?php echo $customer->getShippingRegion() ?>
+                    </p>
+                    <p class="card-text"><strong>Shipping Country:</strong>
+                        <?php echo $customer->getShippingCountry() ?>
+                    </p>
+                    <p class="card-text"><strong>Shipping Phone:</strong>
+                        <?php echo $customer->getShippingPhone() ?>
+                    </p>
+                    <!-- Add more customer details here if needed -->
+                </div>
+            </div>
+            <div class="card m-3" style="height: fit-content;">
+                <div class="card-body">
+                    <h5 class="mt-3 mb-3">Shipping and Payment Details</h5>
+                    <p class="card-text"><strong>Shipping Method:</strong>
+                        <?php echo $shipping->getShippingMethod() ?>
+                    </p>
+                    <p class="card-text"><strong>Payment Method:</strong>
+                        <?php echo $payment->getPaymentMethod() ?>
+                    </p>
+                    <p class="card-text"><strong>Card Number:</strong>
+                        <?php echo $payment->getCardNumber() ?>
+                    </p>
+                    <!-- Add more customer details here if needed -->
+                </div>
+            </div>
+            <!-- End of customer details -->
+        </div>
+        <!-- End of order item cards and customer details -->
+    </div>

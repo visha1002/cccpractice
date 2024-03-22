@@ -11,7 +11,7 @@ class Admin_Controller_Orders extends Core_Controller_Admin_Action
         $layout->getChild('head')->addCss(Mage::getBaseUrl() . "skin/css/footer.css");
         $layout->getChild('head')->addCss(Mage::getBaseUrl() . "skin/css/product/list.css");
         $child = $layout->getchild('content');
-        $orders = $layout->createBlock('admin/orders');
+        $orders = $layout->createBlock('admin/orders_view');
         $child->addChild('orders', $orders);
         $layout->toHtml();
     }
@@ -46,6 +46,45 @@ class Admin_Controller_Orders extends Core_Controller_Admin_Action
         Mage::getModel('sales/order')
             ->load($this->getRequest()->getParams("pid", 0))
             ->delete();
+        $this->setRedirect('admin/orders/view');
+    }
+
+    public function detailsAction()
+    {
+        $layout = $this->getLayout();
+        // $layout->getChild('head')->addJs('js/page.js');
+        $layout->getChild('head')->addJs(Mage::getBaseUrl() . 'skin/js/jquery-3.7.1.min.js');
+        $layout->getChild('head')->addCss(Mage::getBaseUrl() . "skin/css/header.css");
+        $layout->getChild('head')->addCss(Mage::getBaseUrl() . "skin/css/product/list.css");
+        $layout->getChild('head')->addCss(Mage::getBaseUrl() . "skin/css/sales/details.css");
+        $layout->getChild('head')->addCss(Mage::getBaseUrl() . "skin/css/footer.css");
+        $child = $layout->getchild('content');
+        $orderDetails = $layout->createBlock('admin/orders_details');
+        $child->addChild('orderDetails', $orderDetails);
+        $layout->toHtml();
+    }
+
+    public function approveAction()
+    {
+        $orderId = $this->getRequest()->getParams('oid');
+        // print_r($ordereId);
+        $orderModel = Mage::getModel('sales/order')->load($orderId);
+        // echo "<pre>";
+        // print_r($orderModel);
+        $orderModel->addData('status', 'cancelled');
+        $orderModel->save();
+        $this->setRedirect('admin/orders/view');
+    }
+
+    public function declineAction()
+    {
+        $orderId = $this->getRequest()->getParams('oid');
+        // print_r($ordereId);
+        $orderModel = Mage::getModel('sales/order')->load($orderId);
+        // echo "<pre>";
+        // print_r($orderModel);
+        $orderModel->addData('status', 'in-transit');
+        $orderModel->save();
         $this->setRedirect('admin/orders/view');
     }
 }
