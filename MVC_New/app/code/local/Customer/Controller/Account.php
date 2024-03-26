@@ -87,7 +87,8 @@ class Customer_Controller_Account extends Core_Controller_Front_Action
 
                 if ($count) {
                     Mage::getSingleton('core/session')->set('logged_in_customer_id', $customerID);
-                    Mage::getModel('sales/quote')->initQuote();
+                    $quote = Mage::getModel('sales/quote')->initQuote();
+                    // $quote->merge();
                     // echo "Log In Successfull";
                     $message = [
                         'type' => 'success',

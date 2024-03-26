@@ -68,13 +68,25 @@ if (!is_null($quoteModel->getData()) && !is_null($cartModel)):
                                                     <label for="quantity">Select Quantity:</label>
                                                     <select name="cart[qty]" id="quantity" style="width: 150px;  height : 30px;">
                                                         <?php
-                                                        for ($i = 1; $i <= $cart->getProduct()->getInventory(); $i++):
-                                                            ?> ?>
-                                                            <option value="<?php echo $i ?>" <?php echo (($cart->getQty()) == $i)
-                                                                   ? "selected"
-                                                                   : "";
-                                                               ?>><?php echo $i ?></option>
-                                                        <?php endfor; ?>
+                                                        if ($cart->getProduct()->getInventory() > 10):
+                                                            for ($i = 1; $i <= 10; $i++):
+                                                                ?>
+                                                                <option value="<?php echo $i ?>" <?php echo (($cart->getQty()) == $i)
+                                                                       ? "selected"
+                                                                       : "";
+                                                                   ?>><?php echo $i ?></option>
+                                                            <?php endfor; ?>
+                                                        <?php endif; ?>
+                                                        <?php
+                                                        if ($cart->getProduct()->getInventory() < 10):
+                                                            for ($i = 1; $i <= $cart->getProduct()->getInventory(); $i++):
+                                                                ?>
+                                                                <option value="<?php echo $i ?>" <?php echo (($cart->getQty()) == $i)
+                                                                       ? "selected"
+                                                                       : "";
+                                                                   ?>><?php echo $i ?></option>
+                                                            <?php endfor; ?>
+                                                        <?php endif; ?>
                                                     </select>
                                                 </h6>
                                                 <button class="btn btn-primary mb-2" type="submit" name="submit">Set

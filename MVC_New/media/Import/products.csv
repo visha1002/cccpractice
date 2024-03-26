@@ -1,0 +1,3 @@
+sku,name,color,size,description,image_link,link,category_id,price,mfr_cost,shipping_cost,total_cost,margin_percentage,min_price,inventory
+12,Black Tshirt,black,34,black Tshirt,Tshirt1.webp,ewddf,2,400,320,40,360,5,300,50
+14,v-neck Tshirt,maroon,34,maroon Tshirt,Tshirt2.webp,ewdhuf,2,500,420,40,360,5,300,50

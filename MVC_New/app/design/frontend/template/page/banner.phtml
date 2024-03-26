@@ -1,33 +1,17 @@
 <?php
-
+$banners = Mage::getModel('banner/banner')->getCollection();
 ?>
 
 <div style="padding-bottom: 20px;" id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
-        <div class="carousel-item" data-bs-interval="2000">
-            <img style="height:550px; border-radius:0;"
-                src="<?php echo Mage::getBaseUrl() . 'media/banner/sales.jpg' ?>" class="d-block w-100" alt="...">
-        </div>
-        <div class="carousel-item" data-bs-interval="2000">
-            <img style="height:550px; border-radius:0;" src="<?php echo Mage::getBaseUrl() . 'media/banner/shop.jpg' ?>"
-                class="d-block w-100" alt="...">
-        </div>
-        <div class="carousel-item active" data-bs-interval="2000">
-            <img style="height:550px; border-radius:0;"
-                src="<?php echo Mage::getBaseUrl() . 'media/banner/cream.jpg' ?>" class="d-block w-100" alt="...">
-        </div>
-        <div class="carousel-item" data-bs-interval="2000">
-            <img style="height:550px; border-radius:0;"
-                src="<?php echo Mage::getBaseUrl() . 'media/banner/headphones.jpg' ?>" class="d-block w-100" alt="...">
-        </div>
-        <div class="carousel-item" data-bs-interval="2000">
-            <img style="height:550px; border-radius:0;"
-                src="<?php echo Mage::getBaseUrl() . 'media/banner/online.jpg' ?>" class="d-block w-100" alt="...">
-        </div>
-        <div class="carousel-item" data-bs-interval="2000">
-            <img style="height:550px; border-radius:0;"
-                src="<?php echo Mage::getBaseUrl() . 'media/banner/fashion.jpg' ?>" class="d-block w-100" alt="...">
-        </div>
+        <?php foreach ($banners->getData() as $banner):
+            //print_r($banner->getBannerImage());   ?>
+            <div class="carousel-item <?php echo ($banner->getBannerId() == 1) ? 'active' : ''; ?>" data-bs-interval="2000">
+                <img style="height:550px; border-radius:0;"
+                    src="<?php echo Mage::getBaseUrl() . 'media/banner/' . $banner->getBannerImage() ?>"
+                    class="d-block w-100" alt="...">
+            </div>
+        <?php endforeach; ?>
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>

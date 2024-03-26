@@ -209,6 +209,11 @@ class Sales_Model_Quote extends Core_Model_Abstract
         }
     }
 
+    public function merge()
+    {
+        // echo "here";
+    }
+
     function generateOrderNumber()
     {
         $timestamp = time(); // Get current Unix timestamp

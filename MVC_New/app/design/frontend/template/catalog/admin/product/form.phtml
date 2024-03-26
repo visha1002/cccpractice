@@ -4,7 +4,8 @@ $productModel = $this->getProduct();
 $categoryModel = Mage::getModel('catalog/category')->getCollection();
 ?>
 <section class="formlist">
-    <form action="<?php echo $this->getUrl("admin/catalog_product/save") ?>" method="post" class="form">
+    <form action="<?php echo $this->getUrl("admin/catalog_product/save") ?>" method="post" class="form"
+        enctype="multipart/form-data">
         <div class="center">
             <h1>Product Form</h1>
             <div class="form-group row">

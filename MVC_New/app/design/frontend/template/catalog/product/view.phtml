@@ -45,8 +45,13 @@ $catalogModel = $this->getProductDetail();
                                         <input type="text" hidden name="cart[Product_name]"
                                             value="<?php echo $catalogModel->getName() ?>">
                                         <label for="">Quantity : </label>
-                                        <input type="number" name="cart[qty]" min="1"
-                                            max="<?php echo $catalogModel->getInventory() ?>" value="1">
+                                        <?php if ($catalogModel->getInventory() > 10): ?>
+                                            <input type="number" name="cart[qty]" min="1" max="10" value="1">
+                                        <?php endif; ?>
+                                        <?php if ($catalogModel->getInventory() < 10): ?>
+                                            <input type="number" name="cart[qty]" min="1"
+                                                max="<?php echo $catalogModel->getInventory() ?>" value="1">
+                                        <?php endif; ?>
                                         <?php
                                         if ($catalogModel->getInventory() > 0) { ?>
                                             <button class="buttton" type="submit" name="submit">Add To Cart</button>
