@@ -56,34 +56,38 @@
                 <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
                     <h6 class="text-uppercase mb-4 font-weight-bold">Follow us</h6>
 
-                    <!-- Facebook -->
-                    <a class="btn btn-primary btn-floating m-1 logo" style="background-color: #FFCAD4"
-                        href="https://www.facebook.com/" role="button">
-                        <img src="<?php echo Mage::getBaseUrl() . "skin/images/facebook_logo.png" ?>" alt="">
-                    </a>
-
-                    <!-- Twitter -->
-                    <a class="btn btn-primary btn-floating m-1 logo" style="background-color: #55acee"
-                        href="https://twitter.com/login" role="button"><img
-                            src="<?php echo Mage::getBaseUrl() . "skin/images/twitter_logo.JPG" ?>" alt="">
-                    </a>
-                    <a class="btn btn-primary btn-floating m-1 logo" style="background-color: #FEFBF6"
-                        href="https://www.google.com/" role="button"><img
-                            src="<?php echo Mage::getBaseUrl() . "skin/images/google.jpg" ?>" alt=""></a>
-
-                    <!-- Instagram -->
-                    <a class="btn btn-primary btn-floating m-1 logo" style="background-color: #9AD0C2"
-                        href="https://www.instagram.com/accounts/login/" role="button"><img
-                            src="<?php echo Mage::getBaseUrl() . "skin/images/instagram_logo.PNG" ?>" alt="">
-
+                    <!-- Social media icons -->
+                    <div class="d-flex justify-content-between">
+                        <!-- Facebook -->
+                        <a href="https://www.facebook.com/" style="color:white"><i
+                                class="fa-brands fa-facebook me-3"></i></a>
+                        <!-- Twitter -->
+                        <a href="https://twitter.com/login" style="color:white"><i
+                                class="fa-brands fa-x-twitter me-3"></i></a>
+                        <!-- Instagram -->
+                        <a href="https://www.instagram.com/accounts/login/" style="color:white"><i
+                                class="fa-brands fa-instagram me-3"></i></a>
                         <!-- Linkedin -->
-                        <a class="btn btn-primary btn-floating m-1 logo" style="background-color: #B47B84"
-                            href="https://www.linkedin.com/login" role="button"><img
-                                src="<?php echo Mage::getBaseUrl() . "skin/images/linkedin.png" ?>" alt=""></a>
-                        <!-- Github -->
-                        <a class="btn btn-primary btn-floating m-1 logo" style="background-color: #000000"
-                            href="https://github.com/login" role="button"><img
-                                src="<?php echo Mage::getBaseUrl() . "skin/images/github.png" ?>" alt=""></a>
+                        <a href="https://www.linkedin.com/login" style="color:white"><i
+                                class="fa-brands fa-linkedin"></i></a>
+                    </div>
+
+                    <!-- Contact Us -->
+                    <div class="mt-3">
+                        <h5>Contact Us</h5>
+                        <form method="post" action="<?php echo $this->getUrl('contactus/message/save') ?>">
+                            <div class="form-group">
+                                <input type="email" class="form-control" placeholder="Your email address"
+                                    name="msg[email_id]">
+                            </div>
+                            <div class="form-group mt-1">
+                                <textarea class="form-control" rows="3" placeholder="Your message"
+                                    name="msg[message]"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-success btn-block mb-3 mt-1"
+                                onclick='return alertmsg()'>Send</button>
+                        </form>
+                    </div>
                 </div>
             </div>
             <!--Grid row-->
@@ -99,3 +103,10 @@
     </div>
     <!-- Copyright -->
 </footer>
+
+<script>
+    function alertmsg() {
+        alert('Thank you for contacting us.We will get back to you soon.');
+        return true;
+    }
+</script>

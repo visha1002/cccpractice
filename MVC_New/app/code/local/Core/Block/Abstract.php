@@ -9,7 +9,7 @@ class Core_Block_Abstract
 
     }
 
-    public function getTemplat()
+    public function getTemplate()
     {
 
     }

@@ -1,0 +1,53 @@
+<?php
+$contactusModel = $this->getContactusDetails();
+?>
+
+<section class="list">
+    <h1>Messages List <i class="fa-solid fa-comments m-2"></i></h1>
+    <?php if (count($contactusModel->getData())): ?>
+        <table class="table_body">
+            <thead>
+                <tr>
+                    <th>Message Id</th>
+                    <th>Email</th>
+                    <th>Message</th>
+                    <th>send Response</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                foreach ($contactusModel->getData() as $message):
+                    ?>
+                    <tr>
+                        <td>
+                            <?php echo $message->getId() ?>
+                        </td>
+                        <td>
+                            <?php echo $message->getEmailId() ?>
+                        </td>
+                        <td>
+                            <?php echo $message->getMessage() ?>
+                        </td>
+                        <td>
+                            <button class="btn btn-primary"
+                                onclick="openGmailCompose('<?php echo $message->getEmailId() ?>')">Reply</button>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php else:
+        ?>
+        <h3 class="text-danger">No Messages yet!</h3>
+    <?php endif; ?>
+</section>
+
+<script>
+    function openGmailCompose(emailId) {
+        // Construct the Gmail compose URL with the recipient's email address
+        var gmailComposeUrl = 'https://mail.google.com/mail/u/0/?view=cm&fs=1&to=' + encodeURIComponent(emailId);
+
+        // Open the Gmail compose window in a new tab
+        window.open(gmailComposeUrl, '_blank');
+    }
+</script>

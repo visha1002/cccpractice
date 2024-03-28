@@ -6,9 +6,19 @@ class Admin_Controller_Account extends Core_Controller_Admin_Action
         "login"
     ];
 
-    public function testAction()
+    public function dashboardAction()
     {
-        echo "test";
+        $layout = $this->getLayout();
+        $layout->getChild('head')->addJs('js/page.js');
+        $layout->getChild('head')->addJs('js/head.js');
+        $layout->getChild('head')->addCss(Mage::getBaseUrl() . "skin/css/header.css");
+        $layout->getChild('head')->addCss(Mage::getBaseUrl() . "skin/css/footer.css");
+        $layout->getChild('head')->addCss(Mage::getBaseUrl() . "skin/css/admin/dashboard.css");
+        $child = $layout->getchild('content');
+        $dashboard = $layout->createBlock('admin/dashboard');
+        $child->addChild('dashboard', $dashboard);
+
+        $layout->toHtml();
     }
     public function loginAction()
     {
@@ -33,7 +43,7 @@ class Admin_Controller_Account extends Core_Controller_Admin_Action
                 if ($username == Admin_Model_User::USERNAME && $password == Admin_Model_User::PASSWORD) {
                     Mage::getSingleton('core/session')->set('logged_in_admin_username', $username);
                     // echo "Log in successfull";
-                    $this->setRedirect('admin/catalog_product/list');
+                    $this->setRedirect('admin/account/dashboard');
                 } else {
                     echo "Wrong credentials";
                     Mage::getSingleton('core/session')->remove('logged_in_admin_username');
@@ -44,5 +54,11 @@ class Admin_Controller_Account extends Core_Controller_Admin_Action
         }
         // var_dump(Admin_Model_User::USERNAME);
         // var_dump(Admin_Model_User::PASSWORD);
+    }
+
+    public function logoutAction()
+    {
+        Mage::getSingleton('core/session')->remove('logged_in_admin_username');
+        $this->setRedirect('admin/account/dashboard');
     }
 }

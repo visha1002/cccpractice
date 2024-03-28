@@ -1,0 +1,35 @@
+.card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.card {
+  background-color: #f8f9fa;
+  border: none;
+  border-radius: 10px;
+}
+
+.card-title {
+  color: #333;
+}
+
+.card-text {
+  color: #666;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.table th,
+.table td {
+  border-top: none;
+  color: #333;
+}
+
+.table th {
+  background-color: #76abae;
+  color: #fff;
+}
+
+tbody tr:hover {
+  background-color: #e9ecef;
+}

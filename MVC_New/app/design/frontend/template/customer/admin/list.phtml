@@ -1,0 +1,52 @@
+<?php
+$customerModel = $this->getCustomers();
+?>
+
+<section class="list">
+    <h1>Customer List</h1>
+    <?php if (count($customerModel->getData())): ?>
+        <table class="table_body">
+            <thead>
+                <tr>
+                    <th>Customer Id</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Placed Any Order?</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                foreach ($customerModel->getData() as $customer):
+                    ?>
+                    <tr>
+                        <td>
+                            <?php echo $customer->getId() ?>
+                        </td>
+                        <td>
+                            <?php echo $customer->getFirstName() ?>
+                        </td>
+                        <td>
+                            <?php echo $customer->getLastName() ?>
+                        </td>
+                        <td>
+                            <?php echo $customer->getCustomerEmail() ?>
+                        </td>
+                        <td>
+                            <?php $customerId = $customer->getId();
+                            $orderCustomer = Mage::getModel('sales/order_customer')->getCollection()->addFieldToFilter('customer_id', $customerId);
+                            if (count($orderCustomer->getData())) {
+                                echo "yes";
+                            } else {
+                                echo "no";
+                            } ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php else:
+        ?>
+        <h3 class="text-danger">No Customers yet!</h3>
+    <?php endif; ?>
+</section>

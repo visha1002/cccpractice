@@ -1,0 +1,195 @@
+<?php
+$productCount = $this->getProductCount();
+$customerCount = $this->getCustomerCount();
+$orderCount = $this->getOrderCount();
+$messageCount = $this->getMessageCount();
+$recentOrder = $this->getRecentOrders();
+$recentCustomer = $this->getRecentCustomers();
+?>
+<div class="container mt-4">
+    <h1 style='background-color:#76abae;color:white;margin-auto; text-align:center;' class="mb-5 p-2">Admin Dashboard
+    </h1>
+    <div class="row">
+        <div class="col-md-3 mb-5">
+            <div class="card" onclick="productlist()" style="cursor:pointer">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <h5 class="card-title">Total Products</h5>
+                        </div>
+                        <div class="col-auto">
+                            <h2><i class="fa-solid fa-database" style="color: #76abae;"></i></h2>
+                        </div>
+                    </div>
+                    <p class="card-text">
+                        <?php echo $productCount ?>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card" onclick="customerlist()" style="cursor:pointer">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <h5 class="card-title">Total Users</h5>
+                        </div>
+                        <div class="col-auto">
+                            <h2><i class="fa-solid fa-users" style="color: #76abae;"></i></h2>
+                        </div>
+                    </div>
+                    <p class="card-text">
+                        <?php echo $customerCount ?>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card" onclick="orderlist()" style="cursor:pointer">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <h5 class="card-title">Total Orders</h5>
+                        </div>
+                        <div class="col-auto">
+                            <h2>
+                                <i class="fa-solid fa-circle-check" style="color: #76abae;"></i>
+                            </h2>
+                        </div>
+                    </div>
+                    <p class="card-text">
+                        <?php echo $orderCount ?>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card" onclick="messagelist()" style="cursor:pointer">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <h5 class="card-title">Total Messages</h5>
+                        </div>
+                        <div class="col-auto">
+                            <h2><i class="fa-solid fa-comments" style="color: #76abae;"></i></h2>
+                        </div>
+                    </div>
+                    <p class="card-text">
+                        <?php echo $messageCount ?>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4 mb-5">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h5 class="card-title mb-3"><strong>Recent Orders</strong></h5>
+                        </div>
+                        <div class="col-auto">
+                            <h6 class="card-title mb-3"><a href="<?php echo $this->getUrl('admin/orders/view') ?>"
+                                    style="color:black;">View
+                                    All</a></h6>
+                        </div>
+                    </div>
+                    <?php if (count($recentOrder->getData())): ?>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Order Number</th>
+                                    <th>Grand Total</th>
+                                    <th>Customer ID</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($recentOrder->getData() as $recent): ?>
+                                    <tr>
+                                        <td>
+                                            <?php echo $recent->getOrderNumber() ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $recent->getGrandTotal() ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $recent->getCustomerId() ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $recent->getStatus() ?>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+
+                            </tbody>
+                        </table>
+                    <?php else: ?>
+                        <h3 class="text-danger">No orders yet!</h3>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h5 class="card-title mb-3"><strong>Recent Users</strong></h5>
+                        </div>
+                        <div class="col-auto">
+                            <h6 class="card-title mb-3"><a href="<?php echo $this->getUrl('admin/customer/list') ?>"
+                                    style="color:black;">View
+                                    All</a></h6>
+                        </div>
+                    </div>
+                    <?php if (count($recentCustomer->getData())): ?>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Customer ID</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($recentCustomer->getData() as $customer): ?>
+                                    <tr>
+                                        <td>
+                                            <?php echo $customer->getId() ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $customer->getFirstName() ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $customer->getCustomerEmail() ?>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    <?php else: ?>
+                        <h3 class="text-danger">No Users yet!</h3>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function productlist() {
+        window.location.href = "<?php echo $this->getUrl('admin/catalog_product/list') ?>";
+    }
+    function customerlist() {
+        window.location.href = "<?php echo $this->getUrl('admin/customer/list') ?>";
+    }
+    function orderlist() {
+        window.location.href = "<?php echo $this->getUrl('admin/orders/view') ?>";
+    }
+    function messagelist() {
+        window.location.href = "<?php echo $this->getUrl('admin/contactus/list') ?>";
+    }
+</script>

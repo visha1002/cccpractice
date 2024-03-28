@@ -8,10 +8,12 @@
     <div class="collapse navbar-collapse " id="navbarNav">
         <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-                <a class="nav-link" href="#" style="color: #fff;">Dashboard</a>
+                <a class="nav-link" href="<?php echo $this->getUrl('admin/account/dashboard') ?>"
+                    style="color: #fff;">Dashboard</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" style="color: #fff;">Users</a>
+                <a class="nav-link" href="<?php echo $this->getUrl('admin/customer/list') ?>"
+                    style="color: #fff;">Users</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo $this->getUrl("admin/orders/view") ?>"
@@ -19,7 +21,7 @@
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                    data-bs-toggle="dropdown" aria-expanded="false">
+                    data-bs-toggle="dropdown" aria-expanded="false" style="color: #fff;">
                     Products
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -33,7 +35,7 @@
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                    data-bs-toggle="dropdown" aria-expanded="false">
+                    data-bs-toggle="dropdown" aria-expanded="false" style="color: #fff;">
                     Category
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -47,7 +49,7 @@
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                    data-bs-toggle="dropdown" aria-expanded="false">
+                    data-bs-toggle="dropdown" aria-expanded="false" style="color: #fff;">
                     Banner
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -59,8 +61,10 @@
                 </ul>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" style="color: #fff;"><i class="fa-solid fa-gear m-2"></i>Settings</a>
+                <a class="nav-link" href="<?php echo $this->getUrl("admin/account/logout") ?>"
+                    style="color: #fff;">Logout</a>
             </li>
+
             <!-- Add more navigation items as needed -->
         </ul>
     </div>
