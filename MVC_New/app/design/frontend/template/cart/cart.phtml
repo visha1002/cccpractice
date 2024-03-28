@@ -4,19 +4,21 @@ $cartModel = $this->getCartDetails()->getData();
 ?>
 
 <h1 class="m-3"><i class="fa-solid fa-cart-shopping"></i> My Cart</h1>
+<a href="<?php echo $this->getUrl('catalog/product/view') ?>" class="center"><button class="buttton">Continue
+        Shopping</button></a>
 <?php
 
 if (!is_null($quoteModel->getData()) && !is_null($cartModel)):
     foreach ($cartModel as $cart): // Loop through each product detail
         ?>
-        <div class="container" style="">
+        <div class="container">
             <div class="row ">
                 <div class="col-md-12 mb-4">
                     <div class="col-md-8 " style="background-color: #C7C8CC;">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <img class="card-img" style="height: 400px; width:430px;"
+                                    <img class="card-img" style="height: 415px; width:430px;"
                                         src="<?php echo Mage::getBaseUrl() . 'media/product/' . $cart->getProduct()->getImageLink() ?>"
                                         alt="Product Image">
                                 </div>
@@ -66,7 +68,7 @@ if (!is_null($quoteModel->getData()) && !is_null($cartModel)):
                                                     <input type="text" hidden name="cart[product_id]"
                                                         value="<?php echo $cart->getProductId() ?>">
                                                     <label for="quantity">Select Quantity:</label>
-                                                    <select name="cart[qty]" id="quantity" style="width: 150px;  height : 30px;">
+                                                    <select name="cart[qty]" id="quantity" style="width: 150px;  height : 40px;">
                                                         <?php
                                                         if ($cart->getProduct()->getInventory() > 10):
                                                             for ($i = 1; $i <= 10; $i++):
@@ -109,6 +111,7 @@ if (!is_null($quoteModel->getData()) && !is_null($cartModel)):
 <?php
 endif;
 ?>
+
 <div class="container text-center mt-5">
     <?php if ($quoteModel->getGrandTotal() == 0) { ?>
         <h3 class="mb-5"> Your Cart is Empty !!</h3>

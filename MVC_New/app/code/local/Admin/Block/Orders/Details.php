@@ -43,19 +43,4 @@ class Admin_Block_Orders_Details extends Core_Block_Template
         return $paymentModel;
     }
 
-    public function getPaymentMethod()
-    {
-        $mapping = ['cod' => 'Cash On Delivery', 'p' => 'Phone Payment', 'cc' => 'Credit Cart'];
-        if (isset ($this->_data['payment_method'])) {
-            return $mapping[$this->_data['payment_method']];
-        }
-    }
-
-    public function getShippingMethod()
-    {
-        $mapping = ['e' => 'Express', 'f' => 'Freight'];
-        if (isset ($this->_data['shipping_method'])) {
-            return $mapping[$this->_data['shipping_method']];
-        }
-    }
 }

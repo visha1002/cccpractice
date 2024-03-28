@@ -44,6 +44,7 @@ class Sales_Controller_Quote extends Core_Controller_Front_Action
         $layout->getChild('head')->addJs('js/head.js');
         $layout->getChild('head')->addCss(Mage::getBaseUrl() . "skin/css/header.css");
         $layout->getChild('head')->addCss(Mage::getBaseUrl() . "skin/css/footer.css");
+        $layout->getChild('head')->addCss(Mage::getBaseUrl() . "skin/css/product/form.css");
         $child = $layout->getchild('content');
         $cart = $layout->createBlock('sales/cart');
         $child->addChild('cart', $cart);

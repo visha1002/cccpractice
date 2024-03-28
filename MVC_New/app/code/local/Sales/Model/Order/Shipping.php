@@ -9,5 +9,11 @@ class Sales_Model_Order_Shipping extends Core_Model_Abstract
         $this->collectionClass = 'Sales_Model_Resource_Collection_Order_Shipping';
     }
 
-
+    public function getShippingMethod()
+    {
+        $mapping = ['e' => 'Express', 'f' => 'Freight'];
+        if (isset ($this->_data['shipping_method'])) {
+            return $mapping[$this->_data['shipping_method']];
+        }
+    }
 }

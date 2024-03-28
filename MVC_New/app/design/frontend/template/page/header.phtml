@@ -27,14 +27,17 @@ $categories = Mage::getModel('catalog/category')->getCollection();
                         Options
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="<?php echo $this->getUrl("customer/account/dashboard") ?>">My
+                        <li><a class="dropdown-item" href="<?php echo $this->getUrl("customer/account/dashboard") ?>"><i
+                                    class="fa-solid fa-user m-2"></i>My
                                 Account</a></li>
-                        <li><a class="dropdown-item" href="<?php echo $this->getUrl("sales/quote/view") ?>">Cart</a>
+                        <li><a class="dropdown-item" href="<?php echo $this->getUrl("sales/quote/view") ?>"><i
+                                    class="fa-solid fa-cart-shopping m-2"></i>Cart</a>
                         </li>
-                        <li><a class="dropdown-item" href="<?php echo $this->getUrl("sales/order/list") ?>">My
+                        <li><a class="dropdown-item" href="<?php echo $this->getUrl("sales/order/list") ?>"><i
+                                    class="fa-solid fa-bag-shopping m-2"></i>My
                                 Orders</a></li>
-                        <li><a class="dropdown-item"
-                                href="<?php echo $this->getUrl("customer/account/register") ?>">Sign In</a>
+                        <li><a class="dropdown-item" href="<?php echo $this->getUrl("customer/account/register") ?>"><i
+                                    class="fa-solid fa-right-to-bracket m-2"></i>Sign In</a>
                     </ul>
                 </li>
             </ul>
